@@ -1,5 +1,13 @@
 # odoo-gdpr
-General Data Protection Regulation - Erasure - Concents - Inventory - Security logs - 
+Privacy program management solutions for General Data Protection Regulation complience
+
+* Privacy assessment inventory
+* Consent management tool
+* Breach Notification
+* Access portal
+* Data minimization / erace 
+* Data export
+* Security logs and two phase authentication
 
 http://www.eugdpr.org/key-changes.html
 
