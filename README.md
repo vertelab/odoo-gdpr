@@ -21,7 +21,6 @@ https://www.privacy-regulation.eu/
 * Breach Notification           (https://www.privacy-regulation.eu/en/33.htm, https://www.privacy-regulation.eu/en/34.htm)
 * Access portal                 (https://www.privacy-regulation.eu/en/15.htm, https://www.privacy-regulation.eu/en/20.htm)
 * Data minimization / eraseure   (https://www.privacy-regulation.eu/en/18.htm)
-* Data export                    (https://www.privacy-regulation.eu/en/20.htm)
 * Security logs and two phase authentication (shall implement appropriate technical and organizational measures to ensure a level of security appropriate to the risk., https://www.privacy-regulation.eu/en/32.htm)
 
 Whilst GDPR does not mandate two-factor and multifactor authentication solutions per se, a careful reading of the regulation leaves no doubt that if you leave simple, static passwords in place and you are breached, the auditors will come for you.
