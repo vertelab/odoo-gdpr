@@ -8,6 +8,17 @@ Privacy program management solutions for General Data Protection Regulation comp
 * Data minimization / erace 
 * Data export
 * Security logs and two phase authentication
+------------------
+
+__Lawful grounds for data processing__
+
+* __Consent__ of the data subject
+* Processing is necessary for the performance of a contract with the data subject or to take steps to enter into a __contract__
+* Processing is necessary for compliance with a __legal obligation__
+* Processing is necessary to protect the __vital interests__ of a data subject or another person
+* Processing is necessary for the performance of a task carried out in the __public interest__ or in the exercise of official authority vested in the controller
+* Necessary for the purposes of __legitimate interests__ pursued by the controller or a third party, except where such interests are overridden by the interests, rights or freedoms of the data subject. (Note that this condition is not available to processing carried out by public authorities in the performance of their tasks.) 
+
 
 http://www.eugdpr.org/key-changes.html
 
