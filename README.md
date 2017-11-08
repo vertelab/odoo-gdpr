@@ -1,6 +1,6 @@
 # odoo-gdpr
 Privacy program management solutions for General Data Protection Regulation complience
-
+https://www.privacy-regulation.eu/
 1. Personal data shall be:
 	(a) processed lawfully, fairly and in a transparent manner in relation to the data subject ('lawfulness, fairness and transparency');
 => Article: 6, 9
