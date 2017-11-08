@@ -1,6 +1,8 @@
 # odoo-gdpr
 Privacy program management solutions for General Data Protection Regulation complience
+
 https://www.privacy-regulation.eu/
+
 1. Personal data shall be:
 	(a) processed lawfully, fairly and in a transparent manner in relation to the data subject ('lawfulness, fairness and transparency');
 => Article: 6, 9
@@ -14,13 +16,15 @@ https://www.privacy-regulation.eu/
 => Article: 24, 32
 2. The controller shall be responsible for, and be able to demonstrate compliance with, paragraph 1 ('accountability').
 
-* Privacy assessment inventory
-* Consent management tool
-* Breach Notification
-* Access portal
-* Data minimization / eraseure
-* Data export
-* Security logs and two phase authentication
+* Privacy assessment inventory  (Records of processing activities, https://www.privacy-regulation.eu/en/30.htm)
+* Consent management tool       (https://www.privacy-regulation.eu/en/7.htm)
+* Breach Notification           (https://www.privacy-regulation.eu/en/33.htm, https://www.privacy-regulation.eu/en/34.htm)
+* Access portal                 (https://www.privacy-regulation.eu/en/15.htm, https://www.privacy-regulation.eu/en/20.htm)
+* Data minimization / eraseure   (https://www.privacy-regulation.eu/en/18.htm)
+* Data export                    (https://www.privacy-regulation.eu/en/20.htm)
+* Security logs and two phase authentication (shall implement appropriate technical and organizational measures to ensure a level of security appropriate to the risk., https://www.privacy-regulation.eu/en/32.htm)
+
+Whilst GDPR does not mandate two-factor and multifactor authentication solutions per se, a careful reading of the regulation leaves no doubt that if you leave simple, static passwords in place and you are breached, the auditors will come for you.
 ------------------
 
 __Lawful grounds for data processing__
