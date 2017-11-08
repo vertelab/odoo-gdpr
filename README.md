@@ -18,7 +18,7 @@ Privacy program management solutions for General Data Protection Regulation comp
 * Consent management tool
 * Breach Notification
 * Access portal
-* Data minimization / erace 
+* Data minimization / eraseure
 * Data export
 * Security logs and two phase authentication
 ------------------
