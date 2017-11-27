@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+event_participant_manager,event participant manager,model_event_participant,event.group_event_manager,1,1,1,1
+event_participant_user,event participant user,model_event_participant,event.group_event_user,1,0,0,0
+event_participant_all,event participant all,model_event_participant,,1,0,0,0

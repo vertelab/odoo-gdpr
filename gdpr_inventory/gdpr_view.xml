@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="event_invoice" model="ir.ui.view">
+      <field name="name">Create Invoice</field>
+      <field name="model">event.invoice</field>
+      <field name="arch" type="xml">
+        <form string="Create invoice">
+          <group>
+            <field name="journal_id" domain="[('type','=','sale')]" />
+            <field name="invoice_date" />
+          </group>
+          <footer>
+            <button name="create_invoice" string="Create" type="object" class="oe_highlight" />
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+    <act_window name="Create Draft Invoices" res_model="event.invoice" src_model="event.event" key2="client_action_multi" multi="True" view_mode="form" view_type="form" target="new" id="action_event_invoice" />
+    <record model="ir.ui.view" id="view_event_form_inherit">
+      <field name="name">Events</field>
+      <field name="model">event.event</field>
+      <field name="inherit_id" ref="event.view_event_form" />
+      <field name="arch" type="xml">
+        <button string="Cancel Event" position="before">
+          <button string="Invoice" name="create_invoice" states="confirm,done" type="object" groups="base.group_user" />
+        </button>
+      </field>
+    </record>
+            <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.invoice.select_with_origin</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                  <field name="period_id" position="after">
+                    <field name="origin" string="Origin"/>
+                      
+                 </field>
+            </field>
+        </record>
+    
+  </data>
+</openerp>
