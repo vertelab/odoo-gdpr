@@ -32,7 +32,7 @@
     'images': ['static/description/event_participant.jpg'],
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['base',],
+    'depends': ['base', 'mail', 'knowledge'],
     'data': [ 'gdpr_view.xml',
     ],
     'application': False,
