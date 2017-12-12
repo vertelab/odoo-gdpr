@@ -35,7 +35,7 @@
     'depends': ['base', 'mail', 'knowledge'],
     'data': [ 'gdpr_view.xml',
     ],
-    'application': False,
+    'application': True,
     'installable': True,
 }
 # vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:
