@@ -42,11 +42,6 @@ class gdpr_inventory(models.Model):
     consent_add = fields.Text(string="consent Add", help="Code for consent add")
     consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
     
-    # == Dependant on website. Move to separate module website_gdpr ==
-    #~ website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
-    #~ website_published = fields.Boolean()
-    # ==========
-    
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
     restrict_model = fields.Many2one(comodel_name="res.models", string="Restrict Model",  help="Model (Class) for this Restrition")
@@ -54,12 +49,14 @@ class gdpr_inventory(models.Model):
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", help="Fields with (potential) personal data")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
     partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
+    object_ids = fields.Many2many(string='Objects', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
+
     security_of_processing_ids = fields.Many2many(comodel_name="gdpr.security", string="Security", help="Security of processing", track_visibility='onchange')
 
-    @api.one
-    def _partner_ids(self):
-        self.partner_ids = self.env['res.partner'].search(self.restrict_domain)
-    partner_ids = fields.Many2many(comodel_name="res.partner", compute="_partner_ids")
+    #~ @api.one
+    #~ def _partner_ids(self):
+        #~ self.partner_ids = self.env['res.partner'].search(self.restrict_domain)
+    #~ partner_ids = fields.Many2many(comodel_name="res.partner", compute="_partner_ids")
 
     @api.one
     def log(self, subject, body):

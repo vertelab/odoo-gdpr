@@ -33,11 +33,6 @@
                             
                             <field name="user_id"/>
                             
-                            <!-- Dependant on website. Move to separate module website_gdpr -->
-<!--
-                            <field name="website_published" class="pull-right" widget="website_button"/>
--->
-                            
                             
                             <field name="fields_ids" widget="many2many_tags"/>
                             <field name="security_of_processing_ids" widget="many2many_tags"/>
@@ -67,11 +62,6 @@
                             <field name="consent_remove"/>
                                 </group>
                             </page>
-<!--
-                            <page string="Website Description">
-                                <field name="website_desc" nolabel="1"/>
-                            </page>
--->
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -97,8 +87,6 @@
                     <field name="consent_desc"/>
                     <field name="consent_add"/>
                     <field name="consent_remove"/>
-                    <field name="website_desc"/>
-                    <field name="website_published"/>
                     <field name="restrict_time_days"/>
                     <field name="restrict_method_id"/>
                     <field name="restrict_model"/>
