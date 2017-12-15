@@ -3,31 +3,34 @@
   <data>
     <record id="lawfullness_consent" model="gdpr.lawsection">
       <field name="name">consent</field>
-      <field name="description">Processing are beeing lawful on the ground that the data subject
-has given consent to the processing of his or her personal data for one or more specific purposes.
-      
-=> Article: 9
-=> Article: 7, 8, 9
-=> Recital: 32, 42, 43, 171
-=> Dossier: Consent, Permission</field>
+      <field name="description" type="html">
+      <p>Processing are beeing lawful on the ground that the data subject
+has given <span style="text-decoration: underline;"><span style="font-weight: bold;">consent</span></span> to the processing of his or her personal data for one or more specific purposes.
+<br/><br/>=&gt; Article: <a href="https://www.privacy-regulation.eu/en/article-7-conditions-for-consent-GDPR.htm">7</a>, <a href="https://www.privacy-regulation.eu/en/article-8-conditions-applicable-to-child's-consent-in-relation-to-information-society-services-GDPR.htm">8</a>, <a href="https://www.privacy-regulation.eu/en/article-9-processing-of-special-categories-of-personal-data-GDPR.htm">9</a>
+<br/>=&gt; Recital: <a href="https://www.privacy-regulation.eu/en/r32.htm">32</a>, <a href="https://www.privacy-regulation.eu/en/r42.htm">42</a>, <a href="https://www.privacy-regulation.eu/en/r43.htm">43</a>, <a href="https://www.privacy-regulation.eu/en/r171.htm">171
+</a><br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_consent_demo.htm">Consent</a>, <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a></p>
+      </field>
       <field name="consent" eval="True" />
     </record>
     
     <record id="lawfullness_contract" model="gdpr.lawsection">
       <field name="name">Contract</field>
-      <field name="description">Processing are beeing lawful on the ground that processing is 
-necessary for the performance of a contract to which the data subject is party or in order to 
+      <field name="description" type="html"><p>Processing are beeing lawful on the ground that processing is 
+necessary for the performance of a <span style="text-decoration: underline;"><span style="font-weight: bold;">contract</span></span> to which the data subject is party or in order to 
 take steps at the request of the data subject prior to entering into a contract
-=> Article: 20
-=> Dossier: Permission</field>
+<br/><br/>=&gt; Article: <a href="https://www.privacy-regulation.eu/en/article-20-right-to-data-portability-GDPR.htm">20</a>
+<br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a>
+</p></field>
       <field name="consent" eval="False" />
     </record>
 
     <record id="lawfullness_obligation" model="gdpr.lawsection">
       <field name="name">Legal Obligation</field>
-      <field name="description">Processing are beeing lawful on the ground that processing is 
-necessary for compliance with a legal obligation to which the controller is subject
-=> Dossier: Permission</field>
+      <field name="description" type="html">
+          <p>Processing are beeing lawful on the ground that processing is 
+necessary for <span style="text-decoration: underline;"><span style="font-weight: bold;">compliance</span></span> with a <span style="font-weight: bold;"><span style="text-decoration: underline;">legal obligation</span></span> to which the controller is subject
+<br/><br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a></p>
+</field>
       <field name="consent" eval="False" />
     </record>
     
