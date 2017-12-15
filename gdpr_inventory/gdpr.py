@@ -49,8 +49,7 @@ class gdpr_inventory(models.Model):
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", help="Fields with (potential) personal data")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
     partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
-    object_ids = fields.Many2many(string='Objects', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
-
+    object_ids = fields.One2many(string='Objects', comodel_name='gdpr.object', inverse_name='gdpr_id')
     security_of_processing_ids = fields.Many2many(comodel_name="gdpr.security", string="Security", help="Security of processing", track_visibility='onchange')
 
     #~ @api.one
@@ -215,8 +214,19 @@ class gdpr_restrict_method(models.Model):
         models = self.env[gdpr.model].search(gdpr.domain)
         self.env[gdpr.model].search(gdpr.domain).write({'active': False})
         gdpr.log(_('Restrict Hide'), models)
-        
-        
+
+class gdpr_object(models.Model):
+    _name = 'gdpr.object'
+
+    gdpr_id = fields.Many2one(string='Inventory', comodel_name='gdpr.inventory')
+    object_id = fields.Reference(string='Object', selection='_reference_models')
+    partner_id = fields.Many2one(string='Partner', comodel_name='res.partner')
+
+    @api.model
+    def _reference_models(self):
+        models = self.env['ir.model'].search([('state', '!=', 'manual')])
+        return [(model.model, model.name) for model in models]
+
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
@@ -239,6 +249,17 @@ class res_partner(models.Model):
     
     consent_count = fields.Integer(string='# Consents', compute=_get_consent_count, store=True)
     
+    @api.multi
+    def action_gdpr_inventory(self):
+        action = self.env['ir.actions.act_window'].for_xml_id('gdpr_inventory', 'action_gdpr_inventory')
+        action['domain'] = [('partner_ids', '=', self.id)]
+        return action
+    
+    @api.multi
+    def action_gdpr_objects(self):
+        action = self.env['ir.actions.act_window'].for_xml_id('gdpr_inventory', 'action_gdpr_object')
+        action['domain'] = [('partner_ids', '=', self.id)]
+        return action
     
     """
     write: if gdpr.gdpr_method_id.type in (encrypt)
