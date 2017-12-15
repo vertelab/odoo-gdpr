@@ -33,7 +33,7 @@
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': ['base', 'mail', 'knowledge'],
-    'data': [ 'gdpr_view.xml',
+    'data': [ 'gdpr_view.xml','gdpr_data.xml',
     ],
     'application': True,
     'installable': True,
