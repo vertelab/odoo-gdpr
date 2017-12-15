@@ -62,6 +62,9 @@
                             <field name="consent_remove"/>
                                 </group>
                             </page>
+                            <page string="Objects">
+                                <field name="object_ids" context="{'default_inventory_id': id}"/>
+                            </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
@@ -351,9 +354,60 @@
 
         <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr" sequence="50"/>
         
+        <!-- GDPR Object -->
         
+        <record id="view_gdpr_object_form" model="ir.ui.view">
+            <field name="name">gdpr.object.form</field>
+            <field name="model">gdpr.object</field>
+            <field name="arch" type="xml">
+                <form string="GDPR Object">
+                    <group>
+                        <field name="object_id"/>
+                        <field name="partner_id"/>
+                        <field name="gdpr_id"/>
+                    </group>
+                </form>
+            </field>
+        </record>
         
+        <record id="view_gdpr_object" model="ir.ui.view">
+            <field name="name">gdpr.object.tree</field>
+            <field name="model">gdpr.object</field>
+            <field name="arch" type="xml">
+                <tree string="GDPR Object">
+                    <field name="object_id"/>
+                    <field name="partner_id"/>
+                    <field name="gdpr_id"/>
+                </tree>
+            </field>
+        </record>
         
+        <record id="view_gdpr_object_filter" model="ir.ui.view">
+            <field name="name">gdpr.restrict_method.filter</field>
+            <field name="model">gdpr.restrict_method</field>
+            <field name="arch" type="xml">
+                <search string="Search GDPR Object">
+                    <field name="object_id"/>
+                    <field name="partner_id"/>
+                    <field name="gdpr_id"/>
+                    <separator/>
+<!--
+                    <group expand="0" string="Group By">
+                        <filter string="" domain="[]" context="{'group_by': 'type'}"/>
+                    </group>
+-->
+               </search>
+            </field>
+        </record>
+        
+        <record id="action_gdpr_object" model="ir.actions.act_window">
+            <field name="name">GDPR Object</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gdpr.object</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_gdpr_object_filter"/>
+        </record>
         
         
         
