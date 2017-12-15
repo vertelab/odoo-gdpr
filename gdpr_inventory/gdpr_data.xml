@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="lawfullness_concent" model="gdpr.lawsection">
+      <field name="name">Concent</field>
+      <field name="description">Processing are beeing lawful on the ground that the data subject
+has given consent to the processing of his or her personal data for one or more specific purposes.
+      
+=> Article: 9
+=> Article: 7, 8, 9
+=> Recital: 32, 42, 43, 171
+=> Dossier: Consent, Permission</field>
+      <field name="concent" eval="True" />
+    </record>
+    
+    <record id="lawfullness_contract" model="gdpr.lawsection">
+      <field name="name">Contract</field>
+      <field name="description">Processing are beeing lawful on the ground that processing is 
+necessary for the performance of a contract to which the data subject is party or in order to 
+take steps at the request of the data subject prior to entering into a contract
+=> Article: 20
+=> Dossier: Permission</field>
+      <field name="concent" eval="False" />
+    </record>
+
+    <record id="lawfullness_obligation" model="gdpr.lawsection">
+      <field name="name">Legal Obligation</field>
+      <field name="description">Processing are beeing lawful on the ground that processing is 
+necessary for compliance with a legal obligation to which the controller is subject
+=> Dossier: Permission</field>
+      <field name="concent" eval="False" />
+    </record>
+    
+    
+    <record id="lawfullness_vital_interest" model="gdpr.lawsection">
+      <field name="name">Vital Interest</field>
+      <field name="description">Processing are beeing lawful on the ground that processing is 
+necessary in order to protect the vital interests of the data subject or of another natural person
+=> Dossier: Permission</field>
+      <field name="concent" eval="False" />
+    </record>
+    
+    
+    <record id="lawfullness_public_interest" model="gdpr.lawsection">
+      <field name="name">Public Interest</field>
+      <field name="description">Processing are beeing lawful on the ground that processing is 
+necessary for the performance of a task carried out in the public interest or in 
+the exercise of official authority vested in the controller
+=> Dossier: Task in Public Interest, Permission</field>
+      <field name="concent" eval="False" />
+    </record>
+    
+    <record id="lawfullness_legitimate_interest" model="gdpr.lawsection">
+      <field name="name">Legitimate Interest</field>
+      <field name="description">Processing are beeing lawful on the ground that processing is 
+necessary for the purposes of the legitimate interests pursued by the controller or by a third 
+party, except where such interests are overridden by the interests or fundamental rights and 
+freedoms of the data subject which require protection of personal data, in particular where 
+the data subject is a child.
+
+=> Article: 13, 21
+=> Recital: 113, 47, 48
+
+</field>
+      <field name="concent" eval="False" />
+    </record>
+
+
+    
+  </data>
+</openerp>
+
+
