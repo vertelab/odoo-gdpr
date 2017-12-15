@@ -45,6 +45,8 @@
                                 <field name="lawsection_desc" placeholder="Lawsection description"/>
                                 <group>
                                     <field name="lawsection_id"/>
+                                    <field name="lawsection_description"/>
+                                    <field name="consent" invisible="1"/>
                                 </group>
                             </page>
                             <page string="Restrictions">
@@ -55,7 +57,7 @@
                                     <field name="restrict_domain"/>
                                 </group>
                             </page>
-                            <page string="Consent">
+                            <page string="Consent" attrs="{'invisible': [('consent', '=', False)]}">
                                 <group>
                                     <field name="consent_desc"/>
                             <field name="consent_add"/>
@@ -383,8 +385,8 @@
         </record>
         
         <record id="view_gdpr_object_filter" model="ir.ui.view">
-            <field name="name">gdpr.restrict_method.filter</field>
-            <field name="model">gdpr.restrict_method</field>
+            <field name="name">gdpr.object.filter</field>
+            <field name="model">gdpr.object</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Object">
                     <field name="object_id"/>

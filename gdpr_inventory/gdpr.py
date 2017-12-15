@@ -37,6 +37,8 @@ class gdpr_inventory(models.Model):
     purpose_limitation = fields.Text(track_visibility='onchange', translate=True, required=True)
     user_id = fields.Many2one(comodel_name="res.users", string="Responsible", track_visibility='onchange', required=True)
     lawsection_id = fields.Many2one(comodel_name="gdpr.lawsection", string="Law Section", required=True)
+    lawsection_description = fields.Html(related='lawsection_id.description', readonly=True)
+    consent = fields.Boolean(related='lawsection_id.consent')
     lawsection_desc = fields.Text(string="Law section Explanation")
     consent_desc = fields.Text(string="consent Explanation")
     consent_add = fields.Text(string="consent Add", help="Code for consent add")
@@ -104,9 +106,9 @@ class gdpr_lawsection(models.Model):
     _name = 'gdpr.lawsection'
     _description = "Lawfullness of processing"
     
-    name = fields.Char()
-    description = fields.Text()
-    consent = fields.Boolean()
+    name = fields.Char(string='Name')
+    description = fields.Html(string='Description')
+    consent = fields.Boolean(string='Consent')
     
 
 class gdpr_consent(models.Model):
