@@ -24,6 +24,12 @@ from datetime import timedelta
 import logging
 _logger = logging.getLogger(__name__)
 
+#TODO: kanban view
+#TODO: state to be updateable
+#TODO: logg on restrict method (when its done by cron)
+
+
+
 # https://www.privacy-regulation.eu
 class gdpr_inventory(models.Model):
     _name = 'gdpr.inventory'
@@ -31,7 +37,7 @@ class gdpr_inventory(models.Model):
     _inherit = ['mail.thread']
 
     name = fields.Char(string="Name", translate=True, required=True)
-    state = fields.Selection(selection=[('draft', 'Draft'), ('active', 'Active'), ('closed', 'Closed')], track_visibility='onchange')
+    state = fields.Selection(selection=[('draft', 'Draft'), ('active', 'Active'), ('cease', 'To be ceased'),('closed', 'Closed')], track_visibility='onchange')
     type_of_personal_data = fields.Selection(selection=[('general', 'General'), ('special', 'Special Category'), ('child', 'Childs consent'), ('criminal', 'Criminal related')], string="Type",
          help="General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences")
     purpose_limitation = fields.Text(track_visibility='onchange', translate=True, required=True)
