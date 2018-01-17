@@ -1,18 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        
+
+        <record id="act_gdpr_inventory_2_res_partner" model="ir.actions.act_window">
+            <field name="name">GDPR Inventory 2 Partner</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        </record>
+
+        <record id="act_gdpr_inventory_2_gdpr_object" model="ir.actions.act_window">
+            <field name="name">GDPR Inventory 2 GDPR Object</field>
+            <field name="res_model">gdpr.object</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_gdpr_id': [active_id],
+                'default_gdpr_id': active_id,
+            }</field>
+            <field name="search_view_id" ref="view_gdpr_object_filter"/>
+        </record>
+
         <menuitem id="menu_gdpr" name="GDPR" parent="knowledge.menu_document" sequence="45"/>
-        
+
         <!-- GDPR Inventory -->
-        
+
         <record id="view_gdpr_inventory_form" model="ir.ui.view">
             <field name="name">gdpr.inventory.form</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <form string="GDPR Inventory">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,active,closed"/>
+                        <field name="state_id" widget="statusbar" statusbar_visible="draft,active,closed" clickable="True"/>
                     </header>
                     <sheet>
 <!--
@@ -30,10 +49,10 @@
                         </div>
                         <group>
                             <field name="type_of_personal_data"/>
-                            
+
                             <field name="user_id"/>
-                            
-                            
+
+
                             <field name="fields_ids" widget="many2many_tags"/>
                             <field name="security_of_processing_ids" widget="many2many_tags"/>
                         </group>
@@ -76,14 +95,14 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_inventory" model="ir.ui.view">
             <field name="name">gdpr.inventory.tree</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Inventory">
                     <field name="name"/>
-                    <field name="state"/>
+                    <field name="state_id"/>
                     <field name="type_of_personal_data"/>
                     <field name="purpose_limitation"/>
                     <field name="user_id"/>
@@ -101,7 +120,64 @@
                 </tree>
             </field>
         </record>
-        
+
+        <record id="view_gdpr_inventory_kanban" model="ir.ui.view">
+            <field name="name">gdpr.inventory.kanban</field>
+            <field name="model">gdpr.inventory</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey">
+                    <field name="name"/>
+                    <field name="color"/>
+                    <field name="state_id"/>
+                    <field name="type_of_personal_data"/>
+                    <field name="purpose_limitation"/>
+                    <field name="user_id"/>
+                    <field name="lawsection_id"/>
+                    <field name="lawsection_desc"/>
+                    <field name="consent_desc"/>
+                    <field name="consent_add"/>
+                    <field name="consent_remove"/>
+                    <field name="restrict_time_days"/>
+                    <field name="restrict_method_id"/>
+                    <field name="restrict_model"/>
+                    <field name="restrict_domain"/>
+                    <field name="fields_ids"/>
+                    <field name="security_of_processing_ids"/>
+                    <field name="partner_count"/>
+                    <field name="object_count"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_project oe_kanban_global_click">
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu">
+                                        <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Inventory Settings</a></li></t>
+                                        <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <h4 class="text-center"><strong><field name="name"/></strong></h4>
+                                    <div class="oe_kanban_project_list">
+                                        <a name="%(act_gdpr_inventory_2_res_partner)d" type="action" style="margin-right: 10px">
+                                            <t t-raw="record.partner_count.raw_value"/> Partners
+                                        </a>
+                                        <br/>
+                                        <a name="%(act_gdpr_inventory_2_gdpr_object)d" type="action" style="margin-right: 10px">
+                                            <t t-raw="record.object_count.raw_value"/> Objects
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <img t-att-src="kanban_image('res.users', 'image', record.user_id)" t-att-data-member_id="record.user_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="view_gdpr_inventory_filter" model="ir.ui.view">
             <field name="name">gdpr.inventory.filter</field>
             <field name="model">gdpr.inventory</field>
@@ -117,20 +193,20 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_inventory" model="ir.actions.act_window">
             <field name="name">GDPR Inventory</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.inventory</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
             <field name="search_view_id" ref="view_gdpr_inventory_filter"/>
         </record>
 
         <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10"/>
-        
+
         <!-- GDPR Lawsection -->
-        
+
         <record id="view_gdpr_lawsection_form" model="ir.ui.view">
             <field name="name">gdpr.lawsection.form</field>
             <field name="model">gdpr.lawsection</field>
@@ -144,7 +220,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_lawsection" model="ir.ui.view">
             <field name="name">gdpr.lawsection.tree</field>
             <field name="model">gdpr.lawsection</field>
@@ -156,7 +232,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_lawsection_filter" model="ir.ui.view">
             <field name="name">gdpr.lawsection.filter</field>
             <field name="model">gdpr.lawsection</field>
@@ -166,7 +242,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_lawsection" model="ir.actions.act_window">
             <field name="name">GDPR Lawsection</field>
             <field name="type">ir.actions.act_window</field>
@@ -177,9 +253,9 @@
         </record>
 
         <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr" sequence="20"/>
-        
+
         <!-- GDPR Consent -->
-        
+
         <record id="view_gdpr_consent_form" model="ir.ui.view">
             <field name="name">gdpr.consent.form</field>
             <field name="model">gdpr.consent</field>
@@ -204,7 +280,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_consent" model="ir.ui.view">
             <field name="name">gdpr.consent.tree</field>
             <field name="model">gdpr.consent</field>
@@ -218,7 +294,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_consent_filter" model="ir.ui.view">
             <field name="name">gdpr.consent.filter</field>
             <field name="model">gdpr.consent</field>
@@ -238,7 +314,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_consent" model="ir.actions.act_window">
             <field name="name">GDPR Consent</field>
             <field name="type">ir.actions.act_window</field>
@@ -249,9 +325,9 @@
         </record>
 
         <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30"/>
-        
+
         <!-- GDPR Security -->
-        
+
         <record id="view_gdpr_security_form" model="ir.ui.view">
             <field name="name">gdpr.security.form</field>
             <field name="model">gdpr.security</field>
@@ -264,7 +340,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_security" model="ir.ui.view">
             <field name="name">gdpr.security.tree</field>
             <field name="model">gdpr.security</field>
@@ -275,7 +351,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_security_filter" model="ir.ui.view">
             <field name="name">gdpr.security.filter</field>
             <field name="model">gdpr.security</field>
@@ -286,7 +362,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_security" model="ir.actions.act_window">
             <field name="name">GDPR Security</field>
             <field name="type">ir.actions.act_window</field>
@@ -297,9 +373,9 @@
         </record>
 
         <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr" sequence="40"/>
-        
+
         <!-- GDPR Restrict Method -->
-        
+
         <record id="view_gdpr_restrict_method_form" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.form</field>
             <field name="model">gdpr.restrict_method</field>
@@ -314,7 +390,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_restrict_method" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.tree</field>
             <field name="model">gdpr.restrict_method</field>
@@ -327,7 +403,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_restrict_method_filter" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.filter</field>
             <field name="model">gdpr.restrict_method</field>
@@ -344,7 +420,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_restrict_method" model="ir.actions.act_window">
             <field name="name">GDPR Restrict Method</field>
             <field name="type">ir.actions.act_window</field>
@@ -355,9 +431,9 @@
         </record>
 
         <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr" sequence="50"/>
-        
+
         <!-- GDPR Object -->
-        
+
         <record id="view_gdpr_object_form" model="ir.ui.view">
             <field name="name">gdpr.object.form</field>
             <field name="model">gdpr.object</field>
@@ -371,7 +447,7 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_object" model="ir.ui.view">
             <field name="name">gdpr.object.tree</field>
             <field name="model">gdpr.object</field>
@@ -383,7 +459,7 @@
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_object_filter" model="ir.ui.view">
             <field name="name">gdpr.object.filter</field>
             <field name="model">gdpr.object</field>
@@ -401,7 +477,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_object" model="ir.actions.act_window">
             <field name="name">GDPR Object</field>
             <field name="type">ir.actions.act_window</field>
@@ -410,19 +486,9 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_object_filter"/>
         </record>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         <!-- GDPR Foobar -->
-        
+
 <!--
         <record id="view_gdpr_foobar_form" model="ir.ui.view">
             <field name="name">gdpr.foobar.form</field>
@@ -435,17 +501,17 @@
                 </form>
             </field>
         </record>
-        
+
         <record id="view_gdpr_foobar" model="ir.ui.view">
             <field name="name">gdpr.foobar.tree</field>
             <field name="model">gdpr.foobar</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Foobar">
-                    
+
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_foobar_filter" model="ir.ui.view">
             <field name="name">gdpr.foobar.filter</field>
             <field name="model">gdpr.foobar</field>
@@ -461,7 +527,7 @@
                </search>
             </field>
         </record>
-        
+
         <record id="action_gdpr_foobar" model="ir.actions.act_window">
             <field name="name">GDPR Foobar</field>
             <field name="type">ir.actions.act_window</field>
@@ -473,6 +539,6 @@
 
         <menuitem action="action_gdpr_foobar" id="menu_gdpr_foobar" parent="menu_gdpr" sequence=""/>
 -->
-        
+
     </data>
 </openerp>

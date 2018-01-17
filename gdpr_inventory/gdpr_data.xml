@@ -12,11 +12,11 @@ has given <span style="text-decoration: underline;"><span style="font-weight: bo
       </field>
       <field name="consent" eval="True" />
     </record>
-    
+
     <record id="lawfullness_contract" model="gdpr.lawsection">
       <field name="name">Contract</field>
-      <field name="description" type="html"><p>Processing are beeing lawful on the ground that processing is 
-necessary for the performance of a <span style="text-decoration: underline;"><span style="font-weight: bold;">contract</span></span> to which the data subject is party or in order to 
+      <field name="description" type="html"><p>Processing are beeing lawful on the ground that processing is
+necessary for the performance of a <span style="text-decoration: underline;"><span style="font-weight: bold;">contract</span></span> to which the data subject is party or in order to
 take steps at the request of the data subject prior to entering into a contract
 <br/><br/>=&gt; Article: <a href="https://www.privacy-regulation.eu/en/article-20-right-to-data-portability-GDPR.htm">20</a>
 <br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a>
@@ -27,38 +27,38 @@ take steps at the request of the data subject prior to entering into a contract
     <record id="lawfullness_obligation" model="gdpr.lawsection">
       <field name="name">Legal Obligation</field>
       <field name="description" type="html">
-          <p>Processing are beeing lawful on the ground that processing is 
+          <p>Processing are beeing lawful on the ground that processing is
 necessary for <span style="text-decoration: underline;"><span style="font-weight: bold;">compliance</span></span> with a <span style="font-weight: bold;"><span style="text-decoration: underline;">legal obligation</span></span> to which the controller is subject
 <br/><br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a></p>
 </field>
       <field name="consent" eval="False" />
     </record>
-    
-    
+
+
     <record id="lawfullness_vital_interest" model="gdpr.lawsection">
       <field name="name">Vital Interest</field>
-      <field name="description">Processing are beeing lawful on the ground that processing is 
+      <field name="description">Processing are beeing lawful on the ground that processing is
 necessary in order to protect the vital interests of the data subject or of another natural person
 => Dossier: Permission</field>
       <field name="consent" eval="False" />
     </record>
-    
-    
+
+
     <record id="lawfullness_public_interest" model="gdpr.lawsection">
       <field name="name">Public Interest</field>
-      <field name="description">Processing are beeing lawful on the ground that processing is 
-necessary for the performance of a task carried out in the public interest or in 
+      <field name="description">Processing are beeing lawful on the ground that processing is
+necessary for the performance of a task carried out in the public interest or in
 the exercise of official authority vested in the controller
 => Dossier: Task in Public Interest, Permission</field>
       <field name="consent" eval="False" />
     </record>
-    
+
     <record id="lawfullness_legitimate_interest" model="gdpr.lawsection">
       <field name="name">Legitimate Interest</field>
-      <field name="description">Processing are beeing lawful on the ground that processing is 
-necessary for the purposes of the legitimate interests pursued by the controller or by a third 
-party, except where such interests are overridden by the interests or fundamental rights and 
-freedoms of the data subject which require protection of personal data, in particular where 
+      <field name="description">Processing are beeing lawful on the ground that processing is
+necessary for the purposes of the legitimate interests pursued by the controller or by a third
+party, except where such interests are overridden by the interests or fundamental rights and
+freedoms of the data subject which require protection of personal data, in particular where
 the data subject is a child.
 
 => Article: 13, 21
@@ -69,7 +69,22 @@ the data subject is a child.
     </record>
 
 
-    
+
+  </data>
+
+  <data noupdate="1">
+    <record id="inventory_state_draft" model="gdpr.inventory.state">
+        <field name="name">Draft</field>
+    </record>
+    <record id="inventory_state_active" model="gdpr.inventory.state">
+        <field name="name">Active</field>
+    </record>
+    <record id="inventory_state_2bceased" model="gdpr.inventory.state">
+        <field name="name">To be ceased</field>
+    </record>
+    <record id="inventory_state_ceased" model="gdpr.inventory.state">
+        <field name="name">Ceased</field>
+    </record>
   </data>
 </openerp>
 
