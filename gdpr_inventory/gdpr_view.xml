@@ -34,6 +34,17 @@
             <field name="search_view_id" ref="view_gdpr_object_filter"/>
         </record>
 
+        <record id="act_res_partner_2_gdpr_consent" model="ir.actions.act_window">
+            <field name="name">Res Partner 2 GDPR Consents</field>
+            <field name="res_model">gdpr.consent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_partner_id': [active_id],
+                'default_partner_id': active_id,
+            }</field>
+            <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+        </record>
+
         <menuitem id="menu_gdpr" name="GDPR" parent="knowledge.menu_document" sequence="45"/>
 
         <!-- GDPR Inventory -->
@@ -48,11 +59,14 @@
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
-                            <button class="oe_inline oe_stat_button" name="%(act_gdpr_inventory_2_gdpr_consent)d" type="action" icon="fa-files-o">
+                            <button class="oe_inline oe_stat_button" name="%(act_gdpr_inventory_2_gdpr_consent)d" type="action" icon="fa-files-o" attrs="{'invisible': [('consent', '=', False)]}">
                                 <field string="Consents" name="consent_count" widget="statinfo"/>
                             </button>
                             <button class="oe_inline oe_stat_button" name="%(act_gdpr_inventory_2_gdpr_object)d" type="action" icon="fa-files-o">
                                 <field string="Objects" name="object_count" widget="statinfo"/>
+                            </button>
+                            <button class="oe_inline oe_stat_button" name="act_gdpr_inventory_2_gdpr_res_partner" type="object" icon="fa-users">
+                                <field string="Partners" name="partner_count" widget="statinfo"/>
                             </button>
                         </div>
                         <div class="oe_title">
@@ -143,8 +157,10 @@
                     <field name="user_id"/>
                     <field name="lawsection_id"/>
                     <field name="lawsection_desc"/>
+                    <field name="consent"/>
                     <field name="consent_desc"/>
                     <field name="consent_add"/>
+                    <field name="consent_count"/>
                     <field name="consent_remove"/>
                     <field name="restrict_time_days"/>
                     <field name="restrict_method_id"/>
@@ -167,13 +183,17 @@
                                 </div>
                                 <div class="oe_kanban_content">
                                     <h4 class="text-center"><strong><field name="name"/></strong></h4>
-                                    <div class="oe_kanban_project_list">
-                                        <a name="%(act_gdpr_inventory_2_res_partner)d" type="action" style="margin-right: 10px">
-                                            <t t-raw="record.partner_count.raw_value"/> Partners
+                                    <div>
+                                        <a t-if="record.consent.raw_value" name="%(act_gdpr_inventory_2_gdpr_consent)d" type="action" style="margin-right: 10px">
+                                            <t t-raw="record.consent_count.raw_value"/> Consents
                                         </a>
-                                        <br/>
+                                        <br t-if="record.consent.raw_value"/>
                                         <a name="%(act_gdpr_inventory_2_gdpr_object)d" type="action" style="margin-right: 10px">
                                             <t t-raw="record.object_count.raw_value"/> Objects
+                                        </a>
+                                        <br/>
+                                        <a name="act_gdpr_inventory_2_gdpr_res_partner" type="object" style="margin-right: 10px">
+                                            <t t-raw="record.partner_count.raw_value"/> Partners
                                         </a>
                                     </div>
                                     <div>
@@ -213,7 +233,7 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.inventory</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="search_view_id" ref="view_gdpr_inventory_filter"/>
         </record>
 
@@ -534,7 +554,8 @@
                     <sheet>
                         <group>
                             <field name="object_id"/>
-                            <field name="partner_id"/>
+                            <field name="name"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
                             <field name="gdpr_id"/>
                         </group>
                     </sheet>
@@ -548,7 +569,8 @@
             <field name="arch" type="xml">
                 <tree string="GDPR Object">
                     <field name="object_id"/>
-                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="partner_ids"/>
                     <field name="gdpr_id"/>
                 </tree>
             </field>
@@ -560,10 +582,11 @@
             <field name="arch" type="xml">
                 <search string="Search GDPR Object">
                     <field name="object_id"/>
-                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="partner_ids"/>
                     <field name="gdpr_id"/>
                     <separator/>
-                    <filter string="Partners" name="partner_id" domain="[('state', '=', 'partner_id')]"/>
+                    <filter string="Partners" name="partner_ids" domain="[('state', '=', 'partner_id')]"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
@@ -585,7 +608,7 @@
         <!-- add a notebook page in ir.attachment -->
 
         <record id="view_attachment_form" model="ir.ui.view">
-            <field name="name">ir.attachment.form.notebook.inherit</field>
+            <field name="name">ir.attachment.form.notebook.inherited.gdpr_inventory</field>
             <field name="model">ir.attachment</field>
             <field name="inherit_id" ref="attachment_notebook.view_attachment_form"/>
             <field name="arch" type="xml">
@@ -596,6 +619,24 @@
                         </tree>
                     </page>
                 </notebook>
+            </field>
+        </record>
+
+        <!-- buttons on res.partner -->
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form.inherited.gdpr_inventory</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(act_res_partner_2_gdpr_consent)d" icon="fa-files-o">
+                        <field string="Consents" name="consent_count" widget="statinfo"/>
+                    </button>
+                    <button class="oe_inline oe_stat_button" type="object" name="act_res_partner_2_gdpr_inventory" icon="fa-files-o">
+                        <field string="Inventories" name="gdpr_count" widget="statinfo"/>
+                    </button>
+                </xpath>
             </field>
         </record>
 

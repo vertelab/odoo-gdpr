@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- Contract Directory -->
+        <record id="document_directory_contract" model="document.directory">
+            <field name="name">Contract</field>
+            <field name="type">directory</field>
+        </record>
+    </data>
+</openerp>
+
+

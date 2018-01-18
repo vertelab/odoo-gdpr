@@ -35,6 +35,7 @@
     'depends': ['attachment_notebook', 'mail', 'knowledge'],
     'data': [ 'gdpr_view.xml','gdpr_data.xml',
     ],
+    'demo': ['gdpr_demo.xml'],
     'application': True,
     'installable': True,
 }

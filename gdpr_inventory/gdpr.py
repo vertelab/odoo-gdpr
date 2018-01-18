@@ -68,7 +68,11 @@ class gdpr_inventory(models.Model):
     restrict_domain = fields.Text(string="Restrict Domain", help="Domain for identification of personal data of this type")
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", help="Fields with (potential) personal data")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
-    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
+    @api.one
+    def _partner_ids(self):
+        self.partner_ids = self.object_ids.mapped('partner_ids')
+    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id', compute='_partner_ids')
+    #~ partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
     @api.one
     def _partner_count(self):
         self.partner_count = len(self.partner_ids)
@@ -112,6 +116,18 @@ class gdpr_inventory(models.Model):
     def cron_partner_ids(self):
         """Update all connections between inventories and partners."""
         pass
+
+    @api.multi
+    def act_gdpr_inventory_2_gdpr_res_partner(self):
+        return {
+            'name': 'Res Partner 2 GDPR Inventory Partner',
+            'res_model': 'res.partner',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'kanban,tree,form',
+            'view_type': 'kanban',
+            'domain': [('id', 'in', self.partner_ids.mapped('id'))],
+            'context': {},
+        }
 
 
 class gdpr_lawsection(models.Model):
@@ -247,9 +263,13 @@ class gdpr_restrict_method(models.Model):
 class gdpr_object(models.Model):
     _name = 'gdpr.object'
 
+    @api.one
+    def _get_name(self):
+        self.name = self.object_id.name
+    name = fields.Char(string='Name', compute='_get_name')
     gdpr_id = fields.Many2one(string='Inventory', comodel_name='gdpr.inventory')
     object_id = fields.Reference(string='Object', selection='_reference_models')
-    partner_id = fields.Many2one(string='Partner', comodel_name='res.partner')
+    partner_ids = fields.One2many(string='Partners', comodel_name='res.partner', inverse_name='gdpr_object_id')
 
     @api.model
     def _reference_models(self):
@@ -267,8 +287,10 @@ class res_partner(models.Model):
     5) list res.partber for each gdpr.inventory
 
     """
-
-    gdpr_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id')
+    @api.one
+    def _gdpr_ids(self):
+        self.gdpr_ids = self.env['gdpr.inventory'].search([('partner_ids', 'in', self)])
+    gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id', compute='_gdpr_ids')
     consent_ids = fields.One2many(string='Consents', comodel_name='gdpr.consent', inverse_name='partner_id')
 
     @api.one
@@ -277,6 +299,15 @@ class res_partner(models.Model):
         self.consent_count = len(self.consent_ids)
 
     consent_count = fields.Integer(string='# Consents', compute=_get_consent_count, store=True)
+
+    @api.one
+    @api.depends('gdpr_ids')
+    def _get_gdpr_count(self):
+        self.gdpr_count = len(self.gdpr_ids)
+
+    gdpr_count = fields.Integer(string='# Inventories', compute=_get_gdpr_count, store=True)
+
+    gdpr_object_id = fields.Many2one(comodel_name='gdpr.object', string='')
 
     @api.multi
     def action_gdpr_inventory(self):
@@ -289,6 +320,18 @@ class res_partner(models.Model):
         action = self.env['ir.actions.act_window'].for_xml_id('gdpr_inventory', 'action_gdpr_object')
         action['domain'] = [('partner_ids', '=', self.id)]
         return action
+
+    @api.multi
+    def act_res_partner_2_gdpr_inventory(self):
+        return {
+            'name': 'Res Partner 2 GDPR Inventory',
+            'res_model': 'gdpr.inventory',
+            'type': 'ir.actions.act_window',
+            'view_mode': 'kanban,tree,form',
+            'view_type': 'kanban',
+            'domain': [('id', 'in', self.gdpr_ids.mapped('id'))],
+            'context': {},
+        }
 
     """
     write: if gdpr.gdpr_method_id.type in (encrypt)
