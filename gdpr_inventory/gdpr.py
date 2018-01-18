@@ -71,7 +71,7 @@ class gdpr_inventory(models.Model):
     @api.one
     def _partner_ids(self):
         self.partner_ids = self.object_ids.mapped('partner_ids')
-    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id', compute='_partner_ids')
+    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id', compute='_partner_ids', store=True)
     #~ partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
     @api.one
     def _partner_count(self):
@@ -100,7 +100,6 @@ class gdpr_inventory(models.Model):
             'type': 'notification',
         })
 
-
     @api.model
     def cron_restrictions(self):
         for gdpr in self.env['gdpr.inventory'].search([('state', '=', 'active')]):
@@ -119,6 +118,7 @@ class gdpr_inventory(models.Model):
 
     @api.multi
     def act_gdpr_inventory_2_gdpr_res_partner(self):
+        _logger.warn(self.partner_ids.mapped('id'))
         return {
             'name': 'Res Partner 2 GDPR Inventory Partner',
             'res_model': 'res.partner',
@@ -128,6 +128,15 @@ class gdpr_inventory(models.Model):
             'domain': [('id', 'in', self.partner_ids.mapped('id'))],
             'context': {},
         }
+
+    @api.model
+    def _read_state_id(self, present_ids, domain, **kwargs):
+        states = self.env['gdpr.inventory.state'].search([], order='sequence').name_get()
+        return states, None
+
+    _group_by_full = {
+        'state_id': _read_state_id,
+    }
 
 
 class gdpr_lawsection(models.Model):
@@ -290,7 +299,7 @@ class res_partner(models.Model):
     @api.one
     def _gdpr_ids(self):
         self.gdpr_ids = self.env['gdpr.inventory'].search([('partner_ids', 'in', self)])
-    gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id', compute='_gdpr_ids')
+    gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id', compute='_gdpr_ids', store=True)
     consent_ids = fields.One2many(string='Consents', comodel_name='gdpr.consent', inverse_name='partner_id')
 
     @api.one

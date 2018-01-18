@@ -6,6 +6,9 @@
             <field name="name">Contract</field>
             <field name="type">directory</field>
         </record>
+        <record id="mail.msg_discus6_attach1" model="ir.attachment">
+            <field name="parent_id" ref="gdpr_inventory.document_directory_contract"/>
+        </record>
     </data>
 </openerp>
 
