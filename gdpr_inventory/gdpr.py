@@ -57,7 +57,11 @@ class gdpr_inventory(models.Model):
     consent_desc = fields.Text(string="consent Explanation")
     consent_add = fields.Text(string="consent Add", help="Code for consent add")
     consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
-
+    consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
+    @api.one
+    def _consent_count(self):
+        self.consent_count = len(self.consent_ids)
+    consent_count = fields.Integer(string='Consent Count', compute='_consent_count')
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
     restrict_model = fields.Many2one(comodel_name="res.models", string="Restrict Model",  help="Model (Class) for this Restrition")
@@ -148,6 +152,7 @@ class gdpr_consent(models.Model):
     def _record_id(self):
         return [(m.model, m.name) for m in self.env['ir.model'].search([])]
 
+    name = fields.Char(string='Name')
     record_id = fields.Reference(selection=_record_id, string="Object", help="Object that is consented for processing of personal data")
     partner_id = fields.Many2one(comodel_name="res.partner")
     gdpr_id = fields.Many2one(comodel_name='gdpr.inventory', help="Description of consent")
@@ -289,4 +294,12 @@ class res_partner(models.Model):
     write: if gdpr.gdpr_method_id.type in (encrypt)
     read: decrypt fields
     """
+
+class ir_attachment(models.Model):
+    _inherit = 'ir.attachment'
+
+    @api.one
+    def _consent_ids(self):
+        self.consent_ids = self.env['gdpr.consent'].search([]).filtered(lambda c: c.record_id == self)
+    consent_ids = fields.One2many(comodel_name='gdpr.consent', compute='_consent_ids')
 

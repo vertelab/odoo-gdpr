@@ -25,14 +25,14 @@
     'category': 'Other',
     'summary': 'Inventory for GDPR',
     'description': """
-        
+
 * GDPR Inventory
 
 """,
     'images': ['static/description/event_participant.jpg'],
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['base', 'mail', 'knowledge'],
+    'depends': ['attachment_notebook', 'mail', 'knowledge'],
     'data': [ 'gdpr_view.xml','gdpr_data.xml',
     ],
     'application': True,
