@@ -24,8 +24,6 @@ from datetime import timedelta
 import logging
 _logger = logging.getLogger(__name__)
 
-#TODO: kanban view
-#TODO: state to be updateable
 #TODO: logg on restrict method (when its done by cron)
 
 
@@ -64,14 +62,14 @@ class gdpr_inventory(models.Model):
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count')
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
-    restrict_model = fields.Many2one(comodel_name="res.models", string="Restrict Model",  help="Model (Class) for this Restrition")
+    restrict_model = fields.Many2one(comodel_name="ir.model", string="Restrict Model",  help="Model (Class) for this Restrition")
     restrict_domain = fields.Text(string="Restrict Domain", help="Domain for identification of personal data of this type")
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", help="Fields with (potential) personal data")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
     @api.one
     def _partner_ids(self):
-        self.partner_ids = self.object_ids.mapped('partner_ids')
-    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id', compute='_partner_ids', store=True)
+        self.partner_ids = self.object_ids.mapped('partner_id')
+    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', compute='_partner_ids')
     #~ partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
     @api.one
     def _partner_count(self):
@@ -118,7 +116,6 @@ class gdpr_inventory(models.Model):
 
     @api.multi
     def act_gdpr_inventory_2_gdpr_res_partner(self):
-        _logger.warn(self.partner_ids.mapped('id'))
         return {
             'name': 'Res Partner 2 GDPR Inventory Partner',
             'res_model': 'res.partner',
@@ -278,7 +275,7 @@ class gdpr_object(models.Model):
     name = fields.Char(string='Name', compute='_get_name')
     gdpr_id = fields.Many2one(string='Inventory', comodel_name='gdpr.inventory')
     object_id = fields.Reference(string='Object', selection='_reference_models')
-    partner_ids = fields.One2many(string='Partners', comodel_name='res.partner', inverse_name='gdpr_object_id')
+    partner_id = fields.Many2one(string='Partners', comodel_name='res.partner')
 
     @api.model
     def _reference_models(self):
@@ -299,24 +296,25 @@ class res_partner(models.Model):
     @api.one
     def _gdpr_ids(self):
         self.gdpr_ids = self.env['gdpr.inventory'].search([('partner_ids', 'in', self)])
-    gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id', compute='_gdpr_ids', store=True)
+    gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', compute='_gdpr_ids')
+    #~ gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id', compute='_gdpr_ids', store=True)
     consent_ids = fields.One2many(string='Consents', comodel_name='gdpr.consent', inverse_name='partner_id')
 
     @api.one
-    @api.depends('consent_ids')
+    #~ @api.depends('consent_ids')
     def _get_consent_count(self):
         self.consent_count = len(self.consent_ids)
 
     consent_count = fields.Integer(string='# Consents', compute=_get_consent_count, store=True)
 
     @api.one
-    @api.depends('gdpr_ids')
+    #~ @api.depends('gdpr_ids')
     def _get_gdpr_count(self):
         self.gdpr_count = len(self.gdpr_ids)
 
     gdpr_count = fields.Integer(string='# Inventories', compute=_get_gdpr_count, store=True)
 
-    gdpr_object_id = fields.Many2one(comodel_name='gdpr.object', string='')
+    gdpr_object_ids = fields.One2many(comodel_name='gdpr.object', inverse_name='partner_id', string='GDPR Objects')
 
     @api.multi
     def action_gdpr_inventory(self):

@@ -1,13 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        <!-- Contract Directory -->
+        <!-- use case: Store contracts -->
         <record id="document_directory_contract" model="document.directory">
             <field name="name">Contract</field>
             <field name="type">directory</field>
         </record>
         <record id="mail.msg_discus6_attach1" model="ir.attachment">
             <field name="parent_id" ref="gdpr_inventory.document_directory_contract"/>
+        </record>
+
+        <!-- use case: Image with consents -->
+        <record id="attachment_image_with_consents" model="ir.attachment">
+            <field name="name">Business Hands</field>
+            <field name="type">url</field>
+            <field name="url">/website/static/src/img/library/business_hands.jpg</field>
+        </record>
+        <record id="inventory_image" model="gdpr.inventory">
+            <field name="name">Pictures for marketing</field>
+            <field name="type_of_personal_data">general</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="purpose_limitation">Personal data processing in connection with marketing of the company</field>
+            <field name="lawsection_desc">Processing are beeing lawful on the ground that the data subject has given consent to the processing of his or her personal data for one or more specific purposes.</field>
+            <field name="lawsection_id" ref="gdpr_inventory.lawfullness_consent"/>
+            <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/>
+        </record>
+        <record id="consent_mark_davis" model="gdpr.consent">
+            <field name="name">Consent Mark Davis</field>
+            <field name="partner_id" ref="base.res_partner_main1"/>
+            <field name="record_id" ref="gdpr_inventory.attachment_image_with_consents"/>
+            <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
+            <field name="state">given</field>
+        </record>
+        <record id="consent_roger_scott" model="gdpr.consent">
+            <field name="name">Consent Roger Scott</field>
+            <field name="partner_id" ref="base.res_partner_main2"/>
+            <field name="record_id" ref="gdpr_inventory.attachment_image_with_consents"/>
+            <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
+            <field name="state">given</field>
+        </record>
+        <record id="object_mark_davis" model="gdpr.object">
+            <field name="object_id" ref="gdpr_inventory.attachment_image_with_consents"/>
+            <field name="partner_id" ref="base.res_partner_main1"/>
+            <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
+        </record>
+        <record id="object_roger_scott" model="gdpr.object">
+            <field name="object_id" ref="gdpr_inventory.attachment_image_with_consents"/>
+            <field name="partner_id" ref="base.res_partner_main2"/>
+            <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
         </record>
     </data>
 </openerp>
