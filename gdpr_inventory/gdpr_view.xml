@@ -46,8 +46,6 @@
                     <field name="partner_id"/>
                     <field name="gdpr_id"/>
                     <separator/>
-                    <filter string="Partner" name="partner_id" domain="[('state', '=', 'partner_id')]"/>
-                    <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
                         <filter string="Inventories" domain="[]" context="{'group_by': 'gdpr_id'}"/>
@@ -179,6 +177,17 @@
             <field name="search_view_id" ref="view_gdpr_consent_filter"/>
         </record>
 
+        <record id="act_res_partner_2_gdpr_object" model="ir.actions.act_window">
+            <field name="name">Res Partner 2 GDPR Objects</field>
+            <field name="res_model">gdpr.object</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_partner_id': [active_id],
+                'default_partner_id': active_id,
+            }</field>
+            <field name="search_view_id" ref="view_gdpr_object_filter"/>
+        </record>
+
         <!-- GDPR Inventory -->
 
         <record id="view_gdpr_inventory_form" model="ir.ui.view">
@@ -208,7 +217,6 @@
                         <group>
                             <field name="type_of_personal_data"/>
                             <field name="user_id"/>
-                            <field name="fields_ids" widget="many2many_tags"/>
                             <field name="security_of_processing_ids" widget="many2many_tags"/>
                         </group>
                         <notebook>
@@ -228,6 +236,8 @@
                                     <field name="restrict_time_days"/>
                                     <field name="restrict_method_id"/>
                                     <field name="restrict_model"/>
+                                    <field name="fields_ids" widget="many2many_tags" domain="[('model_id', '=', restrict_model)]"/>
+                                    <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', restrict_model)]"/>
                                     <field name="restrict_domain"/>
                                 </group>
                             </page>
@@ -268,6 +278,7 @@
                     <field name="restrict_model"/>
                     <field name="restrict_domain"/>
                     <field name="fields_ids"/>
+                    <field name="partner_fields_ids"/>
                     <field name="security_of_processing_ids"/>
                 </tree>
             </field>
@@ -296,6 +307,7 @@
                     <field name="restrict_model"/>
                     <field name="restrict_domain"/>
                     <field name="fields_ids"/>
+                    <field name="partner_fields_ids"/>
                     <field name="security_of_processing_ids"/>
                     <field name="partner_count"/>
                     <field name="object_count"/>
@@ -619,11 +631,14 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" type="object" name="act_res_partner_2_gdpr_inventory" icon="fa-files-o">
+                        <field string="Inventories" name="gdpr_count" widget="statinfo"/>
+                    </button>
                     <button class="oe_inline oe_stat_button" type="action" name="%(act_res_partner_2_gdpr_consent)d" icon="fa-files-o">
                         <field string="Consents" name="consent_count" widget="statinfo"/>
                     </button>
-                    <button class="oe_inline oe_stat_button" type="object" name="act_res_partner_2_gdpr_inventory" icon="fa-files-o">
-                        <field string="Inventories" name="gdpr_count" widget="statinfo"/>
+                    <button class="oe_inline oe_stat_button" type="action" name="%(act_res_partner_2_gdpr_object)d" icon="fa-files-o">
+                        <field string="Objects" name="gdpr_object_count" widget="statinfo"/>
                     </button>
                 </xpath>
             </field>
