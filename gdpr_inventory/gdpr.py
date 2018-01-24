@@ -119,13 +119,19 @@ class gdpr_inventory(models.Model):
     def cron_object_ids(self):
         self.env['gdpr.object'].search([('object_id', '=', None)]).unlink() #remove non-existing objects
         objects = self.env[self.restrict_model.name].search(eval(self.restrict_domain)) #search objects with restrict domain
+        object_lst = self.env['gdpr.object'].browse([])
         if len(self.object_ids.mapped('object_id')) > 0:
-            for o in (objects | self.object_ids.mapped('object_id')):
-                for p in self.partner_fields_ids:
+            object_lst = objects | self.object_ids.mapped('object_id')
+        else:
+            object_lst = objects
+        for o in object_lst:
+            for p in self.partner_fields_ids:
+                partner_id = o.read([p.name])[0][p.name][0] if o.read([p.name])[0][p.name] else None
+                if partner_id:
                     self.env['gdpr.object'].create({
                         'gdpr_id': self.id,
-                        'object_id': o.id,
-                        'partner_id': p.id,
+                        'object_id': '%s,%s' %(self.restrict_model.name, o.id),
+                        'partner_id': partner_id,
                     })
 
     @api.multi
