@@ -140,7 +140,7 @@
             <field name="search_view_id" ref="view_gdpr_consent_filter"/>
         </record>
 
-        <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30"/>
+        <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
 
         <!-- button actions -->
 
@@ -378,7 +378,7 @@
             <field name="search_view_id" ref="view_gdpr_inventory_filter"/>
         </record>
 
-        <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10"/>
+        <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10" groups="base.group_gdpr_user,base.group_gdpr_officer,base.group_gdpr_manager"/>
 
         <!-- GDPR Inventory State -->
 
@@ -434,7 +434,7 @@
             <field name="search_view_id" ref="view_gdpr_inventory_state_filter"/>
         </record>
 
-        <menuitem action="action_gdpr_inventory_state" id="menu_inventory_state" parent="menu_gdpr" sequence="21"/>
+        <menuitem action="action_gdpr_inventory_state" id="menu_inventory_state" parent="menu_gdpr" sequence="21" groups="base.group_gdpr_manager"/>
 
         <!-- GDPR Lawsection -->
 
@@ -488,7 +488,7 @@
             <field name="search_view_id" ref="view_gdpr_lawsection_filter"/>
         </record>
 
-        <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr" sequence="20"/>
+        <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr" sequence="20" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
 
         <!-- GDPR Security -->
 
@@ -541,7 +541,7 @@
             <field name="search_view_id" ref="view_gdpr_security_filter"/>
         </record>
 
-        <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr" sequence="40"/>
+        <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr" sequence="40" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
 
         <!-- GDPR Restrict Method -->
 
@@ -604,7 +604,7 @@
             <field name="search_view_id" ref="view_gdpr_restrict_method_filter"/>
         </record>
 
-        <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr" sequence="50"/>
+        <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr" sequence="50" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
 
         <!-- add a notebook page in ir.attachment -->
 

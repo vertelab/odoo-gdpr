@@ -1,4 +1,22 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-event_participant_manager,event participant manager,model_event_participant,event.group_event_manager,1,1,1,1
-event_participant_user,event participant user,model_event_participant,event.group_event_user,1,0,0,0
-event_participant_all,event participant all,model_event_participant,,1,0,0,0
+access_gdpr_inventory_user,gdpr.inventory.user,model_gdpr_inventory,base.group_gdpr_user,1,0,0,0
+access_gdpr_inventory_officer,gdpr.inventory.officer,model_gdpr_inventory,base.group_gdpr_officer,1,1,1,1
+access_gdpr_inventory_manager,gdpr.inventory.manager,model_gdpr_inventory,base.group_gdpr_manager,1,1,1,1
+access_gdpr_object_user,gdpr.object.user,model_gdpr_object,base.group_gdpr_user,1,0,0,0
+access_gdpr_object_officer,gdpr.object.officer,model_gdpr_object,base.group_gdpr_officer,1,1,1,1
+access_gdpr_object_manager,gdpr.object.manager,model_gdpr_object,base.group_gdpr_manager,1,1,1,1
+access_gdpr_consent_user,gdpr.consent.user,model_gdpr_consent,base.group_gdpr_user,1,0,0,0
+access_gdpr_consent_officer,gdpr.consent.officer,model_gdpr_consent,base.group_gdpr_officer,1,1,1,1
+access_gdpr_consent_manager,gdpr.consent.manager,model_gdpr_consent,base.group_gdpr_manager,1,1,1,1
+access_gdpr_inventory_state_user,gdpr.inventory.state.user,model_gdpr_inventory_state,base.group_gdpr_user,1,0,0,0
+access_gdpr_inventory_state_officer,gdpr.inventory.state.officer,model_gdpr_inventory_state,base.group_gdpr_officer,1,0,0,0
+access_gdpr_inventory_state_manager,gdpr.inventory.state.manager,model_gdpr_inventory_state,base.group_gdpr_manager,1,1,1,1
+access_gdpr_lawsection_user,gdpr.lawsection.user,model_gdpr_lawsection,base.group_gdpr_user,1,0,0,0
+access_gdpr_lawsection_officer,gdpr.lawsection.officer,model_gdpr_lawsection,base.group_gdpr_officer,1,1,1,1
+access_gdpr_lawsection_manager,gdpr.lawsection.manager,model_gdpr_lawsection,base.group_gdpr_manager,1,1,1,1
+access_gdpr_security_user,gdpr.security.user,model_gdpr_security,base.group_gdpr_user,1,0,0,0
+access_gdpr_security_officer,gdpr.security.officer,model_gdpr_security,base.group_gdpr_officer,1,1,1,1
+access_gdpr_security_manager,gdpr.security.manager,model_gdpr_security,base.group_gdpr_manager,1,1,1,1
+access_gdpr_restrict_method_user,gdpr.restrict_method.user,model_gdpr_restrict_method,base.group_gdpr_user,1,0,0,0
+access_gdpr_restrict_method_officer,gdpr.restrict_method.officer,model_gdpr_restrict_method,base.group_gdpr_officer,1,1,1,1
+access_gdpr_restrict_method_manager,gdpr.restrict_method.manager,model_gdpr_restrict_method,base.group_gdpr_manager,1,1,1,1

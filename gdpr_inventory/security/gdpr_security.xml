@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <record id="module_category_gdpr" model="ir.module.category">
+            <field name="name">GDPR</field>
+            <field name="description">Helps you to manage GDPR inventory</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="base.group_gdpr_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="gdpr_inventory.module_category_gdpr"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="comment">the user will have access to his own data in GDPR inventory.</field>
+        </record>
+        <record id="base.group_gdpr_officer" model="res.groups">
+            <field name="name">Officer</field>
+            <field name="category_id" ref="gdpr_inventory.module_category_gdpr"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_gdpr_user'))]"/>
+            <field name="comment">the user will have full control to own data in GDPR inventory.</field>
+        </record>
+        <record id="base.group_gdpr_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="gdpr_inventory.module_category_gdpr"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_gdpr_officer'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+            <field name="comment">the user will have full control to all data in GDPR inventory.</field>
+        </record>
+
+    </data>
+</openerp>

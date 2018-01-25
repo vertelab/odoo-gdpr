@@ -36,6 +36,8 @@
     'data': [
         'gdpr_data.xml',
         'gdpr_view.xml',
+        'security/gdpr_security.xml',
+        'security/ir.model.access.csv',
     ],
     'demo': ['gdpr_demo.xml'],
     'application': True,
