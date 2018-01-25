@@ -128,11 +128,12 @@ class gdpr_inventory(models.Model):
             for p in self.partner_fields_ids:
                 partner_id = o.read([p.name])[0][p.name][0] if o.read([p.name])[0][p.name] else None
                 if partner_id:
-                    self.env['gdpr.object'].create({
-                        'gdpr_id': self.id,
-                        'object_id': '%s,%s' %(self.restrict_model.name, o.id),
-                        'partner_id': partner_id,
-                    })
+                    if len(self.env['gdpr.object'].search([('gdpr_id', '=', self.id), ('object_id', '=', '%s,%s' %(self.restrict_model.name, o.id)), ('partner_id', '=', partner_id)])) == 0:
+                        self.env['gdpr.object'].create({
+                            'gdpr_id': self.id,
+                            'object_id': '%s,%s' %(self.restrict_model.name, o.id),
+                            'partner_id': partner_id,
+                        })
 
     @api.multi
     def act_gdpr_inventory_2_gdpr_res_partner(self):
