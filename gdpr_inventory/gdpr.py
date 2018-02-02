@@ -20,6 +20,7 @@
 ##############################################################################
 from openerp import models,  fields,  api,  _
 from datetime import timedelta
+from random import choice
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -51,15 +52,16 @@ class gdpr_inventory(models.Model):
     lawsection_id = fields.Many2one(comodel_name="gdpr.lawsection", string="Law Section", required=True)
     lawsection_description = fields.Html(related='lawsection_id.description', readonly=True)
     consent = fields.Boolean(related='lawsection_id.consent')
-    lawsection_desc = fields.Text(string="Law section Explanation")
+    lawsection_desc = fields.Html(string="Law section Explanation")
     consent_desc = fields.Text(string="consent Explanation")
     consent_add = fields.Text(string="consent Add", help="Code for consent add")
     consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
     consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
+    @api.depends('consent_ids')
     @api.one
     def _consent_count(self):
         self.consent_count = len(self.consent_ids)
-    consent_count = fields.Integer(string='Consent Count', compute='_consent_count')
+    consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
     inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
@@ -67,26 +69,38 @@ class gdpr_inventory(models.Model):
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", relation='gdpr_inventory_ir_model_rel_fields_ids', help="Fields with (potential) personal data")
     partner_fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Partner Fields", relation='gdpr_inventory_ir_model_rel_partner_fields_ids', help="Fields with personal link")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
+    @api.depends('object_ids.partner_id')
     @api.one
     def _partner_ids(self):
         self.partner_ids = self.object_ids.mapped('partner_id')
-    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', compute='_partner_ids')
-    #~ partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
-    @api.one
-    def _partner_count(self):
         self.partner_count = len(self.partner_ids)
-    partner_count = fields.Integer(string='Partner Count', compute='_partner_count')
+    partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', compute='_partner_ids', store=True)
+    #~ partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', relation='gdpr_inventory_rel_res_partner', column1='gdpr_id', column2='partner_id')
+    partner_count = fields.Integer(string='Partner Count', compute='_partner_ids', store=True)
     object_ids = fields.One2many(string='Objects', comodel_name='gdpr.object', inverse_name='gdpr_id')
+    @api.depends('object_ids')
     @api.one
     def _object_count(self):
         self.object_count = len(self.object_ids)
-    object_count = fields.Integer(string='Object Count', compute='_object_count')
+    object_count = fields.Integer(string='Object Count', compute='_object_count', store=True)
     security_of_processing_ids = fields.Many2many(comodel_name="gdpr.security", string="Security", help="Security of processing", track_visibility='onchange')
 
     #~ @api.one
     #~ def _partner_ids(self):
         #~ self.partner_ids = self.env['res.partner'].search(self.inventory_domain)
     #~ partner_ids = fields.Many2many(comodel_name="res.partner", compute="_partner_ids")
+
+    @api.one
+    def create_random_objects(self, count=1):
+        records = self.env[self.inventory_model.name].search([])
+        partners = self.env['res.partner'].search([])
+        while count > 0:
+            self.env['gdpr.object'].create({
+                'object_id': '%s,%s' % (records._name, choice(records).id),
+                'partner_id': choice(partners).id,
+                'gdpr_id': self.id,
+            })
+            count -= 1
 
     @api.one
     def log(self, subject, body):
