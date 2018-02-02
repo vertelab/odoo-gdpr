@@ -62,10 +62,10 @@ class gdpr_inventory(models.Model):
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count')
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
-    restrict_model = fields.Many2one(comodel_name="ir.model", string="Restrict Model",  help="Model (Class) for this Restrition")
-    restrict_domain = fields.Text(string="Restrict Domain", help="Domain for identification of personal data of this type")
-    fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", help="Fields with (potential) personal data")
-    partner_fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Partner Fields", help="Fields with personal link")
+    inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
+    inventory_domain = fields.Text(string="Inventory Domain", help="Domain for identification of personal data of this type")
+    fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", relation='gdpr_inventory_ir_model_rel_fields_ids', help="Fields with (potential) personal data")
+    partner_fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Partner Fields", relation='gdpr_inventory_ir_model_rel_partner_fields_ids', help="Fields with personal link")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
     @api.one
     def _partner_ids(self):
@@ -85,7 +85,7 @@ class gdpr_inventory(models.Model):
 
     #~ @api.one
     #~ def _partner_ids(self):
-        #~ self.partner_ids = self.env['res.partner'].search(self.restrict_domain)
+        #~ self.partner_ids = self.env['res.partner'].search(self.inventory_domain)
     #~ partner_ids = fields.Many2many(comodel_name="res.partner", compute="_partner_ids")
 
     @api.one
@@ -99,6 +99,37 @@ class gdpr_inventory(models.Model):
             'type': 'notification',
         })
 
+    @api.multi
+    def action_view_objects(self):
+        object_ids = list(set(self.object_ids.mapped('object_res_id')))
+        _logger.warn(object_ids)
+        return {
+            'type': u'ir.actions.act_window',
+            'target': u'current',
+            'res_model': self.inventory_model.name,
+            'view_mode': u'tree,form',
+            'domain': [('id', 'in', object_ids)],
+            'context': {},
+            
+
+            #~ 'help': False,
+            #~ 'view_type': u'form',
+            #~ 'id': 481,
+
+            
+            #~ 'src_model': False,
+            #~ 'usage': False,
+            
+            #~ 'views': [(False, u'tree'), (False, u'form')],
+            #~ 'view_id': False,
+            #~ 'view_ids': [],
+            #~ 'name': u'GDPR Inventory 2 GDPR Object',
+            #~ 'res_id': 0,
+            #~ 'filter': False,
+
+            
+        }
+        
     @api.model
     def cron_restrictions(self):
         for gdpr in self.env['gdpr.inventory'].search([('state', '=', 'active')]):
@@ -115,25 +146,37 @@ class gdpr_inventory(models.Model):
         """Update all connections between inventories and partners."""
         pass
 
+    @api.one
+    def update_object_ids(self):
+        # Remove non-existing objects
+        model = self.env[self.inventory_model.name]
+        if model.fields_get('active'):
+            object_ids = [d['id'] for d in model.search_read([('active', 'in', (True, False))], ['id'])]
+        else:
+            object_ids = [d['id'] for d in model.search_read([], ['id'])]
+        self.env['gdpr.object'].search([('gdpr_id', '=', self.id), ('object_res_id', 'not in', object_ids)]).unlink()
+
+        # Update all matching objects
+        objects = self.env[self.inventory_model.name].search(eval(self.inventory_domain))
+        if self.object_ids:
+            objects |= self.object_ids.mapped('object_id')
+        _logger.warn(objects)
+        for o in objects:
+            partners = self.env['res.partner'].browse([])
+            for p in self.partner_fields_ids:
+                partners |= getattr(o, p.name)
+                _logger.warn(partners)
+            for partner in partners:
+                if not self.env['gdpr.object'].search([('gdpr_id', '=', self.id), ('object_id', '=', '%s,%s' %(self.inventory_model.name, o.id)), ('partner_id', '=', partner.id)]):
+                    self.env['gdpr.object'].create({
+                        'gdpr_id': self.id,
+                        'object_id': '%s,%s' %(o._name, o.id),
+                        'partner_id': partner.id,
+                    })
+
     @api.multi
     def cron_object_ids(self):
-        self.env['gdpr.object'].search([('object_id', '=', None)]).unlink() #remove non-existing objects
-        objects = self.env[self.restrict_model.name].search(eval(self.restrict_domain)) #search objects with restrict domain
-        object_lst = self.env['gdpr.object'].browse([])
-        if len(self.object_ids.mapped('object_id')) > 0:
-            object_lst = objects | self.object_ids.mapped('object_id')
-        else:
-            object_lst = objects
-        for o in object_lst:
-            for p in self.partner_fields_ids:
-                partner_id = o.read([p.name])[0][p.name][0] if o.read([p.name])[0][p.name] else None
-                if partner_id:
-                    if len(self.env['gdpr.object'].search([('gdpr_id', '=', self.id), ('object_id', '=', '%s,%s' %(self.restrict_model.name, o.id)), ('partner_id', '=', partner_id)])) == 0:
-                        self.env['gdpr.object'].create({
-                            'gdpr_id': self.id,
-                            'object_id': '%s,%s' %(self.restrict_model.name, o.id),
-                            'partner_id': partner_id,
-                        })
+        self.search([]).update_object_ids()
 
     @api.multi
     def act_gdpr_inventory_2_gdpr_res_partner(self):
@@ -292,11 +335,43 @@ class gdpr_object(models.Model):
 
     @api.one
     def _get_name(self):
-        self.name = self.object_id.name
+        if self.object_id and hasattr(self.object_id, 'name'):
+            self.name = self.object_id.name
+        elif self.object_id:
+            self.name = '%s, %s' % (self.object_id._name, self.object_id.id)
+        else:
+            self.name = 'gdpr.object, %s' % self.id
+
     name = fields.Char(string='Name', compute='_get_name')
     gdpr_id = fields.Many2one(string='Inventory', comodel_name='gdpr.inventory')
-    object_id = fields.Reference(string='Object', selection='_reference_models')
+    object_id = fields.Reference(string='Object', selection='_reference_models', compute='_get_object_id', inverse='_set_object_id', search='_search_object_id')
+    object_model = fields.Char(string='Object Model')
+    object_res_id = fields.Integer(string='Object ID')
     partner_id = fields.Many2one(string='Partners', comodel_name='res.partner')
+
+    @api.one
+    def _get_object_id(self):
+        if self.object_model and self.object_res_id:
+            self.object_id = self.env[self.object_model].search([('id', '=', self.object_res_id)])
+
+    @api.one
+    def _set_object_id(self):
+        if self.object_id:
+            self.object_res_id = self.object_id.id
+            self.object_model = self.object_id._name
+        else:
+            self.object_res_id = False
+            self.object_model = False
+
+    @api.model
+    def _search_object_id(self, operator, value):
+        _logger.debug('_search_object_id; operator: %s, value: %s' % (operator, value))
+        if value:
+            res = ['&', ('object_model', operator, value.split(',')[0]), ('object_res_id', operator, int(value.split(',')[1]))]
+        else:
+            res = ['&', ('object_model', operator, value), ('object_res_id', operator, value)]
+        _logger.debug(res)
+        return res
 
     @api.model
     def _reference_models(self):

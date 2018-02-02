@@ -6,8 +6,31 @@
             <field name="name">Contract</field>
             <field name="type">directory</field>
         </record>
-        <record id="mail.msg_discus6_attach1" model="ir.attachment">
-            <field name="parent_id" ref="gdpr_inventory.document_directory_contract"/>
+        <record id="attachment_contract" model="ir.attachment">
+            <field name="name">Agrolait Contract</field>
+            <field name="type">url</field>
+            <field name="url">/gdpr_inventory/static/src/img/library/contract.jpg</field>
+            <field name="parent_id" ref="document_directory_contract"/>
+            <field name="partner_id" ref="base.partner_demo"/>
+        </record>
+        
+        <record id="inventory_contract" model="gdpr.inventory">
+            <field name="name">Customer Contracts</field>
+            <field name="type_of_personal_data">general</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="purpose_limitation">Personal data processing in connection with execution of customer contracts</field>
+            <field name="lawsection_desc" type="html"><p>Processing are beeing lawful on the ground that processing is
+necessary for the performance of a <span style="text-decoration: underline;"><span style="font-weight: bold;">contract</span></span> to which the data subject is party or in order to
+take steps at the request of the data subject prior to entering into a contract
+<br/><br/>=&gt; Article: <a href="https://www.privacy-regulation.eu/en/article-20-right-to-data-portability-GDPR.htm">20</a>
+<br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a>
+</p></field>
+            <field name="lawsection_id" ref="gdpr_inventory.lawfullness_contract"/>
+            <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/>
+            <field name="inventory_model" ref="base.model_ir_attachment"/>
+            <field name="fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0), (4, ref('document.field_ir_attachment_index_content'), 0)]"/>
+            <field name="partner_fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0)]"/>
+            <field name="inventory_domain" eval="[('parent_id', '=', ref('gdpr_inventory.document_directory_contract'))]"/>
         </record>
 
         <!-- use case: Image with consents -->
@@ -24,6 +47,10 @@
             <field name="lawsection_desc">Processing are beeing lawful on the ground that the data subject has given consent to the processing of his or her personal data for one or more specific purposes.</field>
             <field name="lawsection_id" ref="gdpr_inventory.lawfullness_consent"/>
             <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/>
+            <field name="inventory_model" ref="base.model_ir_attachment"/>
+            <field name="fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0), (4, ref('document.field_ir_attachment_index_content'), 0)]"/>
+            <field name="partner_fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0)]"/>
+            <field name="inventory_domain" eval="[('parent_id', '=', ref('gdpr_inventory.attachment_image_with_consents'))]"/>
         </record>
         <record id="consent_mark_davis" model="gdpr.consent">
             <field name="name">Consent Mark Davis</field>
