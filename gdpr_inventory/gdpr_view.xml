@@ -29,6 +29,7 @@
             <field name="arch" type="xml">
                 <tree string="GDPR Object">
                     <field name="object_id"/>
+                    <field name="restricted"/>
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="gdpr_id"/>
@@ -204,6 +205,7 @@
                 <form string="GDPR Inventory">
                     <header>
                         <button type="object" name="update_object_ids" string="Update Objects"/>
+                        <button type="object" name="restrict_objects" string="Restrict Objects"/>
                         <field name="state_id" widget="statusbar" clickable="True"/>
                     </header>
                     <sheet>
@@ -250,6 +252,10 @@
                                 <group>
                                     <field name="restrict_time_days"/>
                                     <field name="restrict_method_id"/>
+                                    <field name="restrict_type" invisible="1"/>
+                                    <field name="restrict_domain"/>
+                                    <field name="pseudo_values" attrs="{'invisible': [('restrict_type', '!=', 'pseudo')]}"/>
+                                    <field name="restrict_code" attrs="{'invisible': [('restrict_type', '!=', 'code')]}"/>
                                     <field name="fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
                                     <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
                                 </group>

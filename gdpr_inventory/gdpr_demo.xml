@@ -31,6 +31,8 @@ take steps at the request of the data subject prior to entering into a contract
             <field name="fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0), (4, ref('document.field_ir_attachment_index_content'), 0)]"/>
             <field name="partner_fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0)]"/>
             <field name="inventory_domain" eval="[('parent_id', '=', ref('gdpr_inventory.document_directory_contract'))]"/>
+            <field name="restrict_domain" >[('create_date', '&lt;', (datetime.date.today() - datetime.timedelta(days=restrict_days + 365)).strftime('%Y-%m-%d'))]</field>
+            <field name="restrict_method_id" ref="restrict_method_pseudo"/>
         </record>
 
         <!-- use case: Image with consents -->

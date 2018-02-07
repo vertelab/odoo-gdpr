@@ -67,6 +67,42 @@ the data subject is a child.
 </field>
       <field name="consent" eval="False" />
     </record>
+    
+    <record id="restrict_method_erase" model="gdpr.restrict_method">
+      <field name="name">Erase</field>
+      <field name="type">erase</field>
+      <field name="description"></field>
+    </record>
+    
+    <record id="restrict_method_hide" model="gdpr.restrict_method">
+      <field name="name">Hide</field>
+      <field name="type">hide</field>
+      <field name="description"></field>
+    </record>
+    
+    <record id="restrict_method_encrypt" model="gdpr.restrict_method">
+      <field name="name">Encrypt</field>
+      <field name="type">encrypt</field>
+      <field name="description"></field>
+    </record>
+    
+    <record id="restrict_method_pseudo" model="gdpr.restrict_method">
+      <field name="name">Pseudonymisation</field>
+      <field name="type">pseudo</field>
+      <field name="description"></field>
+    </record>
+    
+    <record id="restrict_method_manual" model="gdpr.restrict_method">
+      <field name="name">Manual</field>
+      <field name="type">manual</field>
+      <field name="description"></field>
+    </record>
+    
+    <record id="restrict_method_code" model="gdpr.restrict_method">
+      <field name="name">Code</field>
+      <field name="type">code</field>
+      <field name="description"></field>
+    </record>
 
   </data>
 

@@ -21,6 +21,12 @@
 from openerp import models,  fields,  api,  _
 from datetime import timedelta
 from random import choice
+from openerp.tools.safe_eval import safe_eval as eval
+
+import time
+import datetime
+import dateutil
+import pytz
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -64,8 +70,12 @@ class gdpr_inventory(models.Model):
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
+    restrict_domain = fields.Text(string='Restrict Domain', help="Domain for identifying records that should be restricted.", default='[]')
+    restrict_code = fields.Text(string='Restriction Code', help="Python code to run when restricting records. Will be fed two variables; inventory = this inventory record, objects = the records to be restricted.", default = '{}')
+    pseudo_values = fields.Text(string='Pseudonymisation Values', help="Custom values used to anonymize fields. Any fields not specified in this dict will be set to False.", default = '{}')
+    restrict_type = fields.Selection(string='Restriction Type', related='restrict_method_id.type')
     inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
-    inventory_domain = fields.Text(string="Inventory Domain", help="Domain for identification of personal data of this type")
+    inventory_domain = fields.Text(string="Inventory Domain", help="Domain for identification of personal data of this type", default='[]')
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", relation='gdpr_inventory_ir_model_rel_fields_ids', help="Fields with (potential) personal data")
     partner_fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Partner Fields", relation='gdpr_inventory_ir_model_rel_partner_fields_ids', help="Fields with personal link")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
@@ -84,6 +94,10 @@ class gdpr_inventory(models.Model):
         self.object_count = len(self.object_ids)
     object_count = fields.Integer(string='Object Count', compute='_object_count', store=True)
     security_of_processing_ids = fields.Many2many(comodel_name="gdpr.security", string="Security", help="Security of processing", track_visibility='onchange')
+
+    @api.onchange('restrict_method_id')
+    def onchange_restrict_method_id(self):
+        self.restrict_code = self.restrict_method_id.restrict_code
 
     #~ @api.one
     #~ def _partner_ids(self):
@@ -115,7 +129,8 @@ class gdpr_inventory(models.Model):
 
     @api.multi
     def action_view_objects(self):
-        object_ids = list(set(self.object_ids.mapped('object_res_id')))
+        object_ids = [r['object_res_id'] for r in self.env['gdpr.object'].search_read([('gdpr_id', '=', self.id)], ['object_res_id'])]
+        #~ object_ids = list(set(self.object_ids.mapped('object_res_id')))
         _logger.warn(object_ids)
         return {
             'type': u'ir.actions.act_window',
@@ -124,24 +139,6 @@ class gdpr_inventory(models.Model):
             'view_mode': u'tree,form',
             'domain': [('id', 'in', object_ids)],
             'context': {},
-            
-
-            #~ 'help': False,
-            #~ 'view_type': u'form',
-            #~ 'id': 481,
-
-            
-            #~ 'src_model': False,
-            #~ 'usage': False,
-            
-            #~ 'views': [(False, u'tree'), (False, u'form')],
-            #~ 'view_id': False,
-            #~ 'view_ids': [],
-            #~ 'name': u'GDPR Inventory 2 GDPR Object',
-            #~ 'res_id': 0,
-            #~ 'filter': False,
-
-            
         }
         
     @api.model
@@ -171,7 +168,7 @@ class gdpr_inventory(models.Model):
         self.env['gdpr.object'].search([('gdpr_id', '=', self.id), ('object_res_id', 'not in', object_ids)]).unlink()
 
         # Update all matching objects
-        objects = self.env[self.inventory_model.name].search(eval(self.inventory_domain))
+        objects = model.search(eval(self.inventory_domain, self.env['gdpr.restrict_method'].get_eval_context()))
         if self.object_ids:
             objects |= self.object_ids.mapped('object_id')
         _logger.warn(objects)
@@ -187,6 +184,21 @@ class gdpr_inventory(models.Model):
                         'object_id': '%s,%s' %(o._name, o.id),
                         'partner_id': partner.id,
                     })
+
+    @api.one
+    def restrict_objects(self):
+        """
+        Check if any records meet the restrict critera and perform restriction according to the chosen restrict method.
+        """
+        if self.restrict_method_id:
+            model = self.inventory_model.name
+            domain = eval(self.inventory_domain, self.env['gdpr.restrict_method'].get_eval_context()) + eval(self.restrict_domain, self.env['gdpr.restrict_method'].get_eval_context(restrict_days=self.restrict_time_days))
+            _logger.warn('restrict domain: %s' % domain)
+            object_ids = [o['id'] for o in self.env[model].search_read(domain, ['id'])]
+            _logger.warn('object_ids: %s' % object_ids)
+            objects = self.env['gdpr.object'].search([('restricted', '!=', True), ('object_model', '=', model), ('object_res_id', 'in', object_ids)])
+            if objects:
+                self.restrict_method_id.restrict_objects(self, objects)
 
     @api.multi
     def cron_object_ids(self):
@@ -307,7 +319,7 @@ class gdpr_restrict_method(models.Model):
 
     name = fields.Char()
     description = fields.Text()
-    type = fields.Selection(selection=[('erase', 'Erase'), ('hide', 'Hide'), ('encrypt', 'Encrypt'), ('pseudo', 'Pseudonymisation'), ('manual', 'Manual'), ('consent', 'consent')])
+    type = fields.Selection(selection=[('erase', 'Erase'), ('hide', 'Hide'), ('encrypt', 'Encrypt'), ('pseudo', 'Pseudonymisation'), ('manual', 'Manual'), ('code', 'Code')])
     code = fields.Text()
 
     @api.one
@@ -344,6 +356,53 @@ class gdpr_restrict_method(models.Model):
         self.env[gdpr.model].search(gdpr.domain).write({'active': False})
         gdpr.log(_('Restrict Hide'), models)
 
+    @api.one
+    def restrict_objects(self, inventory, objects):
+        """
+        Perform restriction.
+        :param inventory: The inventory that the objects belong to.
+        :param objects: The GDPR objects (gdpr.object) that should be restricted.
+        """
+        if self.type == 'erase':
+            objects.mapped('object_id').unlink()
+            objects.unlink()
+        elif self.type == 'hide':
+            if hasattr(objects, 'active'):
+                objects.mapped('object_id').write({'active': False})
+                objects.write({'restricted': True})
+        elif self.type == 'encrypt':
+            pass
+        elif self.type == 'pseudo':
+            values = eval(inventory.pseudo_values, self.get_eval_context())
+            for field in inventory.fields_ids:
+                if field.name not in values:
+                    values[field.name] = False
+            objects.mapped('object_id').write(values)
+            objects.write({'restricted': True})
+        elif self.type == 'manual':
+            # Do nothing.
+            # TODO: Button to list expired records.
+            pass
+        elif self.type == 'code':
+            eval(self.code, self.get_eval_context(inventory=inventory, objects=objects.mapped('object_id')), mode='exec')
+            objects.write({'restricted': True})
+
+    @api.model
+    def get_eval_context(self, **kw):
+        context = {
+            # python libs
+            'time': time,
+            'datetime': datetime,
+            'dateutil': dateutil,
+            # NOTE: only `timezone` function. Do not provide the whole `pytz` module as users
+            #       will have access to `pytz.os` and `pytz.sys` to do nasty things...
+            'timezone': pytz.timezone,
+            # orm
+            'env': self.env,
+        }
+        context.update(kw)
+        return context
+
 class gdpr_object(models.Model):
     _name = 'gdpr.object'
 
@@ -362,6 +421,7 @@ class gdpr_object(models.Model):
     object_model = fields.Char(string='Object Model')
     object_res_id = fields.Integer(string='Object ID')
     partner_id = fields.Many2one(string='Partners', comodel_name='res.partner')
+    restricted = fields.Boolean(string='Restricted', help="This record has been restricted.")
 
     @api.one
     def _get_object_id(self):
