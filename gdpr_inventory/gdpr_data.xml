@@ -71,37 +71,42 @@ the data subject is a child.
     <record id="restrict_method_erase" model="gdpr.restrict_method">
       <field name="name">Erase</field>
       <field name="type">erase</field>
-      <field name="description"></field>
+      <field name="description">All records will be erased</field>
     </record>
     
     <record id="restrict_method_hide" model="gdpr.restrict_method">
       <field name="name">Hide</field>
       <field name="type">hide</field>
-      <field name="description"></field>
+      <field name="description">Will hide the records by setting active to False.</field>
     </record>
     
+    <!-- NOT IMPLEMENTED YET
     <record id="restrict_method_encrypt" model="gdpr.restrict_method">
       <field name="name">Encrypt</field>
       <field name="type">encrypt</field>
-      <field name="description"></field>
+      <field name="description">Will encrypt the given fields.</field>
     </record>
+    -->
     
     <record id="restrict_method_pseudo" model="gdpr.restrict_method">
       <field name="name">Pseudonymisation</field>
       <field name="type">pseudo</field>
-      <field name="description"></field>
+      <field name="description">Will overwrite the listed fields on the record.</field>
     </record>
     
     <record id="restrict_method_manual" model="gdpr.restrict_method">
       <field name="name">Manual</field>
       <field name="type">manual</field>
-      <field name="description"></field>
+      <field name="description">No action will be taken on restriction. Records to restrict can be listed.</field>
     </record>
     
     <record id="restrict_method_code" model="gdpr.restrict_method">
       <field name="name">Code</field>
       <field name="type">code</field>
-      <field name="description"></field>
+      <field name="description">Restriction will be handled by executing customizable python code.</field>
+      <field name="code"># Will do the same as Erase (erase all records and their gdpr.objects)
+objects.mapped('object_id').unlink()
+objects.unlink()</field>
     </record>
 
   </data>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <record id="view_gdpr_mail_mass_mailing_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.gdpr.form</field>
+            <field name="model">mail.mass_mailing</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+            <field name="arch" type="xml">
+                <label for="mailing_model" position="after">
+                    <field name="gdpr_id"/>
+                </label>
+            </field>
+        </record>
+        
+        <record id="view_gdpr_mail_mass_mailing_list_form" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.list.gdpr.form</field>
+            <field name="model">mail.mass_mailing.list</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']/../.." position="after">
+                    <group>
+                        <field name="gdpr_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+<!--
+        <record id="view_gdpr_inventory_filter" model="ir.ui.view">
+            <field name="name">gdpr.inventory.filter</field>
+            <field name="model">gdpr.inventory</field>
+            <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_filter"/>
+            <field name="arch" type="xml">
+                    <field name="user_id" position="after">
+                        <field name="website_publish"/>
+                    </field>
+            </field>
+        </record>
+-->
+        
+    </data>
+</openerp>

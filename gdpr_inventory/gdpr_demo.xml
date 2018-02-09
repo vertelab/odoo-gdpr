@@ -54,20 +54,6 @@ take steps at the request of the data subject prior to entering into a contract
             <field name="partner_fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0)]"/>
             <field name="inventory_domain" eval="[('parent_id', '=', ref('gdpr_inventory.attachment_image_with_consents'))]"/>
         </record>
-        <record id="consent_mark_davis" model="gdpr.consent">
-            <field name="name">Consent Mark Davis</field>
-            <field name="partner_id" ref="base.res_partner_main1"/>
-            <field name="record_id" ref="gdpr_inventory.attachment_image_with_consents"/>
-            <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
-            <field name="state">given</field>
-        </record>
-        <record id="consent_roger_scott" model="gdpr.consent">
-            <field name="name">Consent Roger Scott</field>
-            <field name="partner_id" ref="base.res_partner_main2"/>
-            <field name="record_id" ref="gdpr_inventory.attachment_image_with_consents"/>
-            <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
-            <field name="state">given</field>
-        </record>
         <record id="object_mark_davis" model="gdpr.object">
             <field name="object_id" ref="gdpr_inventory.attachment_image_with_consents"/>
             <field name="partner_id" ref="base.res_partner_main1"/>
@@ -77,6 +63,20 @@ take steps at the request of the data subject prior to entering into a contract
             <field name="object_id" ref="gdpr_inventory.attachment_image_with_consents"/>
             <field name="partner_id" ref="base.res_partner_main2"/>
             <field name="gdpr_id" ref="gdpr_inventory.inventory_image"/>
+        </record>
+        <record id="consent_mark_davis" model="gdpr.consent">
+            <field name="name">Consent Mark Davis</field>
+            <field name="partner_id" ref="base.res_partner_main1"/>
+            <field name="gdpr_object_id" ref="object_mark_davis"/>
+            <field name="gdpr_id" ref="inventory_image"/>
+            <field name="state">given</field>
+        </record>
+        <record id="consent_roger_scott" model="gdpr.consent">
+            <field name="name">Consent Roger Scott</field>
+            <field name="partner_id" ref="base.res_partner_main2"/>
+            <field name="gdpr_object_id" ref="object_roger_scott"/>
+            <field name="gdpr_id" ref="inventory_image"/>
+            <field name="state">given</field>
         </record>
     </data>
 </openerp>
