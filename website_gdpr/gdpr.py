@@ -20,6 +20,8 @@
 ##############################################################################
 from openerp import models,  fields,  api,  _
 from datetime import timedelta
+from openerp import http
+from openerp.http import request
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -27,6 +29,31 @@ _logger = logging.getLogger(__name__)
 # https://www.privacy-regulation.eu
 class gdpr_inventory(models.Model):
     _inherit = 'gdpr.inventory'
-    
+
     website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
-    website_published = fields.Boolean()
+    website_published = fields.Boolean(string='Website Published')
+
+
+class GDPRController(http.Controller):
+
+    @http.route(['/gdpr/main/<model("res.partner"):partner>'], type='http', auth="public", website=True)
+    def gdpr_main(self, partner=None, **post):
+        inventories = request.env['gdpr.inventory'].search_read(
+            [
+                ('partner_ids', 'in', partner.id),
+                ('state_id', '=', request.env.ref('gdpr_inventory.inventory_state_active').id),
+                ('website_published', '=', True)
+            ],
+            ['name', 'website_desc', 'state_id'])
+        return request.website.render('website_gdpr.gdpr_main_page', {'inventories': inventories, 'partner': partner.name})
+
+    @http.route(['/gdpr/inventories/<model("res.partner"):partner>'], type='http', auth="public", website=True)
+    def gdpr_inventories(self, partner=None, **post):
+        inventories = request.env['gdpr.inventory'].search_read(
+            [
+                ('partner_ids', 'in', partner.id),
+                ('state_id', '=', request.env.ref('gdpr_inventory.inventory_state_active').id),
+                ('website_published', '=', True)
+            ],
+            ['name', 'website_desc'])
+        return request.website.render('website_gdpr.gdpr_inventory_page', {'inventories': inventories, 'partner': partner.name})

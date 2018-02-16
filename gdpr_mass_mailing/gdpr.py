@@ -38,14 +38,26 @@ class MailMassMailing(models.Model):
     _inherit = 'mail.mass_mailing'
     
     gdpr_id = fields.Many2one(string='GDPR Inventory', comodel_name='gdpr.inventory')
+    gdpr_domain = fields.Text(string='GDPR Object IDs', compute='get_gdpr_domain')
+    
+    @api.onchange('gdpr_id')
+    def get_gdpr_domain(self):
+        domain = []
+        if self.gdpr_id:
+            if self.gdpr_id.lawsection_id.consent:
+                object_ids = [d['gdpr_object_id'][0] for d in self.env['gdpr.consent'].search_read([('state', '=', 'given'), ('gdpr_id', '=', self.gdpr_id.id)], ['gdpr_object_id'])]
+                _logger.warn(self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id']))
+                object_ids = [d['object_res_id'] for d in self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id'])]
+            else:
+                object_ids = [d['object_res_id'] for d in self.env['gdpr.object'].search_read([('gdpr_id', '=', self.gdpr_id.id), ('restricted', '=', False)], ['object_res_id'])]
+            domain = [('id', 'in', object_ids)]
+        self.gdpr_domain = domain
 
 class MassMailController(MassMailController):
 
     @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='none')
     def mailing(self, mailing_id, email=None, res_id=None, **post):
-        _logger.warn('mailing post: %s' % post)
         res = super(MassMailController, self).mailing(mailing_id, email, res_id, **post)
-        _logger.warn('|%s|' % res)
         if res.get_data() == 'OK':
             mailing = request.env['mail.mass_mailing'].sudo().browse(mailing_id)
             if mailing.mailing_model == 'mail.mass_mailing.contact':
@@ -59,7 +71,6 @@ class MassMailController(MassMailController):
                     ('record_id', '=', '%s,%s' % (mailing.mailing_model, res_id)),
                     ('partner_id.email', '=', email),
                     ('gdpr_id', '=', mailing.gdpr_id.id)])
-                _logger.warn(consent)
                 if consent:
                     consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
         return res

@@ -7,9 +7,13 @@
             <field name="model">mail.mass_mailing</field>
             <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
             <field name="arch" type="xml">
-                <label for="mailing_model" position="after">
+                <xpath expr="//field[@name='name']/../div" position="after">
                     <field name="gdpr_id"/>
-                </label>
+                    <field name="gdpr_domain"/>
+                </xpath>
+                <field name="mailing_domain" position="attributes">
+                    <attribute name="options">{'model_field': 'mailing_model', 'gdpr_domain_field': 'gdpr_domain'}</attribute>
+                </field>
             </field>
         </record>
         
@@ -25,6 +29,12 @@
                 </xpath>
             </field>
         </record>
+        
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
+                <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/mass_mailing.js"></script>
+            </xpath>
+        </template>
         
 <!--
         <record id="view_gdpr_inventory_filter" model="ir.ui.view">
