@@ -21,7 +21,7 @@
 
 {
     'name': 'GDPR Inventory',
-    'version': '0.1',
+    'version': '0.2',
     'category': 'Other',
     'summary': 'Inventory for GDPR',
     'description': """
@@ -38,6 +38,7 @@
         'security/ir.model.access.csv',
         'gdpr_data.xml',
         'gdpr_view.xml',
+        #'report/gdpr_report.xml',
     ],
     'demo': ['gdpr_demo.xml'],
     'application': True,
