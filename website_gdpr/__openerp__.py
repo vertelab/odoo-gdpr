@@ -25,15 +25,20 @@
     'category': 'Other',
     'summary': 'Portal and GDRP-information',
     'description': """
-        
-* GDPR Inventory
+
+* GDPR Website
 
 """,
     'images': ['static/description/event_participant.jpg'],
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['gdpr', 'website'],
-    'data': [ 'gdpr_view.xml',
+    'depends': [
+        'website',
+        'gdpr_inventory'
+    ],
+    'data': [
+        'gdpr_view.xml',
+        'templates.xml',
     ],
     'application': False,
     'installable': True,

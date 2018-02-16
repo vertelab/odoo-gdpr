@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="gdrp_inventories" name="GPDR Inventories">
+            <div class="container">
+                <div class="row">
+                    <div id="gdpr_inventories" class="col-md-12">
+                        <h1 class="text-center">GDPR Inventories for <t t-esc="partner"/></h1>
+                        <t t-foreach="inventories" t-as="inventory">
+                            <div class="gdpr_inventory col-md-4">
+                                <a t-att-href="'/gdpr_inventory/%s' %inventory['id']">
+                                    <h3 class="gdpr_inventory_title text-center">
+                                        <t t-esc="inventory['name']"/>
+                                    </h3>
+                                </a>
+                                <div class="gdpr_inventory_content" t-raw="inventory['website_desc']"/>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="gdpr_inventory_page" name="GDPR Inventory Page">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="oe_structure oe_empty"/>
+                    <t t-call="website_gdpr.gdrp_inventories"/>
+                    <div class="oe_structure oe_empty"/>
+                </div>
+            </t>
+        </template>
+
+        <template id="gdpr_main_page" name="GDPR Main Page">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="row">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#inventory">Inventory</a></li>
+                                <li><a data-toggle="tab" href="#consent">Consent</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="inventory" class="tab-pane fade in active">
+                                    <div id="gdpr_inventories" class="col-md-12 mt16 mb16">
+                                        <t t-foreach="inventories" t-as="inventory">
+                                            <div class="col-md-10">
+                                                <h3 class="gdpr_inventory_title text-center">
+                                                    <t t-esc="inventory['name']"/>
+                                                </h3>
+                                                <div class="gdpr_inventory_content" t-raw="inventory['website_desc']"/>
+                                            </div>
+                                            <div class="col-md-2 mt32">
+                                                <label class="switch">
+                                                    <input class="inventory_state_change" t-att-data-inventory="inventory['id']" type="checkbox" t-att="{'checked': 'checked'} if inventory['state_id'][0] == request.env.ref('gdpr_inventory.inventory_state_active').id else {}"/>
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div id="consent" class="tab-pane fade">
+                                    <!-- TODO: Consents -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="footer_default" inherit_id="website.footer_default" name="GDPR menu in footer">
+            <xpath expr="//ul[@id='products']" position="inside">
+                <li><a href="/gdpr/inventories">GDPR</a></li>
+            </xpath>
+        </template>
+
+        <template id="assets_fontend" inherit_id="website.assets_frontend" name="Website GDPR Assets Frontend">
+            <xpath expr="." position="inside">
+                <link href="/website_gdpr/static/src/css/main.css" rel="stylesheet"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

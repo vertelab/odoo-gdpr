@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        
-        <menuitem id="menu_gdpr" name="GDPR" parent="knowledge.menu_document" sequence="45"/>
-        
+
         <!-- GDPR Inventory -->
-        
+
         <record id="view_gdpr_inventory_form" model="ir.ui.view">
             <field name="name">gdpr.inventory.form</field>
-            <field name="model">gdpr.inventory</field>
             <field name="model">gdpr.inventory</field>
             <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_form"/>
             <field name="arch" type="xml">
@@ -16,35 +13,34 @@
                     <field name="website_published" class="pull-right" widget="website_button"/>
                 </field>
                 <notebook position="inside">
-                            <page string="Website Description">
-                                <field name="website_desc" nolabel="1"/>
-                            </page>
-                
+                    <page string="Website Description">
+                        <field name="website_desc" nolabel="1"/>
+                    </page>
                 </notebook>
             </field>
         </record>
-        
-        <record id="view_gdpr_inventory" model="ir.ui.view">
+
+        <record id="view_gdpr_inventory_tree" model="ir.ui.view">
             <field name="name">gdpr.inventory.tree</field>
             <field name="model">gdpr.inventory</field>
-            <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory"/>
+            <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_tree"/>
             <field name="arch" type="xml">
-                    <field name="website_desc"/>
+                <tree position="inside">
                     <field name="website_published"/>
                 </tree>
             </field>
         </record>
-        
+
         <record id="view_gdpr_inventory_filter" model="ir.ui.view">
             <field name="name">gdpr.inventory.filter</field>
             <field name="model">gdpr.inventory</field>
             <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_filter"/>
             <field name="arch" type="xml">
-                    <field name="user_id" position="after">
-                        <field name="website_publish"/>
-                    </field>
+                <field name="lawsection_id" position="after">
+                    <field name="website_published"/>
+                </field>
             </field>
         </record>
-        
+
     </data>
 </openerp>
