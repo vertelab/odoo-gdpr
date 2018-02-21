@@ -289,10 +289,6 @@ class gdpr_consent(models.Model):
     state = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn')], string="State", track_visibility='onchange') # transaction log
 
     @api.one
-    def add(self, gdpr):
-        pass
-
-    @api.one
     def remove(self, msg):
         self.state = 'withdrawn'
         self.env['mail.message'].create({
@@ -542,6 +538,6 @@ class ir_attachment(models.Model):
 
     @api.one
     def _consent_ids(self):
-        self.consent_ids = self.env['gdpr.consent'].search([('gdpr_id.record_id', '=', '%s,%s' % (self._name, self.id))])
+        self.consent_ids = self.env['gdpr.consent'].search([('gdpr_object_id.object_id', '=', '%s,%s' % (self._name, self.id),)])
     consent_ids = fields.One2many(comodel_name='gdpr.consent', compute='_consent_ids')
 
