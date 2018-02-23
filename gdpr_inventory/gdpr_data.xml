@@ -114,15 +114,23 @@ objects.unlink()</field>
   <data noupdate="1">
     <record id="inventory_state_draft" model="gdpr.inventory.state">
         <field name="name">Draft</field>
+        <field name="technical_name">draft</field>
+        <field name="sequence">10</field>
     </record>
     <record id="inventory_state_active" model="gdpr.inventory.state">
         <field name="name">Active</field>
+        <field name="technical_name">active</field>
+        <field name="sequence">20</field>
     </record>
     <record id="inventory_state_2bceased" model="gdpr.inventory.state">
         <field name="name">To be ceased</field>
+        <field name="technical_name">to_be_ceased</field>
+        <field name="sequence">30</field>
     </record>
     <record id="inventory_state_ceased" model="gdpr.inventory.state">
         <field name="name">Ceased</field>
+        <field name="technical_name">ceased</field>
+        <field name="sequence">40</field>
     </record>
 
     <record id="action_create_gdrp_object" model="ir.actions.server">
@@ -138,6 +146,34 @@ objects.unlink()</field>
         <field name="model">gdpr.inventory</field>
         <field name="key2">client_action_multi</field>
         <field name="value" eval="'ir.actions.server,%s' %ref('gdpr_inventory.action_create_gdrp_object')"/>
+    </record>
+
+    <record id="gdpr_system_odoo" model="gdpr.system">
+        <field name="name">Odoo</field>
+    </record>
+
+    <record id="gdpr_data_subject_customer" model="gdpr.subject">
+        <field name="name">Customers</field>
+    </record>
+
+    <record id="gdpr_data_subject_employee" model="gdpr.subject">
+        <field name="name">Employees</field>
+    </record>
+
+    <record id="gdpr_data_type_name" model="gdpr.data_type">
+        <field name="name">Name</field>
+    </record>
+
+    <record id="gdpr_data_type_address" model="gdpr.data_type">
+        <field name="name">Address</field>
+    </record>
+
+    <record id="gdpr_data_type_email" model="gdpr.data_type">
+        <field name="name">Email Address</field>
+    </record>
+
+    <record id="gdpr_data_type_bank" model="gdpr.data_type">
+        <field name="name">Bank Details</field>
     </record>
 
   </data>

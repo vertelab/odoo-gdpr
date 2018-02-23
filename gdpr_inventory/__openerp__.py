@@ -25,9 +25,13 @@
     'category': 'Other',
     'summary': 'Inventory for GDPR',
     'description': """
+Basic tool to make your data handling GDPR compliant.
 
-* GDPR Inventory
+Create inventories of all the private data you handle.
 
+Manage consents of data storage and handling.
+
+Set up rules to govern purpose and life span of inventoried data. Once data is no longer allowed to be stored, it can be automatically overwritten, deleted, hidden or flagged for manual processing.
 """,
     'images': ['static/description/event_participant.jpg'],
     'author': 'Vertel AB',

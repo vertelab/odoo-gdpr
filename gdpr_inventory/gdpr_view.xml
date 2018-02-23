@@ -17,6 +17,8 @@
                             <field name="name"/>
                             <field name="partner_id"/>
                             <field name="gdpr_id"/>
+                            <field name="restricted"/>
+                            <field name="manual"/>
                         </group>
                     </sheet>
                 </form>
@@ -46,6 +48,10 @@
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="gdpr_id"/>
+                    <filter name="restricted" string="Restricted" domain="[('restricted', '=', True)]"/>
+                    <filter name="unrestricted" string="Unrestricted" domain="[('restricted', '=', False)]"/>
+                    <separator/>
+                    <filter name="manual" string="Manual Action Required" domain="[('manual', '=', True)]"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
@@ -207,6 +213,7 @@
                         <button type="object" name="update_object_ids" string="Update Objects"/>
                         <button type="object" name="restrict_objects" string="Restrict Objects"/>
                         <field name="state_id" widget="statusbar" clickable="True"/>
+                        <field name="state" invisible="1"/>
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
@@ -218,6 +225,9 @@
                                 <field string="Objects" name="object_count" widget="statinfo"/>
                             </button>
 -->
+                            <button class="oe_inline oe_stat_button" name="action_view_manual_objects" help="foobar gazonk" type="object" icon="fa-files-o" attrs="{'invisible': [('restrict_type', '!=', 'manual')]}">
+                                <field string="Action Req." name="manual_count" widget="statinfo"/>
+                            </button>
                             <button class="oe_inline oe_stat_button" name="action_view_objects" type="object" icon="fa-files-o">
                                 <field string="Objects" name="object_count" widget="statinfo"/>
                             </button>
@@ -229,11 +239,16 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name" placeholder="Describe the item..."/></h1>
                         </div>
-                        <group>
+                        <group col="4">
                             <field name="type_of_personal_data"/>
+                            <field name="role"/>
                             <field name="user_id"/>
                             <field name="security_of_processing_ids" widget="many2many_tags"/>
                             <field name="inventory_model"/>
+                        </group>
+                        <group attrs="{'invisible': [('inventory_model', '=', False)]}">
+                            <field name="inventory_domain_advanced"/>
+                            <field name="inventory_domain_code" attrs="{'invisible': [('inventory_domain_advanced', '=', False)]}"/>
                             <field name="inventory_domain"/>
                         </group>
                         <notebook>
@@ -248,11 +263,22 @@
                                     <field name="consent" invisible="1"/>
                                 </group>
                             </page>
+                            <page string="Data Description">
+                                <group>
+                                    <field name="data_subject_ids" widget="many2many_tags"/>
+                                    <field name="data_type_ids" widget="many2many_tags"/>
+                                    <field name="data_collection_ids" widget="many2many_tags"/>
+                                    <field name="data_storage_ids" widget="many2many_tags"/>
+                                    <field name="data_sharing_ids" widget="many2many_tags"/>
+                                </group>
+                            </page>
                             <page string="Restrictions">
                                 <group>
                                     <field name="restrict_time_days"/>
                                     <field name="restrict_method_id"/>
                                     <field name="restrict_type" invisible="1"/>
+                                    <field name="restrict_domain_advanced"/>
+                                    <field name="restrict_domain_code" attrs="{'invisible': [('restrict_domain_advanced', '=', False)]}"/>
                                     <field name="restrict_domain"/>
                                     <field name="pseudo_values" attrs="{'invisible': [('restrict_type', '!=', 'pseudo')]}"/>
                                     <field name="restrict_code" attrs="{'invisible': [('restrict_type', '!=', 'code')]}"/>
@@ -263,8 +289,8 @@
                             <page string="Consent" attrs="{'invisible': [('consent', '=', False)]}">
                                 <group>
                                     <field name="consent_desc"/>
-                            <field name="consent_add"/>
-                            <field name="consent_remove"/>
+                                    <field name="consent_add"/>
+                                    <field name="consent_remove"/>
                                 </group>
                             </page>
                         </notebook>

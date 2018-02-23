@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']/../div" position="after">
                     <field name="gdpr_id"/>
-                    <field name="gdpr_domain"/>
+                    <field name="gdpr_domain" invisible="1"/>
                 </xpath>
                 <field name="mailing_domain" position="attributes">
                     <attribute name="options">{'model_field': 'mailing_model', 'gdpr_domain_field': 'gdpr_domain'}</attribute>

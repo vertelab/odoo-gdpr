@@ -34,7 +34,8 @@
     'website': 'http://www.vertel.se',
     'depends': [
         'website',
-        'gdpr_inventory'
+        'gdpr_inventory',
+        'website_document_metadata',
     ],
     'data': [
         'gdpr_view.xml',
