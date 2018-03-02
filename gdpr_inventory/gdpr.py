@@ -99,57 +99,19 @@ class gdpr_inventory(models.Model):
         states = self.env['gdpr.inventory.state'].search([], order='sequence')
         return [(state.technical_name, state.name) for state in states]
     
+    name = fields.Char(string="Name", translate=True, required=True)
+    color = fields.Integer(string='Color Index')
+    state_id = fields.Many2one(comodel_name='gdpr.inventory.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
+    state = fields.Selection(selection=_get_state_selection, compute='_compute_state')
+    
     @api.one
     def _compute_state(self):
         self.state = self.state_id.technical_name
-
-    color = fields.Integer(string='Color Index')
-    name = fields.Char(string="Name", translate=True, required=True)
-    state_id = fields.Many2one(comodel_name='gdpr.inventory.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
-    state = fields.Selection(selection=_get_state_selection, compute='_compute_state')
+    
     type_of_personal_data = fields.Selection(selection=[('general', 'General'), ('special', 'Special Category'), ('child', 'Childs consent'), ('criminal', 'Criminal related')], string="Type",
          help="General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences")
-    purpose_limitation = fields.Text(track_visibility='onchange', translate=True, required=True)
-    user_id = fields.Many2one(comodel_name="res.users", string="Responsible", track_visibility='onchange', required=True)
-    lawsection_id = fields.Many2one(comodel_name="gdpr.lawsection", string="Law Section", required=True, track_visibility='onchange')
-    lawsection_description = fields.Html(related='lawsection_id.description', readonly=True, track_visibility='onchange')
-    consent = fields.Boolean(related='lawsection_id.consent', track_visibility='onchange')
-    lawsection_desc = fields.Html(string="Law section Explanation", track_visibility='onchange')
-    data_subject_ids = fields.Many2many(comodel_name='gdpr.subject', string='Data Subjects', default=_default_subject_ids, track_visibility='onchange')
     role = fields.Selection(selection=[('controller', 'Controller'), ('processor', 'Processor')], string='Our Role', default='controller', required=True, track_visibility='onchange')
-    data_type_ids = fields.Many2many(comodel_name='gdpr.data_type', string='Data Types', help="A description of the types of data that are stored in this inventory.", track_visibility='onchange')
-    data_collection_ids = fields.Many2many(comodel_name='gdpr.system', string='Data Collection', relation='gdpr_inventory_gdpr_system_collection_rel', column1='gdpr_id', column2='system_id', help="The system that is used to collect data for this inventory.", default=_default_system_id, track_visibility='onchange')
-    data_storage_ids = fields.Many2many(comodel_name='gdpr.system', string='Data Storage', relation='gdpr_inventory_gdpr_system_storage_rel', column1='gdpr_id', column2='system_id', help="The system that is used to store data for this inventory.", default=_default_system_id, track_visibility='onchange')
-    data_sharing_ids = fields.Many2many(comodel_name='res.partner', relation='gdpr_inventory_res_partner_sharing_rel', column1='gdpr_id', column2='partner_id', string='Data Sharing', help="Any partners that we share this data with.", track_visibility='onchange')
-    consent_desc = fields.Text(string="consent Explanation")
-    consent_add = fields.Text(string="consent Add", help="Code for consent add")
-    consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
-    consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
-    @api.depends('consent_ids')
-    @api.one
-    def _consent_count(self):
-        self.consent_count = len(self.consent_ids)
-    consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
-    restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
-    restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
-    restrict_domain = fields.Text(string='Restrict Domain', help="Domain for identifying records that should be restricted.\n%s\n* restrict_days: Restrict time of this inventory" % common_eval_vars, default='[]')
-    restrict_domain_advanced = fields.Boolean(string='Advanced Domain')
-    restrict_domain_code = fields.Text(string='Restrict Domain Code', help="Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n%s" % common_eval_vars)
-    restrict_code = fields.Text(string='Restriction Code', help="""Python code to run when restricting records.
-%s
-* inventory: This inventory record.
-* objects: The gdpr objects to be restricted (gdpr.object). Actual records to be processed can be accessed through objects.mapped('object_id').""" % common_eval_vars, default = '{}')
-    pseudo_values = fields.Text(string='Pseudonymisation Values', help="Custom values used to anonymize fields. Any fields not specified in this dict will be set to False.", default = '{}')
-    restrict_type = fields.Selection(string='Restriction Type', related='restrict_method_id.type')
-    manual_count = fields.Integer(string='Manual Count', compute='_manual_count', default=0)
-    @api.one
-    def _manual_count(self):
-        self.manual_count = self.env['gdpr.object'].search_count([('manual', '=', True), ('restricted', '=', False), ('gdpr_id', '=', self.id)])
-    inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
-    inventory_domain = fields.Text(string="Inventory Domain", help="Domain for identification of personal data of this type\n%s" % common_eval_vars, default='[]')
-    inventory_domain_advanced = fields.Boolean(string='Advanced Domain')
-    inventory_domain_code = fields.Text(string='Restrict Domain Code', help="Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n%s\n* restrict_days: Restrict time of this inventory" % common_eval_vars)
-    fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", relation='gdpr_inventory_ir_model_rel_fields_ids', help="Fields with (potential) personal data")
+    user_id = fields.Many2one(comodel_name="res.users", string="Responsible", track_visibility='onchange', required=True)
     partner_fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Partner Fields", relation='gdpr_inventory_ir_model_rel_partner_fields_ids', help="Fields with personal link")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
     @api.depends('object_ids.partner_id')
@@ -167,7 +129,60 @@ class gdpr_inventory(models.Model):
         self.object_count = len(self.object_ids)
     object_count = fields.Integer(string='Object Count', compute='_object_count', store=True)
     security_of_processing_ids = fields.Many2many(comodel_name="gdpr.security", string="Security", help="Security of processing", track_visibility='onchange')
-
+    
+    # Identification
+    identification_desc = fields.Text(string='Identification Description', track_visibility='onchange', translate=True, help="A description of how the data items covered by this inventory can be identified.")
+    data_local = fields.Boolean(string='Data Is Local', help="The data is stored in this Odoo database and should be automatically inventoried.")
+    inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
+    inventory_domain = fields.Text(string="Inventory Domain", help="Domain for identification of personal data of this type\n%s" % common_eval_vars, default='[]')
+    inventory_domain_advanced = fields.Boolean(string='Advanced Domain')
+    inventory_domain_code = fields.Text(string='Restrict Domain Code', help="Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n%s\n* restrict_days: Restrict time of this inventory" % common_eval_vars)
+    
+    # Purpose
+    purpose_limitation = fields.Text(track_visibility='onchange', translate=True, required=True)
+    lawsection_desc = fields.Html(string="Law section Explanation", track_visibility='onchange')
+    lawsection_id = fields.Many2one(comodel_name="gdpr.lawsection", string="Law Section", required=True, track_visibility='onchange')
+    lawsection_description = fields.Html(related='lawsection_id.description', readonly=True, track_visibility='onchange')
+    consent = fields.Boolean(related='lawsection_id.consent', track_visibility='onchange')
+    
+    # Data description
+    data_subject_ids = fields.Many2many(comodel_name='gdpr.subject', string='Data Subjects', default=_default_subject_ids, track_visibility='onchange')
+    data_type_ids = fields.Many2many(comodel_name='gdpr.data_type', string='Data Types', help="A description of the types of data that are stored in this inventory.", track_visibility='onchange')
+    data_collection_ids = fields.Many2many(comodel_name='gdpr.system', string='Data Collection', relation='gdpr_inventory_gdpr_system_collection_rel', column1='gdpr_id', column2='system_id', help="The system that is used to collect data for this inventory.", default=_default_system_id, track_visibility='onchange')
+    data_storage_ids = fields.Many2many(comodel_name='gdpr.system', string='Data Storage', relation='gdpr_inventory_gdpr_system_storage_rel', column1='gdpr_id', column2='system_id', help="The system that is used to store data for this inventory.", default=_default_system_id, track_visibility='onchange')
+    data_sharing_ids = fields.Many2many(comodel_name='res.partner', relation='gdpr_inventory_res_partner_sharing_rel', column1='gdpr_id', column2='partner_id', string='Data Sharing', help="Any partners that we share this data with.", track_visibility='onchange')
+    
+    # Consent
+    consent_desc = fields.Text(string="consent Explanation")
+    consent_add = fields.Text(string="consent Add", help="Code for consent add")
+    consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
+    consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
+    consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
+    
+    @api.depends('consent_ids')
+    @api.one
+    def _consent_count(self):
+        self.consent_count = len(self.consent_ids)
+    
+    # Restrictions
+    restrict_desc = fields.Text(string='Restriction Description', track_visibility='onchange', translate=True, help="A description of how the data items covered by this inventory can be identified.")
+    restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
+    restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
+    restrict_domain = fields.Text(string='Restrict Domain', help="Domain for identifying records that should be restricted.\n%s\n* restrict_days: Restrict time of this inventory" % common_eval_vars, default='[]')
+    restrict_domain_advanced = fields.Boolean(string='Advanced Domain')
+    restrict_domain_code = fields.Text(string='Restrict Domain Code', help="Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n%s" % common_eval_vars)
+    restrict_code = fields.Text(string='Restriction Code', help="""Python code to run when restricting records.
+%s
+* inventory: This inventory record.
+* objects: The gdpr objects to be restricted (gdpr.object). Actual records to be processed can be accessed through objects.mapped('object_id').""" % common_eval_vars, default = '{}')
+    pseudo_values = fields.Text(string='Pseudonymisation Values', help="Custom values used to anonymize fields. Any fields not specified in this dict will be set to False.", default = '{}')
+    restrict_type = fields.Selection(string='Restriction Type', related='restrict_method_id.type')
+    manual_count = fields.Integer(string='Manual Count', compute='_manual_count', default=0)
+    @api.one
+    def _manual_count(self):
+        self.manual_count = self.env['gdpr.object'].search_count([('manual', '=', True), ('restricted', '=', False), ('gdpr_id', '=', self.id)])
+    fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", relation='gdpr_inventory_ir_model_rel_fields_ids', help="Fields with (potential) personal data")
+    
     @api.onchange('restrict_method_id')
     def onchange_restrict_method_id(self):
         if self.restrict_method_id:
@@ -233,8 +248,7 @@ class gdpr_inventory(models.Model):
     @api.model
     def cron_restrictions(self):
         for gdpr in self.env['gdpr.inventory'].search([('state', '=', 'active')]):
-            gdpr.resrict_method_id.cron()
-            gdpr.log(_('Cron method %s' % gdpr.resrict_method_id.name))
+            gdpr.resrict_objects()
 
     @api.one
     def update_partner_ids(self):
@@ -248,6 +262,8 @@ class gdpr_inventory(models.Model):
 
     @api.one
     def update_object_ids(self):
+        if not self.data_local:
+            return
         # Remove non-existing objects
         model = self.env[self.inventory_model.model]
         if model.fields_get('active'):
@@ -287,7 +303,7 @@ class gdpr_inventory(models.Model):
         """
         Check if any records meet the restrict critera and perform restriction according to the chosen restrict method.
         """
-        if self.restrict_method_id:
+        if self.data_local and self.restrict_method_id:
             model = self.inventory_model.model
             global_vars = self.env['gdpr.restrict_method'].get_eval_context(restrict_days=self.restrict_time_days)
             if self.restrict_domain_advanced:

@@ -244,12 +244,6 @@
                             <field name="role"/>
                             <field name="user_id"/>
                             <field name="security_of_processing_ids" widget="many2many_tags"/>
-                            <field name="inventory_model"/>
-                        </group>
-                        <group attrs="{'invisible': [('inventory_model', '=', False)]}">
-                            <field name="inventory_domain_advanced"/>
-                            <field name="inventory_domain_code" attrs="{'invisible': [('inventory_domain_advanced', '=', False)]}"/>
-                            <field name="inventory_domain"/>
                         </group>
                         <notebook>
                             <page string="Purpose">
@@ -272,11 +266,30 @@
                                     <field name="data_sharing_ids" widget="many2many_tags"/>
                                 </group>
                             </page>
+                            
+                            
+                            <page string="Identification">
+                                <label for="identification_desc"/>
+                                <field name="identification_desc"/>
+                                <group>
+                                    <field name="data_local"/>
+                                </group>
+                                <group attrs="{'invisible': [('data_local', '=', False)]}">
+                                    <field name="inventory_model"/>
+                                    <field name="inventory_domain_advanced"/>
+                                    <field name="inventory_domain_code" attrs="{'invisible': [('inventory_domain_advanced', '=', False)]}"/>
+                                    <field name="inventory_domain"/>
+                                </group>
+                            </page>
+                            
+                            
                             <page string="Restrictions">
                                 <group>
                                     <field name="restrict_time_days"/>
                                     <field name="restrict_method_id"/>
                                     <field name="restrict_type" invisible="1"/>
+                                </group>
+                                <group attrs="{'invisible': [('data_local', '=', False)]}">
                                     <field name="restrict_domain_advanced"/>
                                     <field name="restrict_domain_code" attrs="{'invisible': [('restrict_domain_advanced', '=', False)]}"/>
                                     <field name="restrict_domain"/>
@@ -383,7 +396,7 @@
                                         </a>
                                     </div>
                                     <div>
-                                        <img t-att-src="kanban_image('res.users', 'image', record.user_id)" t-att-data-member_id="record.user_id"/>
+                                        <img t-att-src="kanban_image('res.users', 'image', record.user_id.raw_value)" width="48" height="48" t-att-data-member_id="record.user_id"/>
                                     </div>
                                 </div>
                             </div>
