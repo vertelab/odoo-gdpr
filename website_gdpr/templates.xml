@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <template id="gdrp_inventories" name="GDPR Inventories">
             <section class="mt16 mb16">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-12 text-center mt16 mb32">
-                  <h2>GDPR Inventories</h2>
-                  <h3 class="text-muted">This is a compilation of our personal data processing</h3>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center mt16 mb32">
+                            <h2>GDPR Inventories</h2>
+                            <h3 class="text-muted">This is a compilation of our personal data processing</h3>
+                        </div>
+                        <div class="col-md-12 mb16 mt16">
+                            <p>Here you can read about all types of personal data processing we do when we deliver our service to public. We try minimize what data we collect and store and removes it when it is no longer necessary to store</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-12 mb16 mt16">
-                  <p>Here you can read about all types of personal data processing we do when we deliver our service to public. We try minimize what data we collect and store and removes it when it is no longer necessary to store</p>
-                </div>
-              </div>
-            </div>
-          </section>
-            
-            
+            </section>
             <div class="container">
                 <div class="row">
                     <div id="gdpr_inventories" class="col-md-12">
-                    
-                         <div class="oe_structure oe_empty"/>
+                        <div class="oe_structure" />
                         <t t-foreach="inventories" t-as="inventory">
                             <div class="gdpr_inventory col-md-4">
-                               
-                               
-                                    <h3 class="gdpr_inventory_title text-center" t-field="inventory.name"/>
-                                
-                                <div class="gdpr_inventory_content" t-field="inventory.website_desc"/>
+                                <div>
+                                    <h3 class="gdpr_inventory_title text-center" t-field="inventory.name" />
+                                    <div class="gdpr_inventory_content" t-field="inventory.website_desc" />
+                                </div>
                             </div>
                         </t>
                     </div>
                 </div>
             </div>
         </template>
-
         <template id="gdpr_inventory_page" name="GDPR Inventory Page">
             <t t-call="website.layout">
                 <div id="wrap">
-                    <div class="oe_structure oe_empty"/>
-                    <t t-call="website_gdpr.gdrp_inventories"/>
-                    <div class="oe_structure oe_empty"/>
+                    <div class="oe_structure" />
+                    <t t-call="website_gdpr.gdrp_inventories" />
+                    <div class="oe_structure" />
                 </div>
             </t>
         </template>
-
         <template id="gdpr_main_page" name="GDPR Main Page">
             <t t-call="website.layout">
                 <div id="wrap">
                     <div class="container">
                         <div class="row">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#inventory">Inventory</a></li>
-                                <li><a data-toggle="tab" href="#consent">Consent</a></li>
+                                <li class="active">
+                                    <a data-toggle="tab" href="#inventory">Inventory</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#consent">Consent</a>
+                                </li>
                             </ul>
                             <div class="tab-content">
                                 <div id="inventory" class="tab-pane fade in active">
@@ -62,40 +59,37 @@
                                         <t t-foreach="inventories" t-as="inventory">
                                             <div class="col-md-10">
                                                 <h3 class="gdpr_inventory_title text-center">
-                                                    <t t-esc="inventory['name']"/>
+                                                    <t t-esc="inventory['name']" />
                                                 </h3>
-                                                <div class="gdpr_inventory_content" t-raw="inventory['website_desc']"/>
+                                                <div class="gdpr_inventory_content" t-raw="inventory['website_desc']" />
                                             </div>
                                             <div class="col-md-2 mt32">
                                                 <label class="switch">
-                                                    <input class="inventory_state_change" t-att-data-inventory="inventory['id']" type="checkbox" t-att="{'checked': 'checked'} if inventory['state_id'][0] == request.env.ref('gdpr_inventory.inventory_state_active').id else {}"/>
-                                                    <span class="slider round"></span>
+                                                    <input class="inventory_state_change" t-att-data-inventory="inventory['id']" type="checkbox" t-att="{'checked': 'checked'} if inventory['state_id'][0] == request.env.ref('gdpr_inventory.inventory_state_active').id else {}" />
+                                                    <span class="slider round" />
                                                 </label>
                                             </div>
                                         </t>
                                     </div>
                                 </div>
-                                <div id="consent" class="tab-pane fade">
-                                    <!-- TODO: Consents -->
-                                </div>
+                                <div id="consent" class="tab-pane fade"><!-- TODO: Consents --></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </t>
         </template>
-
         <template id="footer_default" inherit_id="website.footer_default" name="GDPR menu in footer">
             <xpath expr="//ul[@id='products']" position="inside">
-                <li><a href="/gdpr/inventories">GDPR</a></li>
+                <li>
+                    <a href="/gdpr/inventories">GDPR</a>
+                </li>
             </xpath>
         </template>
-
         <template id="assets_fontend" inherit_id="website.assets_frontend" name="Website GDPR Assets Frontend">
             <xpath expr="." position="inside">
-                <link href="/website_gdpr/static/src/css/main.css" rel="stylesheet"/>
+                <link href="/website_gdpr/static/src/css/main.css" rel="stylesheet" />
             </xpath>
         </template>
-
     </data>
 </openerp>

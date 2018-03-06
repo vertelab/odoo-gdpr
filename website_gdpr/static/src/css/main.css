@@ -62,9 +62,9 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-#gdpr_inventories .gdpr_inventory {
-    margin: 20px 10px;
+#gdpr_inventories .gdpr_inventory div {
+    margin: 20px 0px;
     background-color: #ddd;
-    max-height: 300px;
+    height: 300px;
     overflow: hidden;
 }
