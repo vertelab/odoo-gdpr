@@ -47,13 +47,10 @@ class GDPRController(http.Controller):
             ['name', 'website_desc', 'state_id'])
         return request.website.render('website_gdpr.gdpr_main_page', {'inventories': inventories, 'partner': partner.name})
 
-    @http.route(['/gdpr/inventories/<model("res.partner"):partner>'], type='http', auth="public", website=True)
+    @http.route(['/gdpr/inventories'], type='http', auth="public", website=True)
     def gdpr_inventories(self, partner=None, **post):
-        inventories = request.env['gdpr.inventory'].search_read(
-            [
-                ('partner_ids', 'in', partner.id),
+        return request.website.render('website_gdpr.gdpr_inventory_page', {
+            'inventories': request.env['gdpr.inventory'].sudo().search([
                 ('state_id', '=', request.env.ref('gdpr_inventory.inventory_state_active').id),
-                ('website_published', '=', True)
-            ],
-            ['name', 'website_desc'])
-        return request.website.render('website_gdpr.gdpr_inventory_page', {'inventories': inventories, 'partner': partner.name})
+                ('website_published', '=', True)])
+            })

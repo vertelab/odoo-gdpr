@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record id="gdpr_inventory.inventory_contract" model="gdpr.inventory">
+      <field name="website_desc" type="html">
+        <section class="mt16 mb16">
+          <div class="container">
+            <div class="row">
+              <b />
+              We store data of our customers that we have ongoing contracts with. It is important for us not to store more information and not longer that is nececery for delever our service to you.
+              <br />
+              Use our GDPR portal if you want to see what personal data we have on you.
+              <br />
+            </div>
+          </div>
+        </section>
+      </field>
+      <field name="website_published" eval="True" />
+    </record>
+    <record id="gdpr_inventory.inventory_image" model="gdpr.inventory">
+      <field name="website_desc" type="html">
+        <section class="mt16 mb16">
+          <div class="container">
+            <div class="row">
+              <b />
+              We use pictures taken at events with employees and customers that is or could be published for marketing purpuses in social media and at out website.
+              <br />
+              <br />
+              Every picture that we have, published or not, have a concent from each person that is visible and recognizeable.
+              <br />
+              <br />
+              Use our GDPR portal if you want to redraw any given concent och just see what personal data we have on you.
+              <br />
+            </div>
+          </div>
+        </section>
+      </field>
+      <field name="website_published" eval="True" />
+    </record>
+  </data>
+</openerp>

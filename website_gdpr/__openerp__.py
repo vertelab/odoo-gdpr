@@ -41,6 +41,7 @@
         'gdpr_view.xml',
         'templates.xml',
     ],
+    'demo': ['gdpr_demo.xml'],
     'application': False,
     'installable': True,
 }
