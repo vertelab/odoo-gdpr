@@ -17,7 +17,7 @@
             </section>
             <div class="container">
                 <div class="row">
-                    <div id="gdpr_inventories" class="col-md-12">
+                    <div id="gdpr_inventories" class="col-md-12 mt16 mb16">
                         <div class="oe_structure" />
                         <t t-foreach="inventories" t-as="inventory">
                             <div class="gdpr_inventory col-md-4">
