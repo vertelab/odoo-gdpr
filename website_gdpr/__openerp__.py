@@ -29,7 +29,8 @@
 * GDPR Website
 
 """,
-    'images': ['static/description/event_participant.jpg'],
+    'images': ['static/description/gdpr.png'],
+    'license': 'AGPL-3',
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': [
