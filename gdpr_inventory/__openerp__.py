@@ -34,6 +34,7 @@ Manage consents of data storage and handling.
 Set up rules to govern purpose and life span of inventoried data. Once data is no longer allowed to be stored, it can be automatically overwritten, deleted, hidden or flagged for manual processing.
 """,
     'images': ['static/description/event_participant.jpg'],
+    'license': 'AGPL-3',
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': ['attachment_notebook', 'mail', 'knowledge', 'document'],
