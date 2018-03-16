@@ -22,7 +22,7 @@
 {
     'name': 'Website GDPR',
     'version': '0.1',
-    'category': 'Other',
+    'category': 'website',
     'summary': 'Portal and GDRP-information',
     'description': """
 
