@@ -408,10 +408,10 @@ class gdpr_consent(models.Model):
             'type': 'notification',})
 
     @api.model
-    def add(self, gdpr_id, object, email=None):
-        partner = self.env['res.partner'].search([('email', '=', email)], limit=1)
+    def add(self, gdpr_id, object, email=None, partner=None, name=None):
+        partner = partner or self.env['res.partner'].search([('email', '=', email)], limit=1)
         if email and not partner:
-            partner = self.env['res.partner'].sudo().create({'name': email, 'email': email})
+            partner = self.env['res.partner'].sudo().create({'name': name or email, 'email': email})
         consent = self.get_consent(gdpr_id, partner, object)
         if not consent:
             consent = self.env['gdpr.consent'].sudo().create({'name': _('Consent %s') %partner.name, 'gdpr_id': gdpr_id.id, 'partner_id': partner.id, 'record_id': '%s,%s' %(object._name, object.id)})
