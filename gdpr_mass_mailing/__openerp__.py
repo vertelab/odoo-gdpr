@@ -34,6 +34,7 @@
     'website': 'http://www.vertel.se',
     'depends': ['gdpr_inventory', 'mass_mailing'],
     'data': [ 'gdpr_view.xml',
+              'template.xml',
     ],
     'application': False,
     'installable': True,
