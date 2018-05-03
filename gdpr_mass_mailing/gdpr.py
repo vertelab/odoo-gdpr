@@ -30,16 +30,16 @@ _logger = logging.getLogger(__name__)
 # https://www.privacy-regulation.eu
 class MailMassMailingList(models.Model):
     _inherit = 'mail.mass_mailing.list'
-    
+
     #consent_ids = fields.One2many(string='Recipients', comodel_name='gdpr.consent')
     gdpr_id = fields.Many2one(string='GDPR Inventory', comodel_name='gdpr.inventory')
 
 class MailMassMailing(models.Model):
     _inherit = 'mail.mass_mailing'
-    
+
     gdpr_id = fields.Many2one(string='GDPR Inventory', comodel_name='gdpr.inventory')
     gdpr_domain = fields.Text(string='GDPR Object IDs', compute='get_gdpr_domain')
-    
+
     @api.onchange('gdpr_id')
     def get_gdpr_domain(self):
         domain = []
@@ -55,6 +55,18 @@ class MailMassMailing(models.Model):
 
 class MassMailController(MassMailController):
 
+    @http.route(['/mail/mailing/<int:mailing_list>/subscribe'], type='http', auth='none')
+    def mailing_subscribe(self, mailing_list, email=None, res_id=None, **post):
+        mailing = request.env['mail.mass_mailing.list'].sudo().browse(mailing_list)
+        parsed_email = request.env['mail.mass_mailing.contact'].get_name_email(email)[1]
+        contact = request.env['mail.mass_mailing.contact'].search([('list_id', '=', mailing.id), ('email', '=', parsed_email)], limit=1)
+        if contact:
+            contact.opt_out = False
+        else:
+            request.env['mail.mass_mailing.contact'].sudo().add_to_list(parsed_email, mailing.id)
+        consent = request.env['gdpr.consent'].sudo().add(mailing.gdpr_id, mailing, email=parsed_email)
+        return request.website.render('gdpr_mass_mailing.subscribe_thanks', {'mailing': mailing, 'email': parsed_email, 'consent': consent})
+
     @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='none')
     def mailing(self, mailing_id, email=None, res_id=None, **post):
         res = super(MassMailController, self).mailing(mailing_id, email, res_id, **post)
@@ -63,7 +75,7 @@ class MassMailController(MassMailController):
             if mailing.mailing_model == 'mail.mass_mailing.contact':
                 list_ids = [l.id for l in mailing.contact_list_ids]
                 records = request.env[mailing.mailing_model].sudo().search([('list_id', 'in', list_ids), ('id', '=', res_id), ('email', 'ilike', email)])
-                consent = request.env['gdpr.consent'].sudo().search([('gdpr_object_id.record_id', '=', '%s,%s' % (mailing.mailing_model, records.id))])
+                consent = request.env['gdpr.consent'].sudo().search([('gdpr_object_id.object_id', '=', '%s,%s' % (mailing.mailing_model, records.id))])
                 if consent:
                     consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
             elif mailing.gdpr_id and res_id:

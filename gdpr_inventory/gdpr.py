@@ -98,16 +98,16 @@ class gdpr_inventory(models.Model):
     def _get_state_selection(self):
         states = self.env['gdpr.inventory.state'].search([], order='sequence')
         return [(state.technical_name, state.name) for state in states]
-    
+
     name = fields.Char(string="Name", translate=True, required=True)
     color = fields.Integer(string='Color Index')
     state_id = fields.Many2one(comodel_name='gdpr.inventory.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
     state = fields.Selection(selection=_get_state_selection, compute='_compute_state')
-    
+
     @api.one
     def _compute_state(self):
         self.state = self.state_id.technical_name
-    
+
     type_of_personal_data = fields.Selection(selection=[('general', 'General'), ('special', 'Special Category'), ('child', 'Childs consent'), ('criminal', 'Criminal related')], string="Type",
          help="General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences")
     role = fields.Selection(selection=[('controller', 'Controller'), ('processor', 'Processor')], string='Our Role', default='controller', required=True, track_visibility='onchange')
@@ -129,7 +129,7 @@ class gdpr_inventory(models.Model):
         self.object_count = len(self.object_ids)
     object_count = fields.Integer(string='Object Count', compute='_object_count', store=True)
     security_of_processing_ids = fields.Many2many(comodel_name="gdpr.security", string="Security", help="Security of processing", track_visibility='onchange')
-    
+
     # Identification
     identification_desc = fields.Text(string='Identification Description', track_visibility='onchange', translate=True, help="A description of how the data items covered by this inventory can be identified.")
     data_local = fields.Boolean(string='Data Is Local', help="The data is stored in this Odoo database and should be automatically inventoried.")
@@ -137,33 +137,33 @@ class gdpr_inventory(models.Model):
     inventory_domain = fields.Text(string="Inventory Domain", help="Domain for identification of personal data of this type\n%s" % common_eval_vars, default='[]')
     inventory_domain_advanced = fields.Boolean(string='Advanced Domain')
     inventory_domain_code = fields.Text(string='Restrict Domain Code', help="Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n%s\n* restrict_days: Restrict time of this inventory" % common_eval_vars)
-    
+
     # Purpose
     purpose_limitation = fields.Text(track_visibility='onchange', translate=True, required=True)
     lawsection_desc = fields.Html(string="Law section Explanation", track_visibility='onchange')
     lawsection_id = fields.Many2one(comodel_name="gdpr.lawsection", string="Law Section", required=True, track_visibility='onchange')
     lawsection_description = fields.Html(related='lawsection_id.description', readonly=True, track_visibility='onchange')
     consent = fields.Boolean(related='lawsection_id.consent', track_visibility='onchange')
-    
+
     # Data description
     data_subject_ids = fields.Many2many(comodel_name='gdpr.subject', string='Data Subjects', default=_default_subject_ids, track_visibility='onchange')
     data_type_ids = fields.Many2many(comodel_name='gdpr.data_type', string='Data Types', help="A description of the types of data that are stored in this inventory.", track_visibility='onchange')
     data_collection_ids = fields.Many2many(comodel_name='gdpr.system', string='Data Collection', relation='gdpr_inventory_gdpr_system_collection_rel', column1='gdpr_id', column2='system_id', help="The system that is used to collect data for this inventory.", default=_default_system_id, track_visibility='onchange')
     data_storage_ids = fields.Many2many(comodel_name='gdpr.system', string='Data Storage', relation='gdpr_inventory_gdpr_system_storage_rel', column1='gdpr_id', column2='system_id', help="The system that is used to store data for this inventory.", default=_default_system_id, track_visibility='onchange')
     data_sharing_ids = fields.Many2many(comodel_name='res.partner', relation='gdpr_inventory_res_partner_sharing_rel', column1='gdpr_id', column2='partner_id', string='Data Sharing', help="Any partners that we share this data with.", track_visibility='onchange')
-    
+
     # Consent
     consent_desc = fields.Text(string="consent Explanation")
     consent_add = fields.Text(string="consent Add", help="Code for consent add")
     consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
     consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
-    
+
     @api.depends('consent_ids')
     @api.one
     def _consent_count(self):
         self.consent_count = len(self.consent_ids)
-    
+
     # Restrictions
     restrict_desc = fields.Text(string='Restriction Description', track_visibility='onchange', translate=True, help="A description of how the data items covered by this inventory can be identified.")
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
@@ -182,7 +182,7 @@ class gdpr_inventory(models.Model):
     def _manual_count(self):
         self.manual_count = self.env['gdpr.object'].search_count([('manual', '=', True), ('restricted', '=', False), ('gdpr_id', '=', self.id)])
     fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Fields", relation='gdpr_inventory_ir_model_rel_fields_ids', help="Fields with (potential) personal data")
-    
+
     @api.onchange('restrict_method_id')
     def onchange_restrict_method_id(self):
         if self.restrict_method_id:
@@ -244,7 +244,7 @@ class gdpr_inventory(models.Model):
             'domain': [('gdpr_id', '=', self.id)],
             'context': {'search_default_manual': 1, 'search_default_unrestricted': 1},
         }
-        
+
     @api.model
     def cron_restrictions(self):
         for gdpr in self.env['gdpr.inventory'].search([('state', '=', 'active')]):
@@ -386,11 +386,11 @@ class gdpr_consent(models.Model):
     gdpr_id = fields.Many2one(comodel_name='gdpr.inventory', help="Description of consent")
     date = fields.Date(string="Date", help="Date when consent first given")
     state = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn')], string="State", track_visibility='onchange') # transaction log
-    
+
     #~ object_id = fields.Reference(string='Object', selection='_reference_models', compute='_get_object_id', inverse='_set_object_id', search='_search_object_id')
     #~ object_model = fields.Char(string='Object Model')
     #~ object_res_id = fields.Integer(string='Object ID')
-    
+
 
     #~ @api.one
     #~ def _get_object_id(self):
@@ -406,6 +406,20 @@ class gdpr_consent(models.Model):
             'res_id': self.id,
             'model': self._name,
             'type': 'notification',})
+
+    @api.model
+    def add(self, gdpr_id, object, email=None):
+        partner = self.env['res.partner'].search([('email', '=', email)], limit=1)
+        if email and not partner:
+            partner = self.env['res.partner'].sudo().create({'name': email, 'email': email})
+        consent = self.get_consent(gdpr_id, partner, object)
+        if not consent:
+            consent = self.env['gdpr.consent'].sudo().create({'name': _('Consent %s') %partner.name, 'gdpr_id': gdpr_id.id, 'partner_id': partner.id, 'record_id': '%s,%s' %(object._name, object.id)})
+        return consent
+
+    @api.model
+    def get_consent(self, gdpr_id, partner_id, object_id):
+        return self.env['gdpr.consent'].sudo().search([('gdpr_id', '=', gdpr_id.id), ('partner_id', '=', partner_id.id), ('gdpr_object_id.object_id', '=', '%s,%s' % (object_id._name, object_id.id))], limit=1)
 
 class gdpr_security(models.Model):
     """
