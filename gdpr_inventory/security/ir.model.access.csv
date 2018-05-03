@@ -20,3 +20,15 @@ access_gdpr_security_manager,gdpr.security.manager,model_gdpr_security,base.grou
 access_gdpr_restrict_method_user,gdpr.restrict_method.user,model_gdpr_restrict_method,base.group_gdpr_user,1,0,0,0
 access_gdpr_restrict_method_officer,gdpr.restrict_method.officer,model_gdpr_restrict_method,base.group_gdpr_officer,1,1,1,1
 access_gdpr_restrict_method_manager,gdpr.restrict_method.manager,model_gdpr_restrict_method,base.group_gdpr_manager,1,1,1,1
+gdpr_data_type_user,gdpr.data_type.user,model_gdpr_data_type,base.group_gdpr_user,1,0,0,0
+gdpr_data_type_officer,gdpr.data_type.officer,model_gdpr_data_type,base.group_gdpr_officer,1,1,1,1
+gdpr_data_type_manager,gdpr.data_type.manager,model_gdpr_data_type,base.group_gdpr_manager,1,1,1,1
+gdpr_role_user,gdpr.role.user,model_gdpr_role,base.group_gdpr_user,1,0,0,0
+gdpr_role_officer,gdpr.role.officer,model_gdpr_role,base.group_gdpr_officer,1,1,1,1
+gdpr_role_manager,gdpr.role.manager,model_gdpr_role,base.group_gdpr_manager,1,1,1,1
+gdpr_subject_user,gdpr.subject.user,model_gdpr_subject,base.group_gdpr_user,1,0,0,0
+gdpr_subject_officer,gdpr.subject.officer,model_gdpr_subject,base.group_gdpr_officer,1,1,1,1
+gdpr_subject_manager,gdpr.subject.manager,model_gdpr_subject,base.group_gdpr_manager,1,1,1,1
+gdpr_system_user,gdpr.system.user,model_gdpr_system,base.group_gdpr_user,1,0,0,0
+gdpr_system_officer,gdpr.system.officer,model_gdpr_system,base.group_gdpr_officer,1,1,1,1
+gdpr_system_manager,gdpr.system.manager,model_gdpr_system,base.group_gdpr_manager,1,1,1,1
