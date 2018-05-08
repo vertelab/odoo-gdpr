@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-        
-        <record id="view_gdpr_mail_mass_mailing_form" model="ir.ui.view">
+
+        <record id="view_mail_mass_mailing_form" model="ir.ui.view">
             <field name="name">mail.mass_mailing.gdpr.form</field>
             <field name="model">mail.mass_mailing</field>
             <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
@@ -10,14 +10,16 @@
                 <xpath expr="//field[@name='name']/../div" position="after">
                     <field name="gdpr_id"/>
                     <field name="gdpr_domain" invisible="1"/>
+                    <field name="gdpr_consent" attrs="{'invisible': [('gdpr_id.lawsection_id.consent', '=', False)]}"/>
+                    <field name="recipients"/>
                 </xpath>
                 <field name="mailing_domain" position="attributes">
                     <attribute name="options">{'model_field': 'mailing_model', 'gdpr_domain_field': 'gdpr_domain'}</attribute>
                 </field>
             </field>
         </record>
-        
-        <record id="view_gdpr_mail_mass_mailing_list_form" model="ir.ui.view">
+
+        <record id="view_mail_mass_mailing_list_form" model="ir.ui.view">
             <field name="name">mail.mass_mailing.list.gdpr.form</field>
             <field name="model">mail.mass_mailing.list</field>
             <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form"/>
@@ -29,13 +31,13 @@
                 </xpath>
             </field>
         </record>
-        
+
         <template id="assets_backend" inherit_id="web.assets_backend">
             <xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
                 <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/mass_mailing.js"></script>
             </xpath>
         </template>
-        
+
 <!--
         <record id="view_gdpr_inventory_filter" model="ir.ui.view">
             <field name="name">gdpr.inventory.filter</field>
@@ -48,6 +50,130 @@
             </field>
         </record>
 -->
-        
+
+        <!-- GDPR MASS MAILING CONTACT -->
+        <record model="ir.ui.view" id="view_gpdr_mail_mass_mailing_contact_search">
+            <field name="name">gdpr.mail.mass_mailing.contact.search</field>
+            <field name="model">gdpr.mail.mass_mailing.contact</field>
+            <field name="arch" type="xml">
+               <search string="GDPR Mailing Lists Subscribers">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="list_id"/>
+                    <separator/>
+                    <filter string="Exclude Opt Out" name="not_opt_out" domain="[('opt_out', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Creation Date" name="group_create_date" context="{'group_by': 'create_date'}"/>
+                        <filter string="Mailing Lists" name="group_list_id" context="{'group_by': 'list_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_contact_tree">
+            <field name="name">gdpr.mail.mass_mailing.contact.tree</field>
+            <field name="model">gdpr.mail.mass_mailing.contact</field>
+            <field name="type">tree</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="GDPR Mailing Lists Subscribers" editable="top">
+                    <field name="email"/>
+                    <field name="name"/>
+                    <field name="list_id"/>
+                    <field name="opt_out"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_gdpr_mass_mailing_contacts">
+            <field name="name">GDPR Mailing List Subscribers</field>
+            <field name="res_model">gdpr.mail.mass_mailing.contact</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_not_opt_out': 1}</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_gdpr_mass_mailing_contacts_from_list">
+            <field name="name">Recipients</field>
+            <field name="res_model">gdpr.mail.mass_mailing.contact</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_list_id': active_id, 'search_default_not_opt_out': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a recipient.
+              </p>
+            </field>
+        </record>
+
+        <menuitem name="GDPR Contacts" id="menu_email_gdpr_mass_mailing_contacts" parent="mass_mailing.mass_mailing_list" sequence="70" action="action_view_gdpr_mass_mailing_contacts"/>
+
+        <!-- GDPR MASS MAILING LIST -->
+        <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_search">
+            <field name="name">gdpr.mail.mass_mailing.list.search</field>
+            <field name="model">gdpr.mail.mass_mailing.list</field>
+            <field name="arch" type="xml">
+               <search string="GDPR Mailing Lists">
+                   <field name="name"/>
+               </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_tree">
+            <field name="name">gdpr.mail.mass_mailing.list.tree</field>
+            <field name="model">gdpr.mail.mass_mailing.list</field>
+            <field name="type">tree</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="GDPR Mailing Lists">
+                    <field name="name"/>
+                    <field name="contact_nbr"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_form">
+            <field name="name">gdpr.mail.mass_mailing.list.form</field>
+            <field name="model">gdpr.mail.mass_mailing.list</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="GDPR Contact List">
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button name="%(gdpr_mass_mailing.action_view_gdpr_mass_mailing_contacts_from_list)d" type="action" icon="fa-user" class="oe_stat_button pull-right">
+                                <field name="contact_nbr" string="Recipients" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="gdpr_ids" widget="many2many_tags"/>
+                            <field name="gdpr_consent"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_view_gdpr_mass_mailing_lists">
+            <field name="name">GDPR Mailing Lists</field>
+            <field name="res_model">gdpr.mail.mass_mailing.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+<p class="oe_view_nocontent_create">
+    Click here to create a new GDPR mailing list.
+</p><p>
+    Mailing lists allows you to to manage customers and
+    contacts easily and to send to mailings in a single click.
+</p></field>
+        </record>
+
+        <menuitem name="GDPR Mailing Lists" id="menu_email_gdpr_mass_mailing_lists" parent="mass_mailing.mass_mailing_list" sequence="60" action="action_view_gdpr_mass_mailing_lists"/>
+
     </data>
 </openerp>

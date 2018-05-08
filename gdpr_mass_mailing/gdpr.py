@@ -39,33 +39,52 @@ class MailMassMailing(models.Model):
 
     gdpr_id = fields.Many2one(string='GDPR Inventory', comodel_name='gdpr.inventory')
     gdpr_domain = fields.Text(string='GDPR Object IDs', compute='get_gdpr_domain')
+    gdpr_consent = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string='Consent State')
+    recipients = fields.Integer(readonly=True)
 
-    @api.onchange('gdpr_id')
+    @api.onchange('gdpr_id', 'gdpr_consent')
     def get_gdpr_domain(self):
         domain = []
         if self.gdpr_id:
             if self.gdpr_id.lawsection_id.consent:
-                object_ids = [d['gdpr_object_id'][0] for d in self.env['gdpr.consent'].search_read([('state', '=', 'given'), ('gdpr_id', '=', self.gdpr_id.id)], ['gdpr_object_id'])]
-                _logger.warn(self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id']))
-                object_ids = [d['object_res_id'] for d in self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id'])]
+                if self.gdpr_consent in ['given', 'withdrawn']:
+                    object_ids = [d['gdpr_object_id'][0] for d in self.env['gdpr.consent'].search_read([('state', '=', self.gdpr_consent), ('gdpr_id', '=', self.gdpr_id.id)], ['gdpr_object_id'])]
+                else:
+                    object_ids = (self.gdpr_id.object_ids - self.env['gdpr.consent'].search([('gdpr_id', '=', self.gdpr_id.id)]).mapped('gdpr_object_id')).mapped('id')
+                # ~ _logger.warn(self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id']))
+                # ~ object_ids = [d['object_res_id'] for d in self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id'])]
             else:
                 object_ids = [d['object_res_id'] for d in self.env['gdpr.object'].search_read([('gdpr_id', '=', self.gdpr_id.id), ('restricted', '=', False)], ['object_res_id'])]
             domain = [('id', 'in', object_ids)]
+            self.recipients = len(object_ids)
         self.gdpr_domain = domain
 
-class MassMailController(MassMailController):
 
-    @http.route(['/mail/mailing/<int:mailing_list>/subscribe'], type='http', auth='none')
-    def mailing_subscribe(self, mailing_list, email=None, res_id=None, **post):
-        mailing = request.env['mail.mass_mailing.list'].sudo().browse(mailing_list)
-        parsed_email = request.env['mail.mass_mailing.contact'].get_name_email(email)[1]
-        contact = request.env['mail.mass_mailing.contact'].search([('list_id', '=', mailing.id), ('email', '=', parsed_email)], limit=1)
-        if contact:
-            contact.opt_out = False
-        else:
-            request.env['mail.mass_mailing.contact'].sudo().add_to_list(parsed_email, mailing.id)
-        consent = request.env['gdpr.consent'].sudo().add(mailing.gdpr_id, mailing, email=parsed_email)
-        return request.website.render('gdpr_mass_mailing.subscribe_thanks', {'mailing': mailing, 'email': parsed_email, 'consent': consent})
+class GDPRMailMassMailingList(models.Model):
+    _name = 'gdpr.mail.mass_mailing.list'
+
+    name = fields.Char(string='name', required=True)
+    gdpr_ids = fields.Many2many(comodel_name='gdpr.inventory', string='GDPRs')
+    gdpr_consent = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string='Consent State')
+    contact_nbr = fields.Integer(compute='_get_contact_nbr', string='Number of Contacts')
+    _mail_mass_mailing = _('Sale Order')
+    @api.one
+    def _get_contact_nbr(self):
+        contact_nbr = len(self.env['gdpr.mail.mass_mailing.contact'].search([('list_id', '=', self.id)]))
+
+
+class GDPRMassMailingContact(models.Model):
+    _name = 'gdpr.mail.mass_mailing.contact'
+    _inherit = 'mail.thread'
+
+    name = fields.Char(string='Name')
+    email = fields.Char(string='Email', required=True)
+    create_date = fields.Datetime(string='Create Date')
+    list_id = fields.Many2one(comodel_name='gdpr.mail.mass_mailing.list', string='Mailing List', ondelete='cascade', required=True)
+    opt_out = fields.Boolean(string='Opt Out', help='The contact has chosen not to receive mails anymore from this list')
+
+
+class MassMailController(MassMailController):
 
     @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='none')
     def mailing(self, mailing_id, email=None, res_id=None, **post):
@@ -75,7 +94,7 @@ class MassMailController(MassMailController):
             if mailing.mailing_model == 'mail.mass_mailing.contact':
                 list_ids = [l.id for l in mailing.contact_list_ids]
                 records = request.env[mailing.mailing_model].sudo().search([('list_id', 'in', list_ids), ('id', '=', res_id), ('email', 'ilike', email)])
-                consent = request.env['gdpr.consent'].sudo().search([('gdpr_object_id.object_id', '=', '%s,%s' % (mailing.mailing_model, records.id))])
+                consent = request.env['gdpr.consent'].sudo().search([('gdpr_object_id.record_id', '=', '%s,%s' % (mailing.mailing_model, records.id))])
                 if consent:
                     consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
             elif mailing.gdpr_id and res_id:

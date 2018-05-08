@@ -25,16 +25,19 @@
     'category': 'Other',
     'summary': 'GDRP-compliant mailing lists',
     'description': """
-        
+
 * GDPR Inventory
 
 """,
-    'images': ['static/description/event_participant.jpg'],
+    'images': ['static/description/gdpr.png'],
+    'license': 'AGPL-3',
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': ['gdpr_inventory', 'mass_mailing'],
-    'data': [ 'gdpr_view.xml',
-              'template.xml',
+    'data': [
+        'gdpr_view.xml',
+        'template.xml',
+        'security/ir.model.access.csv',
     ],
     'application': False,
     'installable': True,

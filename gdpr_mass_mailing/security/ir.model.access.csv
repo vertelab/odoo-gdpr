@@ -1,0 +1,7 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_gdpr_mail_mass_mailing_contact_user,gdpr.mail.mass_mailing.contact.user,model_gdpr_mail_mass_mailing_contact,base.group_gdpr_user,1,0,0,0
+access_gdpr_mail_mass_mailing_contact_officer,gdpr.mail.mass_mailing.contact.officer,model_gdpr_mail_mass_mailing_contact,base.group_gdpr_officer,1,1,1,1
+access_gdpr_mail_mass_mailing_contact_manager,gdpr.mail.mass_mailing.contact.manager,model_gdpr_mail_mass_mailing_contact,base.group_gdpr_manager,1,1,1,1
+access_gdpr_mail_mass_mailing_list_user,gdpr.mail.mass_mailing.list.user,model_gdpr_mail_mass_mailing_list,base.group_gdpr_user,1,0,0,0
+access_gdpr_mail_mass_mailing_list_officer,gdpr.mail.mass_mailing.list.officer,model_gdpr_mail_mass_mailing_list,base.group_gdpr_officer,1,1,1,1
+access_gdpr_mail_mass_mailing_list_manager,gdpr.mail.mass_mailing.list.manager,model_gdpr_mail_mass_mailing_list,base.group_gdpr_manager,1,1,1,1
