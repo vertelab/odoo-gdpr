@@ -130,6 +130,7 @@
                     <filter string="Name" domain="[('name', '=', self)]"/>
                     <filter string="Consent Given" name="state_given" domain="[('state', '=', 'given')]"/>
                     <filter string="Consent Withdrawn" name="state_withdrawn" domain="[('state', '=', 'withdrawn')]"/>
+                    <filter string="Consent Missing" name="state_missing" domain="[('state', '=', 'missing')]"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="State" domain="[]" context="{'group_by': 'state'}"/>

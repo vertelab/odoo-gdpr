@@ -8,14 +8,14 @@
             <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']/../div" position="after">
-                    <field name="gdpr_id"/>
+                    <field name="gdpr_id" attrs="{'invisible': [('mailing_model', '=', 'gdpr.consent')]}"/>
                     <field name="gdpr_domain" invisible="1"/>
                     <field name="gdpr_lawsection_consent" invisible="1"/>
                     <field name="gdpr_consent" attrs="{'invisible': [('gdpr_lawsection_consent', '=', False)]}"/>
                     <field name="recipients"/>
                 </xpath>
                 <field name="mailing_domain" position="after">
-                    <div attrs="{'invisible': [('mailing_model', '&lt;&gt;', 'gdpr.consent')]}">
+                    <div attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}">
                         <label for="gdpr_mailing_list_ids" string="Select GDPR mailing lists:" class="oe_edit_only"/>
                         <field name="gdpr_mailing_list_ids" widget="many2many_tags" placeholder="Select GDPR mailing lists..." class="oe_inline"/>
                     </div>
@@ -58,57 +58,14 @@
         </record>
 -->
 
-        <!-- GDPR MASS MAILING CONTACT -->
-        <record model="ir.ui.view" id="view_gpdr_mail_mass_mailing_contact_search">
-            <field name="name">gdpr.mail.mass_mailing.contact.search</field>
-            <field name="model">gdpr.mail.mass_mailing.contact</field>
-            <field name="arch" type="xml">
-               <search string="GDPR Mailing Lists Subscribers">
-                    <field name="name"/>
-                    <field name="email"/>
-                    <field name="list_id"/>
-                    <separator/>
-                    <filter string="Exclude Opt Out" name="not_opt_out" domain="[('opt_out', '=', False)]"/>
-                    <group expand="0" string="Group By">
-                        <filter string="Creation Date" name="group_create_date" context="{'group_by': 'create_date'}"/>
-                        <filter string="Mailing Lists" name="group_list_id" context="{'group_by': 'list_id'}"/>
-                    </group>
-                </search>
-            </field>
-        </record>
-
-        <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_contact_tree">
-            <field name="name">gdpr.mail.mass_mailing.contact.tree</field>
-            <field name="model">gdpr.mail.mass_mailing.contact</field>
-            <field name="type">tree</field>
-            <field name="priority">20</field>
-            <field name="arch" type="xml">
-                <tree string="GDPR Mailing Lists Subscribers" editable="top">
-                    <field name="email"/>
-                    <field name="name"/>
-                    <field name="list_id"/>
-                    <field name="opt_out"/>
-                </tree>
-            </field>
-        </record>
-
-        <record model="ir.actions.act_window" id="action_view_gdpr_mass_mailing_contacts">
-            <field name="name">GDPR Mailing List Subscribers</field>
-            <field name="res_model">gdpr.mail.mass_mailing.contact</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="context">{'search_default_not_opt_out': 1}</field>
-        </record>
-
-        <record model="ir.actions.act_window" id="action_view_gdpr_mass_mailing_contacts_from_list">
+        <record model="ir.actions.act_window" id="action_view_gdpr_consent_from_list">
             <field name="name">Recipients</field>
             <field name="res_model">gdpr.consent</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree</field>
-            <field name="context">{'search_default_gdpr_id': active_id}</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_gdpr_id': active_id, 'search_default_state': 'state_missing'}</field>
         </record>
-
-        <menuitem name="GDPR Contacts" id="menu_email_gdpr_mass_mailing_contacts" parent="mass_mailing.mass_mailing_list" sequence="70" action="action_view_gdpr_mass_mailing_contacts"/>
 
         <!-- GDPR MASS MAILING LIST -->
         <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_search">
@@ -145,7 +102,7 @@
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
-                            <button name="%(gdpr_mass_mailing.action_view_gdpr_mass_mailing_contacts_from_list)d" type="action" icon="fa-user" class="oe_stat_button pull-right">
+                            <button name="%(gdpr_mass_mailing.action_view_gdpr_consent_from_list)d" type="action" icon="fa-user" class="oe_stat_button pull-right">
                                 <field name="consent_nbr" string="Recipients" widget="statinfo"/>
                             </button>
                         </div>

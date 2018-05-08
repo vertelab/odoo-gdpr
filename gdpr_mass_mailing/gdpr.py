@@ -128,17 +128,6 @@ class GDPRMailMassMailingList(models.Model):
                     })
 
 
-class GDPRMassMailingContact(models.Model):
-    _name = 'gdpr.mail.mass_mailing.contact'
-    _inherit = 'mail.thread'
-
-    name = fields.Char(string='Name')
-    email = fields.Char(string='Email', required=True)
-    create_date = fields.Datetime(string='Create Date')
-    list_id = fields.Many2one(comodel_name='gdpr.mail.mass_mailing.list', string='Mailing List', ondelete='cascade', required=True)
-    opt_out = fields.Boolean(string='Opt Out', help='The contact has chosen not to receive mails anymore from this list')
-
-
 class gdpr_consent(models.Model):
     _inherit = 'gdpr.consent'
 
