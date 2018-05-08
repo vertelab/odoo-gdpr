@@ -40,7 +40,9 @@ class MailMassMailing(models.Model):
     gdpr_id = fields.Many2one(string='GDPR Inventory', comodel_name='gdpr.inventory')
     gdpr_domain = fields.Text(string='GDPR Object IDs', compute='get_gdpr_domain')
     gdpr_consent = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string='Consent State')
+    gdpr_lawsection_consent = fields.Boolean(related='gdpr_id.lawsection_id.consent')
     recipients = fields.Integer(readonly=True)
+    gdpr_mailing_list_ids = fields.Many2many(comodel_name='gdpr.mail.mass_mailing.list', string='GDPR Mailing Lists')
 
     @api.onchange('gdpr_id', 'gdpr_consent')
     def get_gdpr_domain(self):
@@ -59,6 +61,38 @@ class MailMassMailing(models.Model):
             self.recipients = len(object_ids)
         self.gdpr_domain = domain
 
+    @api.onchange('mailing_model', 'gdpr_mailing_list_ids')
+    def on_change_gdpr_model_and_list(self):
+        consents = set()
+        partners = set()
+        for lst in self.gdpr_mailing_list_ids:
+            for consent_ids in lst.mapped('gdpr_ids').mapped('consent_ids'):
+                con = consent_ids.filtered(lambda c: c.state == lst.gdpr_consent and c.partner_id.id not in partners)
+                partners = partners.union(set(con.mapped('partner_id').mapped('id')))
+                consents = consents.union(set(con.mapped('id')))
+        self.mailing_domain = "[('id', 'in', %s)]" %list(consents)
+
+    @api.model
+    def get_inventories(self, mailing):
+        ids = []
+        for lst in mailing.gdpr_mailing_list_ids:
+            ids += lst.gdpr_ids.mapped('id')
+        return ids
+
+    @api.model
+    def get_recipients(self, mailing):
+        if mailing.mailing_model == 'gdpr.consent':
+            consents = set()
+            partners = set()
+            for lst in mailing.gdpr_mailing_list_ids:
+                for consent_ids in lst.mapped('gdpr_ids').mapped('consent_ids'):
+                     con = consent_ids.filtered(lambda c: c.state == lst.gdpr_consent and c.partner_id.id not in partners)
+                partners = partners.union(set(con.mapped('partner_id').mapped('id')))
+                consents = consents.union(set(con.mapped('id')))
+            return consents
+        else:
+            return super(MailMassMailing, self).get_recipients(mailing)
+
 
 class GDPRMailMassMailingList(models.Model):
     _name = 'gdpr.mail.mass_mailing.list'
@@ -66,11 +100,32 @@ class GDPRMailMassMailingList(models.Model):
     name = fields.Char(string='name', required=True)
     gdpr_ids = fields.Many2many(comodel_name='gdpr.inventory', string='GDPRs')
     gdpr_consent = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string='Consent State')
-    contact_nbr = fields.Integer(compute='_get_contact_nbr', string='Number of Contacts')
-    _mail_mass_mailing = _('Sale Order')
+    consent_nbr = fields.Integer(compute='_get_consent_nbr', string='Number of Contacts')
+
     @api.one
-    def _get_contact_nbr(self):
-        contact_nbr = len(self.env['gdpr.mail.mass_mailing.contact'].search([('list_id', '=', self.id)]))
+    def _get_consent_nbr(self):
+        self.consent_nbr = len(self.env['gdpr.consent'].search([('gdpr_id', 'in', self.gdpr_ids.mapped('id'))]))
+
+    @api.model
+    def get_consents(self, mailing):
+        consents = self.env['gdpr.consent'].browse()
+        # TODO: handle missing consents
+        for inventory in mailing.gdpr_ids:
+            consents |= inventory.consent_ids.filtered(lambda c: c.state == mailing.gdpr_consent)
+        return consents
+
+    @api.one
+    def create_missing_consents(self):
+        for inventory in self.gdpr_ids:
+            for partner in inventory.partner_ids:
+                if not partner.consent_ids.filtered(lambda c: c.gdpr_id == inventory):
+                    self.env['gdpr.consent'].create({
+                        'name': '%s - %s' %(inventory.name, partner.name),
+                        'record_id': '%s,%s' %(partner._name, partner.id),
+                        'partner_id': partner.id,
+                        'gdpr_id': inventory.id,
+                        'state': self.gdpr_consent,
+                    })
 
 
 class GDPRMassMailingContact(models.Model):
@@ -82,6 +137,12 @@ class GDPRMassMailingContact(models.Model):
     create_date = fields.Datetime(string='Create Date')
     list_id = fields.Many2one(comodel_name='gdpr.mail.mass_mailing.list', string='Mailing List', ondelete='cascade', required=True)
     opt_out = fields.Boolean(string='Opt Out', help='The contact has chosen not to receive mails anymore from this list')
+
+
+class gdpr_consent(models.Model):
+    _inherit = 'gdpr.consent'
+
+    _mail_mass_mailing = _('GDPR Consents')
 
 
 class MassMailController(MassMailController):

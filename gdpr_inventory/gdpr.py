@@ -385,7 +385,7 @@ class gdpr_consent(models.Model):
     partner_id = fields.Many2one(comodel_name="res.partner")
     gdpr_id = fields.Many2one(comodel_name='gdpr.inventory', help="Description of consent")
     date = fields.Date(string="Date", help="Date when consent first given")
-    state = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn')], string="State", track_visibility='onchange') # transaction log
+    state = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string="State", track_visibility='onchange') # transaction log
 
     #~ object_id = fields.Reference(string='Object', selection='_reference_models', compute='_get_object_id', inverse='_set_object_id', search='_search_object_id')
     #~ object_model = fields.Char(string='Object Model')

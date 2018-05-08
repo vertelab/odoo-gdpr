@@ -79,7 +79,7 @@
             <field name="arch" type="xml">
                 <form string="GDPR Consent">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn" clickable="True"/>
+                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,missing" clickable="True"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -173,7 +173,7 @@
             }</field>
             <field name="search_view_id" ref="view_gdpr_object_filter"/>
         </record>
-        
+
         <record id="ir_values_gdpr_inventory_2_gdpr_object" model="ir.values">
         <field name="name">View GDPR Objects</field>
         <field name="model">gdpr.inventory</field>
@@ -267,8 +267,8 @@
                                     <field name="data_sharing_ids" widget="many2many_tags"/>
                                 </group>
                             </page>
-                            
-                            
+
+
                             <page string="Identification">
                                 <label for="identification_desc"/>
                                 <field name="identification_desc"/>
@@ -282,8 +282,8 @@
                                     <field name="inventory_domain"/>
                                 </group>
                             </page>
-                            
-                            
+
+
                             <page string="Restrictions">
                                 <group>
                                     <field name="restrict_time_days"/>
