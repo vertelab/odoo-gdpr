@@ -43,6 +43,7 @@ class MailMassMailing(models.Model):
     gdpr_lawsection_consent = fields.Boolean(related='gdpr_id.lawsection_id.consent')
     recipients = fields.Integer(readonly=True)
     gdpr_mailing_list_ids = fields.Many2many(comodel_name='gdpr.mail.mass_mailing.list', string='GDPR Mailing Lists')
+    gdpr_consent_collected = fields.Many2many(string='Collected GDPR Inventory', comodel_name='gdpr.inventory')
 
     @api.onchange('gdpr_id', 'gdpr_consent')
     def get_gdpr_domain(self):
@@ -71,13 +72,6 @@ class MailMassMailing(models.Model):
                 partners = partners.union(set(con.mapped('partner_id').mapped('id')))
                 consents = consents.union(set(con.mapped('id')))
         self.mailing_domain = "[('id', 'in', %s)]" %list(consents)
-
-    @api.model
-    def get_inventories(self, mailing):
-        ids = []
-        for lst in mailing.gdpr_mailing_list_ids:
-            ids += lst.gdpr_ids.mapped('id')
-        return ids
 
     @api.model
     def get_recipients(self, mailing):
@@ -136,7 +130,7 @@ class gdpr_consent(models.Model):
 
 class MassMailController(MassMailController):
 
-    @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='none')
+    @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='none', website=True)
     def mailing(self, mailing_id, email=None, res_id=None, **post):
         res = super(MassMailController, self).mailing(mailing_id, email, res_id, **post)
         if res.get_data() == 'OK':
@@ -155,3 +149,10 @@ class MassMailController(MassMailController):
                 if consent:
                     consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
         return res
+
+    @http.route(['/mail/consent/<int:mailing_id>/partner/<int:partner_id>'], type='http', auth='none', website=True)
+    def mailing_consents(self, mailing_id, partner_id, **post):
+        mailing = request.env['mail.mass_mailing'].sudo().browse(mailing_id)
+        partner = request.env['res.partner'].sudo().browse(partner_id)
+        if mailing and partner:
+            return request.website.render('gdpr_mass_mailing.mailing_consents', {'mailing': mailing, 'partner': partner})

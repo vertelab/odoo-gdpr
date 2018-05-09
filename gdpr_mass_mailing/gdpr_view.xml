@@ -9,6 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']/../div" position="after">
                     <field name="gdpr_id" attrs="{'invisible': [('mailing_model', '=', 'gdpr.consent')]}"/>
+                    <field name="gdpr_consent_collected" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}" widget="many2many_tags"/>
                     <field name="gdpr_domain" invisible="1"/>
                     <field name="gdpr_lawsection_consent" invisible="1"/>
                     <field name="gdpr_consent" attrs="{'invisible': [('gdpr_lawsection_consent', '=', False)]}"/>

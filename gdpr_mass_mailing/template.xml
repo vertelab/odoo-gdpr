@@ -14,5 +14,16 @@
             </t>
         </template>
 
+        <template id="mailing_consents" name="GDPR Mailing Consents">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
     </data>
 </openerp>
