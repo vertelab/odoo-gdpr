@@ -24,6 +24,16 @@
                 <field name="mailing_domain" position="attributes">
                     <attribute name="options">{'model_field': 'mailing_model', 'gdpr_domain_field': 'gdpr_domain'}</attribute>
                 </field>
+                <notebook position="inside">
+                    <page string="Consents" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}">
+                        <group col="4">
+                            <field name="wp_cond_consent_ids" widget="many2many_tags"/>
+                        </group>
+                        <group col="4">
+                            <field name="wp_uncond_consent_ids" widget="many2many_tags"/>
+                        </group>
+                    </page>
+                </notebook>
             </field>
         </record>
 

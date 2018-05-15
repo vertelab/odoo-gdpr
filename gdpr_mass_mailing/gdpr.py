@@ -34,6 +34,7 @@ class MailMassMailingList(models.Model):
     #consent_ids = fields.One2many(string='Recipients', comodel_name='gdpr.consent')
     gdpr_id = fields.Many2one(string='GDPR Inventory', comodel_name='gdpr.inventory')
 
+
 class MailMassMailing(models.Model):
     _inherit = 'mail.mass_mailing'
 
@@ -44,6 +45,8 @@ class MailMassMailing(models.Model):
     recipients = fields.Integer(readonly=True)
     gdpr_mailing_list_ids = fields.Many2many(comodel_name='gdpr.mail.mass_mailing.list', string='GDPR Mailing Lists')
     gdpr_consent_collected = fields.Many2many(string='Collected GDPR Inventory', comodel_name='gdpr.inventory')
+    wp_cond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Conditional Consents', relation='mail_mass_mailing_gdpr_inventory_cond_rel', column1='mailing_id', column2='gdpr_id', help='Conditional Consents for Web Page', domain="[('lawsection_id.name', '=', 'consent')]")
+    wp_uncond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Unconditional Consents', relation='mail_mass_mailing_gdpr_inventory_uncond_rel', column1='mailing_id', column2='gdpr_id', help='Unconditional Consents for Web Page', domain="[('lawsection_id.name', '=', 'consent')]")
 
     @api.onchange('gdpr_id', 'gdpr_consent')
     def get_gdpr_domain(self):
@@ -130,7 +133,7 @@ class gdpr_consent(models.Model):
 
 class MassMailController(MassMailController):
 
-    @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='none', website=True)
+    @http.route(['/mail/mailing/<int:mailing_id>/unsubscribe'], type='http', auth='public', website=True)
     def mailing(self, mailing_id, email=None, res_id=None, **post):
         res = super(MassMailController, self).mailing(mailing_id, email, res_id, **post)
         if res.get_data() == 'OK':
@@ -150,9 +153,39 @@ class MassMailController(MassMailController):
                     consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
         return res
 
-    @http.route(['/mail/consent/<int:mailing_id>/partner/<int:partner_id>'], type='http', auth='none', website=True)
+    @http.route(['/mail/consent/<int:mailing_id>/partner/<int:partner_id>'], type='http', auth='public', website=True)
     def mailing_consents(self, mailing_id, partner_id, **post):
         mailing = request.env['mail.mass_mailing'].sudo().browse(mailing_id)
         partner = request.env['res.partner'].sudo().browse(partner_id)
         if mailing and partner:
-            return request.website.render('gdpr_mass_mailing.mailing_consents', {'mailing': mailing, 'partner': partner})
+            cond_consent_inventories = mailing.wp_cond_consent_ids
+            uncond_consent_inventories = mailing.wp_uncond_consent_ids
+            if mailing and partner:
+                return request.website.render('gdpr_mass_mailing.mailing_consents', {
+                    'mailing': mailing,
+                    'partner': partner,
+                    'consent_inventories': cond_consent_inventories + uncond_consent_inventories,
+                })
+
+    @http.route(['/mail/consent/confirm'], type='json', auth='public', website=True)
+    def consent_confirm(self, inventory_id, consent_id, partner_id, confirm=False, **kw):
+        inventory = request.env['gdpr.inventory'].sudo().browse(int(inventory_id))
+        partner = request.env['res.partner'].sudo().browse(int(partner_id))
+        if inventory and partner:
+            if consent_id == 0:
+                consent = request.env['gdpr.consent'].sudo().create({
+                    'partner_id': partner.id,
+                    'gdpr_id': inventory.id,
+                    'state': 'given',
+                })
+                return 'ok' if consent else 'error'
+            if consent_id != 0:
+                consent = request.env['gdpr.consent'].sudo().browse(consent_id)
+                if consent:
+                    consent.sudo().write({
+                        'state': 'given' if confirm else 'withdrawn',
+                    })
+                return 'ok'
+        else:
+            return 'error'
+
