@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <template id="subsribe_thanks" name="Subsribe Thanks">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure oe_empty">
@@ -13,17 +12,51 @@
                 </div>
             </t>
         </template>
-
         <template id="mailing_consents" name="GDPR Mailing Consents">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure oe_empty">
+                    <div class="oe_structure"/>
                     <div class="container">
-                        <div class="row">
-                        </div>
+                        <h2 class="text-center">GDPR Inventory</h2>
+                        <p id="mailing_title" class="hidden" t-att-data-title="mailing.name"/>
+                        <table class="table" id="consent_table">
+                            <tbody>
+                                <t t-foreach="consent_inventories" t-as="inv">
+                                    <tr t-att-id="'inv_%s' %inv.id">
+                                        <t t-set="consent" t-value="inv.consent_get(partner=partner, object=partner)"/>
+                                        <t t-foreach="inv.consent_ids" t-as="c">
+                                            <t t-if="c.partner_id == partner">
+                                                <t t-set="consent" t-value="c"/>
+                                            </t>
+                                        </t>
+                                        <td><strong><t t-esc="inv.name"/></strong></td>
+                                        <td><t t-esc="inv.consent_desc"/></td>
+                                        <td>
+                                            <div>
+<!--
+                                                    <label class="switch">
+-->
+                                                        <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
+<!--
+                                                        <span class="slider round"></span>
+                                                    </label>
+-->
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
                     </div>
+                    <div class="oe_structure"/>
                 </div>
             </t>
         </template>
-
+        <template id="assets_frontend" inherit_id="website.assets_frontend" name="Assets Frontend GDPR Mass Mailing">
+            <xpath expr="." position="inside">
+                <link href="/gdpr_mass_mailing/static/src/css/main.css" rel="stylesheet" />
+                <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/main.js"></script>
+            </xpath>
+        </template>
     </data>
 </openerp>
