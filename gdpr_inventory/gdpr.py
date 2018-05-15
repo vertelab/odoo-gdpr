@@ -76,6 +76,21 @@ class gdpr_role(models.Model):
 
     name = fields.Char(string='Name')
 
+class gdpr_category(models.Model):
+    _name = 'gdpr.category'
+    _description = 'GDPR Category'
+
+    sequence = fields.Integer(string='Sequence')
+    name = fields.Char(string='Name')
+    description = fields.Text(string='Description')
+
+class gdpr_bp(models.Model):
+    _name = 'gdpr.bp'
+    _description = 'GDPR Business Process'
+
+    sequence = fields.Integer(string='Sequence')
+    name = fields.Char(string='Name')
+
 # https://www.privacy-regulation.eu
 class gdpr_inventory(models.Model):
     _name = 'gdpr.inventory'
@@ -111,6 +126,8 @@ class gdpr_inventory(models.Model):
     type_of_personal_data = fields.Selection(selection=[('general', 'General'), ('special', 'Special Category'), ('child', 'Childs consent'), ('criminal', 'Criminal related')], string="Type",
          help="General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences")
     role = fields.Selection(selection=[('controller', 'Controller'), ('processor', 'Processor')], string='Our Role', default='controller', required=True, track_visibility='onchange')
+    category = fields.Many2one(comodel_name="gdpr.category", string="Category", required=True,help="Divide inventories in several catories eg Customers, Resellers etc")
+    business_process = fields.Many2one(comodel_name="gdpr.bp", string="Business Process", help="Attach the inventorie to a business process")
     user_id = fields.Many2one(comodel_name="res.users", string="Responsible", track_visibility='onchange', required=True)
     partner_fields_ids = fields.Many2many(comodel_name="ir.model.fields", string="Partner Fields", relation='gdpr_inventory_ir_model_rel_partner_fields_ids', help="Fields with personal link")
     partner_domain = fields.Text(string="Partner Domain", help="Domain for identification of partners connected to this personal data")
@@ -140,7 +157,7 @@ class gdpr_inventory(models.Model):
 
     # Purpose
     purpose_limitation = fields.Text(track_visibility='onchange', translate=True, required=True)
-    lawsection_desc = fields.Html(string="Law section Explanation", track_visibility='onchange')
+    lawsection_desc = fields.Html(string="Law section Explanation", track_visibility='onchange',translate=True)
     lawsection_id = fields.Many2one(comodel_name="gdpr.lawsection", string="Law Section", required=True, track_visibility='onchange')
     lawsection_description = fields.Html(related='lawsection_id.description', readonly=True, track_visibility='onchange')
     consent = fields.Boolean(related='lawsection_id.consent', track_visibility='onchange')
@@ -340,9 +357,33 @@ class gdpr_inventory(models.Model):
     def _read_state_id(self, present_ids, domain, **kwargs):
         states = self.env['gdpr.inventory.state'].search([], order='sequence').name_get()
         return states, None
+    @api.model
+    def _read_lawsection_id(self, present_ids, domain, **kwargs):
+        return self.env['gdpr.lawsection'].search([], order='sequence').name_get(), None
+    @api.model
+    def _read_business_process(self, present_ids, domain, **kwargs):
+        return self.env['gdpr.bp'].search([], order='sequence').name_get(), None
+    @api.model
+    def _read_role(self, present_ids, domain, **kwargs):
+        return self.env['gdpr.role'].search([], ).name_get(), None
+    @api.model
+    def _read_category(self, present_ids, domain, **kwargs):
+        return self.env['gdpr.category'].search([], order='sequence').name_get(), None
+    @api.model
+    def _read_user_id(self, present_ids, domain, **kwargs):
+        return self.env['gdpr.inventory'].search([], ).mapped('user_id').name_get(), None
+    @api.model
+    def _read_restrict_method_id(self, present_ids, domain, **kwargs):
+        return self.env['gdpr.restrict_method'].search([], ).name_get(), None
 
     _group_by_full = {
         'state_id': _read_state_id,
+        'lawsection_id': _read_lawsection_id,
+        'business_process': _read_business_process,
+        'role': _read_role,
+        'category': _read_category,
+        'user_id': _read_user_id,
+        'restrict_method_id': _read_user_id,
     }
 
 class gdpr_lawsection(models.Model):
@@ -363,8 +404,9 @@ class gdpr_lawsection(models.Model):
     _name = 'gdpr.lawsection'
     _description = "Lawfullness of processing"
 
-    name = fields.Char(string='Name')
-    description = fields.Html(string='Description')
+    sequence = fields.Integer(string='Sequence')
+    name = fields.Char(string='Name',translate=True)
+    description = fields.Html(string='Description',translate=True)
     consent = fields.Boolean(string='Consent')
 
 

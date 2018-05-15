@@ -32,6 +32,14 @@ class gdpr_inventory(models.Model):
 
     website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
     website_published = fields.Boolean(string='Website Published')
+    parent_id = fields.Many2one(comodel_name="gdpr.inventory")
+    website_inventory_ids = fields.One2many(comodel_name='gdpr.inventory',inverse_name='parent_id',string="Related inventories",help='Related inventories that is included in this webdescription',)
+
+class gdpr_category(models.Model):
+    _inherit = 'gdpr.category'
+
+    website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
+
 
 
 class GDPRController(http.Controller):

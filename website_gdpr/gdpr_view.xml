@@ -11,9 +11,11 @@
             <field name="arch" type="xml">
                 <field name="user_id" position="after">
                     <field name="website_published" class="pull-right" widget="website_button"/>
+                    <field name="parent_id" />
                 </field>
                 <notebook position="inside">
                     <page string="Website Description">
+                        <field name="website_inventory_ids" widget='many2many_tags' />
                         <field name="website_desc" nolabel="1"/>
                     </page>
                 </notebook>
@@ -27,6 +29,7 @@
             <field name="arch" type="xml">
                 <tree position="inside">
                     <field name="website_published"/>
+                    
                 </tree>
             </field>
         </record>
@@ -38,9 +41,24 @@
             <field name="arch" type="xml">
                 <field name="lawsection_id" position="after">
                     <field name="website_published"/>
+                    <field name="website_inventory_ids" />
                 </field>
             </field>
         </record>
+        
+        <!-- Category -->
+        
+        <record id="view_gdpr_category_form" model="ir.ui.view">
+            <field name="name">gdpr.category.webform</field>
+            <field name="model">gdpr.category</field>
+            <field name="inherit_id" ref="gdpr_inventory.view_gdpr_category_form"/>
+            <field name="arch" type="xml">
+                <field name="description" position="after">
+                    <field name="website_desc" nolabel="1"/>
+                </field>
+            </field>
+        </record>
+        
 
     </data>
 </openerp>

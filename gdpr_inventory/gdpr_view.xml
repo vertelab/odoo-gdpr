@@ -246,6 +246,8 @@
                             <field name="role"/>
                             <field name="user_id"/>
                             <field name="security_of_processing_ids" widget="many2many_tags"/>
+                            <field name="category" />
+                            <field name="business_process" />
                         </group>
                         <notebook>
                             <page string="Purpose">
@@ -423,7 +425,12 @@
                     <group expand="0" string="Group By">
                         <filter string="State" domain="[]" context="{'group_by': 'state_id'}"/>
                         <filter string="Responsible" domain="[]" context="{'group_by': 'user_id'}"/>
+                        <filter string="Category" domain="[]" context="{'group_by': 'category'}"/>
+                        <filter string="Business Process" domain="[]" context="{'group_by': 'business_process'}"/>
+                        <filter string="Role" domain="[]" context="{'group_by': 'role'}"/>
                         <filter string="Lawsection" domain="[]" context="{'group_by': 'lawsection_id'}"/>
+                        <filter string="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
+                        <filter string="Restrict Method" domain="[]" context="{'group_by': 'restrict_method_id'}"/>
                     </group>
                </search>
             </field>
@@ -522,8 +529,8 @@
             <field name="model">gdpr.lawsection</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Lawsection">
+                    <field name="sequence" widget="handle"/>
                     <field name="name"/>
-                    <field name="description"/>
                     <field name="consent"/>
                 </tree>
             </field>
@@ -665,6 +672,61 @@
         </record>
 
         <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr_config" sequence="50" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
+
+
+ <!-- GDPR Category -->
+
+        <record id="view_gdpr_category_form" model="ir.ui.view">
+            <field name="name">gdpr.category.form</field>
+            <field name="model">gdpr.category</field>
+            <field name="arch" type="xml">
+                <form string="GDPR Category">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <sheet>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gdpr_category_tree" model="ir.ui.view">
+            <field name="name">gdpr.category.tree</field>
+            <field name="model">gdpr.category</field>
+            <field name="arch" type="xml">
+                <tree string="GDPR Category">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_gdpr_category_filter" model="ir.ui.view">
+            <field name="name">gdpr.category.filter</field>
+            <field name="model">gdpr.category</field>
+            <field name="arch" type="xml">
+                <search string="Search GDPR Category">
+                    <field name="name" string="Name"/>
+                    <field name="description" string="Description"/>
+                    <separator/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_gdpr_category" model="ir.actions.act_window">
+            <field name="name">GDPR Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gdpr.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_gdpr_category_filter"/>
+        </record>
+
+        <menuitem action="action_gdpr_category" id="menu_gdpr_category" parent="menu_gdpr_config" sequence="60" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
 
         <!-- add a notebook page in ir.attachment -->
 
