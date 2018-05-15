@@ -168,25 +168,18 @@ class MassMailController(MassMailController):
                 })
 
     @http.route(['/mail/consent/confirm'], type='json', auth='public', website=True)
-    def consent_confirm(self, inventory_id, consent_id, partner_id, confirm=False, **kw):
+    def consent_confirm(self, inventory_id, consent_id, partner_id, mailing_title='', confirm=False, **kw):
         inventory = request.env['gdpr.inventory'].sudo().browse(int(inventory_id))
         partner = request.env['res.partner'].sudo().browse(int(partner_id))
         if inventory and partner:
-            if consent_id == 0:
-                consent = request.env['gdpr.consent'].sudo().create({
-                    'name': '%s - %s' %(inventory.name, partner.name),
-                    'partner_id': partner.id,
-                    'gdpr_id': inventory.id,
-                    'state': 'given',
-                })
-                return 'ok' if consent else 'error'
-            if consent_id != 0:
-                consent = request.env['gdpr.consent'].sudo().browse(consent_id)
-                if consent:
-                    consent.sudo().write({
-                        'state': 'given' if confirm else 'withdrawn',
-                    })
+            if confirm:
+                request.env['gdpr.consent'].add(inventory, partner, partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
                 return 'ok'
+            elif consent_id != 0:
+                request.env['gdpr.consent'].sudo().browse(consent_id).remove(mailing_title)
+            else:
+                return 'error'
+            return 'ok'
         else:
             return 'error'
 

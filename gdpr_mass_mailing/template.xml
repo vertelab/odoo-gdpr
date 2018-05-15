@@ -15,59 +15,32 @@
         <template id="mailing_consents" name="GDPR Mailing Consents">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure oe_empty">
+                    <div class="oe_structure"/>
                     <div class="container">
                         <h2 class="text-center">GDPR Inventory</h2>
-                        <p>Your GDPR Inventories shows here:</p>
+                        <p id="mailing_title" class="hidden" t-att-data-title="mailing.name"/>
                         <table class="table" id="consent_table">
-                            <thead>
-                                <tr>
-                                    <th>Inventory</th>
-                                    <th>Explanation</th>
-                                    <th>State</th>
-                                    <th/>
-                                </tr>
-                            </thead>
                             <tbody>
                                 <t t-foreach="consent_inventories" t-as="inv">
                                     <tr t-att-id="'inv_%s' %inv.id">
-                                        <t t-set="consent" t-value="None"/>
+                                        <t t-set="consent" t-value="inv.consent_get(partner=partner, object=partner)"/>
+                                        <t t-foreach="inv.consent_ids" t-as="c">
+                                            <t t-if="c.partner_id == partner">
+                                                <t t-set="consent" t-value="c"/>
+                                            </t>
+                                        </t>
                                         <td><strong><t t-esc="inv.name"/></strong></td>
                                         <td><t t-esc="inv.consent_desc"/></td>
                                         <td>
-                                            <t t-foreach="inv.consent_ids" t-as="c">
-                                                <t t-if="c.partner_id == partner">
-                                                    <t t-set="consent" t-value="c"/>
-                                                </t>
-                                            </t>
-                                            <t t-if="consent">
-                                                <t t-esc="consent.state"/>
-                                            </t>
-                                            <t t-if="not consent">
-                                                <t t-esc="'missing'"/>
-                                            </t>
-                                        </td>
-                                        <td>
                                             <div>
-                                                <t t-if="consent">
 <!--
                                                     <label class="switch">
 -->
-                                                        <input type="checkbox" t-att-data-consent_id="consent.id" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
+                                                        <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
 <!--
                                                         <span class="slider round"></span>
                                                     </label>
 -->
-                                                </t>
-                                                <t t-if="not consent">
-<!--
-                                                    <label class="switch">
--->
-                                                        <input type="checkbox" data-consent_id="0" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent"/>
-<!--
-                                                        <span class="slider round"></span>
-                                                    </label>
--->
-                                                </t>
                                             </div>
                                         </td>
                                     </tr>
@@ -75,6 +48,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="oe_structure"/>
                 </div>
             </t>
         </template>

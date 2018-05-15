@@ -99,6 +99,10 @@ class gdpr_inventory(models.Model):
         states = self.env['gdpr.inventory.state'].search([], order='sequence')
         return [(state.technical_name, state.name) for state in states]
 
+    @api.multi
+    def consent_get(self, partner=None, object=None):
+        return self.env['gdpr.consent'].get_consent(self, partner, object)
+
     name = fields.Char(string="Name", translate=True, required=True)
     color = fields.Integer(string='Color Index')
     state_id = fields.Many2one(comodel_name='gdpr.inventory.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
@@ -408,13 +412,20 @@ class gdpr_consent(models.Model):
             'type': 'notification',})
 
     @api.model
-    def add(self, gdpr_id, object, email=None, partner=None, name=None):
+    def add(self, gdpr_id, object, email=None, partner=None, name=None, msg=''):
         partner = partner or self.env['res.partner'].search([('email', '=', email)], limit=1)
         if email and not partner:
             partner = self.env['res.partner'].sudo().create({'name': name or email, 'email': email})
         consent = self.get_consent(gdpr_id, partner, object)
         if not consent:
             consent = self.env['gdpr.consent'].sudo().create({'name': _('Consent %s') %partner.name, 'gdpr_id': gdpr_id.id, 'partner_id': partner.id, 'record_id': '%s,%s' %(object._name, object.id)})
+        self.env['mail.message'].create({
+            'body': msg.replace('\n', '<BR/>'),
+            'subject': 'Consent given',
+            'author_id': self.env.user.partner_id.id,
+            'res_id': consent.id,
+            'model': consent._name,
+            'type': 'notification',})
         return consent
 
     @api.model
