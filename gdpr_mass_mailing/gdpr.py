@@ -174,6 +174,7 @@ class MassMailController(MassMailController):
         if inventory and partner:
             if consent_id == 0:
                 consent = request.env['gdpr.consent'].sudo().create({
+                    'name': '%s - %s' %(inventory.name, partner.name),
                     'partner_id': partner.id,
                     'gdpr_id': inventory.id,
                     'state': 'given',

@@ -43,7 +43,7 @@
                                                 <t t-esc="consent.state"/>
                                             </t>
                                             <t t-if="not consent">
-                                                <t t-esc="'Withdrawn'"/>
+                                                <t t-esc="'missing'"/>
                                             </t>
                                         </td>
                                         <td>
