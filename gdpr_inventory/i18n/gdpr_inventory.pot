@@ -1,0 +1,1270 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* gdpr_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20171009\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-16 09:28+0000\n"
+"PO-Revision-Date: 2018-05-16 09:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gdpr_inventory
+#: field:res.partner,consent_count:0
+msgid "# Consents"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:res.partner,gdpr_count:0
+msgid "# Inventories"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:res.partner,gdpr_object_count:0
+msgid "# Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_obligation
+msgid "<p>Processing are beeing lawful on the ground that processing is\n"
+"necessary for <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">compliance</span></span> with a <span style=\"font-weight: bold;\"><span style=\"text-decoration: underline;\">legal obligation</span></span> to which the controller is subject\n"
+"<br><br>=&gt; Dossier: <a href=\"https://www.privacy-regulation.eu/en/dossier_permission_demo.htm\">Permission</a></p>\n"
+""
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_contract
+msgid "<p>Processing are beeing lawful on the ground that processing is\n"
+"necessary for the performance of a <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">contract</span></span> to which the data subject is party or in order to\n"
+"take steps at the request of the data subject prior to entering into a contract\n"
+"<br><br>=&gt; Article: <a href=\"https://www.privacy-regulation.eu/en/article-20-right-to-data-portability-GDPR.htm\">20</a>\n"
+"<br>=&gt; Dossier: <a href=\"https://www.privacy-regulation.eu/en/dossier_permission_demo.htm\">Permission</a>\n"
+"</p>"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_public_interest
+msgid "<p>Processing are beeing lawful on the ground that processing is\n"
+"necessary for the performance of a task carried out in the public interest or in\n"
+"the exercise of official authority vested in the controller\n"
+"=&gt; Dossier: Task in Public Interest, Permission</p>"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_legitimate_interest
+msgid "<p>Processing are beeing lawful on the ground that processing is\n"
+"necessary for the purposes of the legitimate interests pursued by the controller or by a third\n"
+"party, except where such interests are overridden by the interests or fundamental rights and\n"
+"freedoms of the data subject which require protection of personal data, in particular where\n"
+"the data subject is a child.\n"
+"\n"
+"=&gt; Article: 13, 21\n"
+"=&gt; Recital: 113, 47, 48\n"
+"\n"
+"</p>"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_vital_interest
+msgid "<p>Processing are beeing lawful on the ground that processing is\n"
+"necessary in order to protect the vital interests of the data subject or of another natural person\n"
+"=&gt; Dossier: Permission</p>"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid "<p>Processing are beeing lawful on the ground that the data subject\n"
+"has given <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">consent</span></span> to the processing of his or her personal data for one or more specific purposes.\n"
+"<br><br>=&gt; Article: <a href=\"https://www.privacy-regulation.eu/en/article-7-conditions-for-consent-GDPR.htm\">7</a>, <a href=\"https://www.privacy-regulation.eu/en/article-8-conditions-applicable-to-child's-consent-in-relation-to-information-society-services-GDPR.htm\">8</a>, <a href=\"https://www.privacy-regulation.eu/en/article-9-processing-of-special-categories-of-personal-data-GDPR.htm\">9</a>\n"
+"<br>=&gt; Recital: <a href=\"https://www.privacy-regulation.eu/en/r32.htm\">32</a>, <a href=\"https://www.privacy-regulation.eu/en/r42.htm\">42</a>, <a href=\"https://www.privacy-regulation.eu/en/r43.htm\">43</a>, <a href=\"https://www.privacy-regulation.eu/en/r171.htm\">171\n"
+"</a><br>=&gt; Dossier: <a href=\"https://www.privacy-regulation.eu/en/dossier_consent_demo.htm\">Consent</a>, <a href=\"https://www.privacy-regulation.eu/en/dossier_permission_demo.htm\">Permission</a></p>\n"
+"      "
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,identification_desc:0
+#: help:gdpr.inventory,restrict_desc:0
+msgid "A description of how the data items covered by this inventory can be identified."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,data_type_ids:0
+msgid "A description of the types of data that are stored in this inventory."
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Action Req."
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,inventory_domain_advanced:0
+#: field:gdpr.inventory,restrict_domain_advanced:0
+msgid "Advanced Domain"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,data_sharing_ids:0
+msgid "Any partners that we share this data with."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,business_process:0
+msgid "Attach the inventorie to a business process"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: field:gdpr.inventory,business_process:0
+msgid "Business Process"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: field:gdpr.inventory,category:0
+msgid "Category"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.inventory,type_of_personal_data:0
+msgid "Childs consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+#: field:gdpr.restrict_method,code:0
+#: selection:gdpr.restrict_method,type:0
+msgid "Code"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,consent_add:0
+msgid "Code for consent add"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,consent_remove:0
+msgid "Code for consent remove"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,color:0
+msgid "Color Index"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: field:gdpr.inventory,consent:0
+#: field:gdpr.lawsection,consent:0
+msgid "Consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: code:addons/gdpr_inventory/gdpr.py:470
+#, python-format
+msgid "Consent %s"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,consent_count:0
+msgid "Consent Count"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+msgid "Consent Given"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+msgid "Consent Missing"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+msgid "Consent Withdrawn"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:ir.attachment,consent_ids:0
+msgid "Consent ids"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
+#: field:gdpr.inventory,consent_ids:0
+#: view:res.partner:gdpr_inventory.view_partner_form
+#: field:res.partner,consent_ids:0
+msgid "Consents"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_contract
+msgid "Contract"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.inventory,role:0
+msgid "Controller"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.actions.server,name:gdpr_inventory.action_create_gdrp_object
+msgid "Create GDRP Object"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,create_uid:0
+#: field:gdpr.category,create_uid:0
+#: field:gdpr.consent,create_uid:0
+#: field:gdpr.data_type,create_uid:0
+#: field:gdpr.inventory,create_uid:0
+#: field:gdpr.inventory.state,create_uid:0
+#: field:gdpr.lawsection,create_uid:0
+#: field:gdpr.object,create_uid:0
+#: field:gdpr.restrict_method,create_uid:0
+#: field:gdpr.role,create_uid:0
+#: field:gdpr.security,create_uid:0
+#: field:gdpr.subject,create_uid:0
+#: field:gdpr.system,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,create_date:0
+#: field:gdpr.category,create_date:0
+#: field:gdpr.consent,create_date:0
+#: field:gdpr.data_type,create_date:0
+#: field:gdpr.inventory,create_date:0
+#: field:gdpr.inventory.state,create_date:0
+#: field:gdpr.lawsection,create_date:0
+#: field:gdpr.object,create_date:0
+#: field:gdpr.restrict_method,create_date:0
+#: field:gdpr.role,create_date:0
+#: field:gdpr.security,create_date:0
+#: field:gdpr.subject,create_date:0
+#: field:gdpr.system,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.inventory,type_of_personal_data:0
+msgid "Criminal related"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,pseudo_values:0
+msgid "Custom values used to anonymize fields. Any fields not specified in this dict will be set to False."
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,data_collection_ids:0
+msgid "Data Collection"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Data Description"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,data_local:0
+msgid "Data Is Local"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,data_sharing_ids:0
+msgid "Data Sharing"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,data_storage_ids:0
+msgid "Data Storage"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,data_subject_ids:0
+msgid "Data Subjects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,data_type_ids:0
+msgid "Data Types"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: field:gdpr.consent,date:0
+msgid "Date"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,message_last_post:0
+#: help:gdpr.inventory,message_last_post:0
+#: help:gdpr.restrict_method,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,date:0
+msgid "Date when consent first given"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
+msgid "Delete"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Describe the item..."
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.category:gdpr_inventory.view_gdpr_category_filter
+#: field:gdpr.category,description:0
+#: field:gdpr.inventory,lawsection_description:0
+#: field:gdpr.lawsection,description:0
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+#: field:gdpr.restrict_method,description:0
+#: view:gdpr.security:gdpr_inventory.view_gdpr_security_filter
+#: field:gdpr.security,description:0
+#: field:gdpr.system,description:0
+msgid "Description"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,gdpr_id:0
+msgid "Description of consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,display_name:0
+#: field:gdpr.category,display_name:0
+#: field:gdpr.consent,display_name:0
+#: field:gdpr.data_type,display_name:0
+#: field:gdpr.inventory,display_name:0
+#: field:gdpr.inventory.state,display_name:0
+#: field:gdpr.lawsection,display_name:0
+#: field:gdpr.object,display_name:0
+#: field:gdpr.restrict_method,display_name:0
+#: field:gdpr.role,display_name:0
+#: field:gdpr.security,display_name:0
+#: field:gdpr.subject,display_name:0
+#: field:gdpr.system,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,category:0
+msgid "Divide inventories in several catories eg Customers, Resellers etc"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,partner_domain:0
+msgid "Domain for identification of partners connected to this personal data"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,inventory_domain:0
+msgid "Domain for identification of personal data of this type\n"
+"\n"
+"Available variables:\n"
+"* env: Odoo environment.\n"
+"* time: time python module.\n"
+"* datetime: datetime python module.\n"
+"* dateutil: dateutil python module.\n"
+"* timezone: pytz.timezone python module."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,restrict_domain:0
+msgid "Domain for identifying records that should be restricted.\n"
+"\n"
+"Available variables:\n"
+"* env: Odoo environment.\n"
+"* time: time python module.\n"
+"* datetime: datetime python module.\n"
+"* dateutil: dateutil python module.\n"
+"* timezone: pytz.timezone python module.\n"
+"* restrict_days: Restrict time of this inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Draft"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.restrict_method,type:0
+msgid "Encrypt"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.restrict_method,type:0
+msgid "Erase"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,fields_ids:0
+msgid "Fields"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,fields_ids:0
+msgid "Fields with (potential) personal data"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,partner_fields_ids:0
+msgid "Fields with personal link"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory.state,fold:0
+msgid "Folded in Kanban View"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,message_follower_ids:0
+#: field:gdpr.inventory,message_follower_ids:0
+#: field:gdpr.restrict_method,message_follower_ids:0
+msgid "Followers"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.module.category,name:gdpr_inventory.module_category_gdpr
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_config
+msgid "GDPR"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_bp
+msgid "GDPR Business Process"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.category:gdpr_inventory.view_gdpr_category_form
+#: view:gdpr.category:gdpr_inventory.view_gdpr_category_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_category
+#: model:ir.model,name:gdpr_inventory.model_gdpr_category
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_category
+msgid "GDPR Category"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_form
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_consent
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_consent
+msgid "GDPR Consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:ir.attachment:gdpr_inventory.view_attachment_form
+msgid "GDPR Consents"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_subject
+msgid "GDPR Data Subject"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_system
+msgid "GDPR Data System"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_data_type
+msgid "GDPR Data Type"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_inventory
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_inventory
+msgid "GDPR Inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.actions.act_window,name:gdpr_inventory.act_gdpr_inventory_2_gdpr_consent
+msgid "GDPR Inventory 2 GDPR Consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_form
+#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_inventory_state
+#: model:ir.ui.menu,name:gdpr_inventory.menu_inventory_state
+msgid "GDPR Inventory State"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_form
+#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_lawsection
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_lawsection
+msgid "GDPR Lawsection"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,gdpr_object_id:0
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_form
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_object
+msgid "GDPR Object"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:res.partner,gdpr_object_ids:0
+msgid "GDPR Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_form
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_restrict_method
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_restrict_method
+msgid "GDPR Restrict Method"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_role
+msgid "GDPR Role"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.security:gdpr_inventory.view_gdpr_security_tree
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_security
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_security
+msgid "GDPR Security"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.security:gdpr_inventory.view_gdpr_security_form
+msgid "GDPR security"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:res.partner,gdpr_ids:0
+msgid "GDPRs"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,gdpr_id:0
+msgid "Gdpr id"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.inventory,type_of_personal_data:0
+msgid "General"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,type_of_personal_data:0
+msgid "General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.consent,state:0
+msgid "Given"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_consent
+msgid "Given consents"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+msgid "Group By"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.module.category,description:gdpr_inventory.module_category_gdpr
+msgid "Helps you to manage GDPR inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.restrict_method,type:0
+msgid "Hide"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,message_summary:0
+#: help:gdpr.inventory,message_summary:0
+#: help:gdpr.restrict_method,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,id:0
+#: field:gdpr.category,id:0
+#: field:gdpr.consent,id:0
+#: field:gdpr.data_type,id:0
+#: field:gdpr.inventory,id:0
+#: field:gdpr.inventory.state,id:0
+#: field:gdpr.lawsection,id:0
+#: field:gdpr.object,id:0
+#: field:gdpr.restrict_method,id:0
+#: field:gdpr.role,id:0
+#: field:gdpr.security,id:0
+#: field:gdpr.subject,id:0
+#: field:gdpr.system,id:0
+msgid "ID"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Identification"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,identification_desc:0
+msgid "Identification Description"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,message_unread:0
+#: help:gdpr.inventory,message_unread:0
+#: help:gdpr.restrict_method,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+#: view:res.partner:gdpr_inventory.view_partner_form
+msgid "Inventories"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: field:gdpr.object,gdpr_id:0
+msgid "Inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,inventory_domain:0
+msgid "Inventory Domain"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,inventory_model:0
+msgid "Inventory Model"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
+msgid "Inventory Settings"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,message_is_follower:0
+#: field:gdpr.inventory,message_is_follower:0
+#: field:gdpr.restrict_method,message_is_follower:0
+msgid "Is a Follower"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,message_last_post:0
+#: field:gdpr.inventory,message_last_post:0
+#: field:gdpr.restrict_method,message_last_post:0
+msgid "Last Message Date"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,__last_update:0
+#: field:gdpr.category,__last_update:0
+#: field:gdpr.consent,__last_update:0
+#: field:gdpr.data_type,__last_update:0
+#: field:gdpr.inventory,__last_update:0
+#: field:gdpr.inventory.state,__last_update:0
+#: field:gdpr.lawsection,__last_update:0
+#: field:gdpr.object,__last_update:0
+#: field:gdpr.restrict_method,__last_update:0
+#: field:gdpr.role,__last_update:0
+#: field:gdpr.security,__last_update:0
+#: field:gdpr.subject,__last_update:0
+#: field:gdpr.system,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,write_uid:0
+#: field:gdpr.category,write_uid:0
+#: field:gdpr.consent,write_uid:0
+#: field:gdpr.data_type,write_uid:0
+#: field:gdpr.inventory,write_uid:0
+#: field:gdpr.inventory.state,write_uid:0
+#: field:gdpr.lawsection,write_uid:0
+#: field:gdpr.object,write_uid:0
+#: field:gdpr.restrict_method,write_uid:0
+#: field:gdpr.role,write_uid:0
+#: field:gdpr.security,write_uid:0
+#: field:gdpr.subject,write_uid:0
+#: field:gdpr.system,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,write_date:0
+#: field:gdpr.category,write_date:0
+#: field:gdpr.consent,write_date:0
+#: field:gdpr.data_type,write_date:0
+#: field:gdpr.inventory,write_date:0
+#: field:gdpr.inventory.state,write_date:0
+#: field:gdpr.lawsection,write_date:0
+#: field:gdpr.object,write_date:0
+#: field:gdpr.restrict_method,write_date:0
+#: field:gdpr.role,write_date:0
+#: field:gdpr.security,write_date:0
+#: field:gdpr.subject,write_date:0
+#: field:gdpr.system,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,lawsection_id:0
+msgid "Law Section"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,lawsection_desc:0
+msgid "Law section Explanation"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_lawsection
+msgid "Lawfullness of processing"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Lawsection"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Lawsection description"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_obligation
+msgid "Legal Obligation"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_legitimate_interest
+msgid "Legitimate Interest"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.restrict_method,type:0
+msgid "Manual"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+#: field:gdpr.object,manual:0
+msgid "Manual Action Required"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,manual_count:0
+msgid "Manual Count"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,message_ids:0
+#: field:gdpr.inventory,message_ids:0
+#: field:gdpr.restrict_method,message_ids:0
+msgid "Messages"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,message_ids:0
+#: help:gdpr.inventory,message_ids:0
+#: help:gdpr.restrict_method,message_ids:0
+msgid "Messages and communication history"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.consent,state:0
+msgid "Missing"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,inventory_model:0
+msgid "Model (Class) for this Inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,name:0
+#: view:gdpr.category:gdpr_inventory.view_gdpr_category_filter
+#: field:gdpr.category,name:0
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: field:gdpr.consent,name:0
+#: field:gdpr.data_type,name:0
+#: field:gdpr.inventory,name:0
+#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_filter
+#: field:gdpr.inventory.state,name:0
+#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_filter
+#: field:gdpr.lawsection,name:0
+#: field:gdpr.object,name:0
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+#: field:gdpr.restrict_method,name:0
+#: field:gdpr.role,name:0
+#: view:gdpr.security:gdpr_inventory.view_gdpr_security_filter
+#: field:gdpr.security,name:0
+#: field:gdpr.subject,name:0
+#: field:gdpr.system,name:0
+msgid "Name"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Not Ceased"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,restrict_time_days:0
+msgid "Number of days before this data will be restricted"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,record_id:0
+#: field:gdpr.object,object_id:0
+msgid "Object"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,object_count:0
+msgid "Object Count"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.object,object_res_id:0
+msgid "Object ID"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.object,object_model:0
+msgid "Object Model"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.consent,record_id:0
+msgid "Object that is consented for processing of personal data"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
+#: field:gdpr.inventory,object_ids:0
+#: view:res.partner:gdpr_inventory.view_partner_form
+msgid "Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,role:0
+msgid "Our Role"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Parent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+#: model:ir.model,name:gdpr_inventory.model_res_partner
+msgid "Partner"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,partner_count:0
+msgid "Partner Count"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,partner_domain:0
+msgid "Partner Domain"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,partner_fields_ids:0
+msgid "Partner Fields"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,partner_id:0
+msgid "Partner id"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
+#: field:gdpr.inventory,partner_ids:0
+#: field:gdpr.object,partner_id:0
+msgid "Partners"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.inventory,role:0
+msgid "Processor"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.restrict_method,type:0
+msgid "Pseudonymisation"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,pseudo_values:0
+msgid "Pseudonymisation Values"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_public_interest
+msgid "Public Interest"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Purpose"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Purpose Limitation"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,purpose_limitation:0
+msgid "Purpose limitation"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,restrict_domain_code:0
+msgid "Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n"
+"\n"
+"Available variables:\n"
+"* env: Odoo environment.\n"
+"* time: time python module.\n"
+"* datetime: datetime python module.\n"
+"* dateutil: dateutil python module.\n"
+"* timezone: pytz.timezone python module."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,inventory_domain_code:0
+msgid "Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n"
+"\n"
+"Available variables:\n"
+"* env: Odoo environment.\n"
+"* time: time python module.\n"
+"* datetime: datetime python module.\n"
+"* dateutil: dateutil python module.\n"
+"* timezone: pytz.timezone python module.\n"
+"* restrict_days: Restrict time of this inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,restrict_code:0
+msgid "Python code to run when restricting records.\n"
+"\n"
+"Available variables:\n"
+"* env: Odoo environment.\n"
+"* time: time python module.\n"
+"* datetime: datetime python module.\n"
+"* dateutil: dateutil python module.\n"
+"* timezone: pytz.timezone python module.\n"
+"* inventory: This inventory record.\n"
+"* objects: The gdpr objects to be restricted (gdpr.object). Actual records to be processed can be accessed through objects.mapped('object_id')."
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.actions.act_window,name:gdpr_inventory.act_res_partner_2_gdpr_consent
+msgid "Res Partner 2 GDPR Consents"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.actions.act_window,name:gdpr_inventory.act_res_partner_2_gdpr_object
+msgid "Res Partner 2 GDPR Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: field:gdpr.inventory,user_id:0
+msgid "Responsible"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,restrict_domain:0
+msgid "Restrict Domain"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,inventory_domain_code:0
+#: field:gdpr.inventory,restrict_domain_code:0
+msgid "Restrict Domain Code"
+msgstr ""
+
+#. module: gdpr_inventory
+#: code:addons/gdpr_inventory/gdpr.py:538
+#, python-format
+msgid "Restrict Erase"
+msgstr ""
+
+#. module: gdpr_inventory
+#: code:addons/gdpr_inventory/gdpr.py:548
+#: code:addons/gdpr_inventory/gdpr.py:554
+#: code:addons/gdpr_inventory/gdpr.py:560
+#: code:addons/gdpr_inventory/gdpr.py:566
+#, python-format
+msgid "Restrict Hide"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: field:gdpr.inventory,restrict_method_id:0
+#: model:ir.model,name:gdpr_inventory.model_gdpr_restrict_method
+msgid "Restrict Method"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Restrict Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,restrict_time_days:0
+msgid "Restrict time"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+#: field:gdpr.object,restricted:0
+msgid "Restricted"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,restrict_code:0
+msgid "Restriction Code"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,restrict_desc:0
+msgid "Restriction Description"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,restrict_type:0
+msgid "Restriction Type"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Restrictions"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Role"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.category:gdpr_inventory.view_gdpr_category_filter
+msgid "Search GDPR Category"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+msgid "Search GDPR Consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Search GDPR Inventory"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_filter
+msgid "Search GDPR Inventory State"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_filter
+msgid "Search GDPR Lawsection"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+msgid "Search GDPR Object"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+msgid "Search GDPR Restrict Method"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.security:gdpr_inventory.view_gdpr_security_filter
+msgid "Search GDPR Security"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,security_of_processing_ids:0
+msgid "Security"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,security_of_processing_ids:0
+#: model:ir.model,name:gdpr_inventory.model_gdpr_security
+msgid "Security of processing"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.bp,sequence:0
+#: field:gdpr.category,sequence:0
+#: field:gdpr.inventory.state,sequence:0
+#: field:gdpr.lawsection,sequence:0
+msgid "Sequence"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.inventory,type_of_personal_data:0
+msgid "Special Category"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: field:gdpr.consent,state:0
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: field:gdpr.inventory,state:0
+#: field:gdpr.inventory,state_id:0
+msgid "State"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,message_summary:0
+#: field:gdpr.inventory,message_summary:0
+#: field:gdpr.restrict_method,message_summary:0
+msgid "Summary"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory.state,technical_name:0
+msgid "Technical Name"
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,data_local:0
+msgid "The data is stored in this Odoo database and should be automatically inventoried."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,data_collection_ids:0
+msgid "The system that is used to collect data for this inventory."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory,data_storage_ids:0
+msgid "The system that is used to store data for this inventory."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.object,restricted:0
+msgid "This record has been restricted."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.object,manual:0
+msgid "This record needs attention."
+msgstr ""
+
+#. module: gdpr_inventory
+#: help:gdpr.inventory.state,fold:0
+msgid "This stage is folded in the kanban view when there are no records in that state to display."
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,type_of_personal_data:0
+#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+#: field:gdpr.restrict_method,type:0
+msgid "Type"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.consent,message_unread:0
+#: field:gdpr.inventory,message_unread:0
+#: field:gdpr.restrict_method,message_unread:0
+msgid "Unread Messages"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+msgid "Unrestricted"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "Update Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:ir.actions.act_window,name:gdpr_inventory.act_gdpr_inventory_2_gdpr_object
+msgid "View GDPR Objects"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_vital_interest
+msgid "Vital Interest"
+msgstr ""
+
+#. module: gdpr_inventory
+#: selection:gdpr.consent,state:0
+msgid "Withdrawn"
+msgstr ""
+
+#. module: gdpr_inventory
+#: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_consent
+msgid "consent"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,consent_add:0
+msgid "consent Add"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,consent_desc:0
+msgid "consent Explanation"
+msgstr ""
+
+#. module: gdpr_inventory
+#: field:gdpr.inventory,consent_remove:0
+msgid "consent Remove"
+msgstr ""
+
+#. module: gdpr_inventory
+#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+msgid "foobar gazonk"
+msgstr ""
+
