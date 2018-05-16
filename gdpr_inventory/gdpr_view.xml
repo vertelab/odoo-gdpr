@@ -682,12 +682,16 @@
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <group>
-                            <group col="4">
-                                <field name="description"/>
-                            </group>
-                            <field name="inventory_ids" widget="many2many_tags"/>
-                        </group>
+                        <field name="inventory_ids" widget="many2many_tags"/>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <group col="4">
+                                        <field name="description" nolabel="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

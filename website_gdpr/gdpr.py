@@ -37,11 +37,14 @@ class gdpr_inventory(models.Model):
     website_inventory_ids = fields.One2many(comodel_name='gdpr.inventory',inverse_name='parent_id',string="Related inventories",help='Related inventories that is included in this webdescription',)
     @api.one
     def _website_lawsection_list(self):
-        lawsections = [n.lower() for n in [self.lawsection_id.name] + self.website_inventory_ids.mapped('lawsection_id').mapped('name')]
-        if len(lawsections) > 0:
-            self.website_lawsection_list = (_('%s and %s') % (','.join(lawsections[:-1]),lawsections[-1])).capitalize()
+        if len(self.website_inventory_ids) > 0:
+            lawsections = [n.lower() for n in [self.lawsection_id.name] + self.website_inventory_ids.mapped('lawsection_id').mapped('name')]
+            if len(lawsections) > 0:
+                self.website_lawsection_list = (_('%s and %s.') % (', '.join(lawsections[:-1]),lawsections[-1])).capitalize()
+            else:
+                self.website_lawsection_list = lawsections[0].capitalize()
         else:
-            self.website_lawsection_list = lawsections[0].capitalize()
+            self.website_lawsection_list = ''
     website_lawsection_list = fields.Char(compute='_website_lawsection_list')
 
 
@@ -52,7 +55,7 @@ class gdpr_category(models.Model):
     website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
     @api.one
     def _website_inventory_ids(self):
-        self.website_inventory_ids = self.inventory_ids.filetered(lambda i: i.website_published == True).sorted(lambda i: i.sequence)
+        self.website_inventory_ids = self.inventory_ids.with_context(state_id=self.env.ref('gdpr_inventory.inventory_state_active')).filtered(lambda i: i.website_published == True and i.state_id == i._context.get('state_id')).sorted(lambda i: i.sequence)
     website_inventory_ids = fields.One2many(comodel_name='gdpr.inventory',compute='_website_inventory_ids')
 
 
@@ -67,25 +70,10 @@ class GDPRController(http.Controller):
                 ('website_published', '=', True)
             ],
             ['name', 'website_desc', 'state_id'])
-        return request.website.render('website_gdpr.gdpr_main_page', {'inventories': inventories, 'partner': partner.name})
+        return request.website.render('website_gdpr.gdpr_personal_portal', {'inventories': inventories, 'partner': partner.name})
 
     @http.route(['/gdpr/inventories'], type='http', auth="public", website=True)
     def gdpr_inventories(self, partner=None, **post):
-        categories = request.env['gdpr.category'].sudo().search([])
-        category_list = []
-        for category in categories:
-            inventories = request.env['gdpr.inventory'].sudo().search([
-                ('state_id', '=', request.env.ref('gdpr_inventory.inventory_state_active').id),
-                ('website_published', '=', True),
-                ('category', '=', category.id)
-            ])
-            if len(inventories) > 0:
-                inventory_list = inventories.mapped('website_inventory_ids')
-                if len(inventory_list) > 0:
-                    category_list.append({
-                        'category': category,
-                        'inventories': inventory_list,
-                    })
-        return request.website.render('website_gdpr.gdpr_inventory_page', {
-            'categories': category_list,
+        return request.website.render('website_gdpr.gdrp_inventories', {
+            'categories': request.env['gdpr.category'].sudo().search([('website_published', '=', True)]),
         })

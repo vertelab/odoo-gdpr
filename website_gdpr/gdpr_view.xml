@@ -62,14 +62,18 @@
             <field name="model">gdpr.category</field>
             <field name="inherit_id" ref="gdpr_inventory.view_gdpr_category_form"/>
             <field name="arch" type="xml">
-                <group position="after">
-                    <group>
-                        <group col="4">
-                            <field name="website_published" />
-                            <field name="website_desc" nolabel="1"/>
+                <div class="oe_title" position="before">
+                    <field name="website_published" class="pull-right" widget="website_button"/>
+                </div>
+                <notebook position="inside">
+                    <page string="Website Description">
+                        <group>
+                            <group col="4">
+                                <field name="website_desc" nolabel="1"/>
+                            </group>
                         </group>
-                    </group>
-                </group>
+                    </page>
+                </notebook>
             </field>
         </record>
 
