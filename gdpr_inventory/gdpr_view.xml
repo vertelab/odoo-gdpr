@@ -326,22 +326,13 @@
             <field name="arch" type="xml">
                 <tree string="GDPR Inventory">
                     <field name="name"/>
-                    <field name="state_id"/>
                     <field name="type_of_personal_data"/>
-                    <field name="purpose_limitation"/>
                     <field name="user_id"/>
                     <field name="lawsection_id"/>
-                    <field name="lawsection_desc"/>
-                    <field name="consent_desc"/>
-                    <field name="consent_add"/>
-                    <field name="consent_remove"/>
-                    <field name="restrict_time_days"/>
                     <field name="restrict_method_id"/>
-                    <field name="inventory_model"/>
-                    <field name="inventory_domain"/>
-                    <field name="fields_ids"/>
-                    <field name="partner_fields_ids"/>
+                    <field name="restrict_time_days"/>
                     <field name="security_of_processing_ids"/>
+                    <field name="state_id"/>
                 </tree>
             </field>
         </record>
@@ -421,6 +412,10 @@
                     <separator/>
                     <filter string="Draft" name="state_id" domain="[('state_id', '=', %(gdpr_inventory.inventory_state_draft)d)]"/>
                     <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', %(gdpr_inventory.inventory_state_ceased)d)]"/>
+                    <filter string="General" name="type" domain="[('type_of_personal_data', '=', 'general')]"/>
+                    <filter string="Special" name="type" domain="[('type_of_personal_data', '=', 'special')]"/>
+                    <filter string="Data is local" name="type" domain="[('data_local', '=', True)]"/>
+                    <filter string="Data is not local" name="type" domain="[('data_local', '=', False)]"/>
                     <separator/>
                     <group expand="0" string="Group By">
                         <filter string="State" domain="[]" context="{'group_by': 'state_id'}"/>
@@ -431,6 +426,7 @@
                         <filter string="Lawsection" domain="[]" context="{'group_by': 'lawsection_id'}"/>
                         <filter string="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
                         <filter string="Restrict Method" domain="[]" context="{'group_by': 'restrict_method_id'}"/>
+                        <filter string="Type" domain="[]" context="{'group_by': 'type_of_personal_data'}"/>
                     </group>
                </search>
             </field>
@@ -690,6 +686,7 @@
                             <group col="4">
                                 <field name="description"/>
                             </group>
+                            <field name="inventory_ids" widget="many2many_tags"/>
                         </group>
                     </sheet>
                 </form>

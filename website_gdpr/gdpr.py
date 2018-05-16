@@ -33,13 +33,27 @@ class gdpr_inventory(models.Model):
     website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
     website_published = fields.Boolean(string='Website Published')
     parent_id = fields.Many2one(comodel_name="gdpr.inventory")
+    sequence = fields.Integer(string='Sequence')
     website_inventory_ids = fields.One2many(comodel_name='gdpr.inventory',inverse_name='parent_id',string="Related inventories",help='Related inventories that is included in this webdescription',)
+    @api.one
+    def _website_lawsection_list(self):
+        lawsections = [n.lower() for n in [self.lawsection_id.name] + self.website_inventory_ids.mapped('lawsection_id').mapped('name')]
+        if len(lawsections) > 0:
+            self.website_lawsection_list = (_('%s and %s') % (','.join(lawsections[:-1]),lawsections[-1])).capitalize()
+        else:
+            self.website_lawsection_list = lawsections[0].capitalize()
+    website_lawsection_list = fields.Char(compute='_website_lawsection_list')
 
 
 class gdpr_category(models.Model):
     _inherit = 'gdpr.category'
 
+    website_published = fields.Boolean(string='Website Published')
     website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
+    @api.one
+    def _website_inventory_ids(self):
+        self.website_inventory_ids = self.inventory_ids.filetered(lambda i: i.website_published == True).sorted(lambda i: i.sequence)
+    website_inventory_ids = fields.One2many(comodel_name='gdpr.inventory',compute='_website_inventory_ids')
 
 
 class GDPRController(http.Controller):

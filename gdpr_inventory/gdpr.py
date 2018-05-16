@@ -83,6 +83,8 @@ class gdpr_category(models.Model):
     sequence = fields.Integer(string='Sequence')
     name = fields.Char(string='Name')
     description = fields.Text(string='Description')
+    inventory_ids = fields.One2many(comodel_name='gdpr.inventory',inverse_name='category')
+
 
 class gdpr_bp(models.Model):
     _name = 'gdpr.bp'
@@ -379,7 +381,9 @@ class gdpr_inventory(models.Model):
     @api.model
     def _read_restrict_method_id(self, present_ids, domain, **kwargs):
         return self.env['gdpr.restrict_method'].search([], ).name_get(), None
-
+    @api.model
+    def _read_type(self, present_ids, domain, **kwargs):
+        return [('general', 'General'), ('special', 'Special Category'), ('child', 'Childs consent'), ('criminal', 'Criminal related')], None
     _group_by_full = {
         'state_id': _read_state_id,
         'lawsection_id': _read_lawsection_id,
@@ -387,7 +391,8 @@ class gdpr_inventory(models.Model):
         'role': _read_role,
         'category': _read_category,
         'user_id': _read_user_id,
-        'restrict_method_id': _read_user_id,
+        'restrict_method_id': _read_restrict_method_id,
+        #~ 'type_of_personal_data': _read_type,
     }
 
 class gdpr_lawsection(models.Model):

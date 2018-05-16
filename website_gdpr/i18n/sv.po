@@ -1,0 +1,96 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_gdpr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20171009\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-16 10:21+0000\n"
+"PO-Revision-Date: 2018-05-16 12:23+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: sv\n"
+"X-Generator: Poedit 2.0.4\n"
+
+#. module: website_gdpr
+#: code:addons/website_gdpr/gdpr.py:41
+#, python-format
+msgid "%s and %s"
+msgstr "%s samt %s"
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdpr_main_page
+msgid "Consent"
+msgstr "Samtycke"
+
+#. module: website_gdpr
+#: view:website:website.layout
+msgid "GDPR"
+msgstr ""
+
+#. module: website_gdpr
+#: model:ir.model,name:website_gdpr.model_gdpr_category
+msgid "GDPR Category"
+msgstr ""
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdrp_inventories
+msgid "GDPR Inventories"
+msgstr ""
+
+#. module: website_gdpr
+#: model:ir.model,name:website_gdpr.model_gdpr_inventory
+msgid "GDPR Inventory"
+msgstr ""
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdrp_inventories
+msgid "Here you can read about all types of personal data processing we do when we deliver our service to public. We try minimize what data we collect and store and removes it when it is no longer necessary to store"
+msgstr ""
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdpr_main_page
+msgid "Inventory"
+msgstr "Inventarie"
+
+#. module: website_gdpr
+#: field:gdpr.inventory,parent_id:0
+msgid "Parent id"
+msgstr "Förälder"
+
+#. module: website_gdpr
+#: field:gdpr.inventory,website_inventory_ids:0
+msgid "Related inventories"
+msgstr "Relaterade inventeringar"
+
+#. module: website_gdpr
+#: help:gdpr.inventory,website_inventory_ids:0
+msgid "Related inventories that is included in this webdescription"
+msgstr "Relaterade inventeringar som inkluderas i denna webbeskrivning"
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdrp_inventories
+msgid "This is a compilation of our personal data processing"
+msgstr "Detta är en sammanställning av vår personuppgiftsbehandling"
+
+#. module: website_gdpr
+#: field:gdpr.category,website_desc:0
+#: view:gdpr.inventory:website_gdpr.view_gdpr_inventory_form
+#: field:gdpr.inventory,website_desc:0
+msgid "Website Description"
+msgstr "Webbplatsbeskrivning"
+
+#. module: website_gdpr
+#: field:gdpr.inventory,website_published:0
+msgid "Website Published"
+msgstr "Publicerad"
+
+#. module: website_gdpr
+#: field:gdpr.inventory,website_lawsection_list:0
+msgid "Website lawsection list"
+msgstr "Webbplats lista med laglig grund"
