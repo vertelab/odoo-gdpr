@@ -15,7 +15,10 @@
                 </field>
                 <notebook position="inside">
                     <page string="Website Description">
-                        <field name="website_inventory_ids" widget='many2many_tags' />
+                        <group>
+                            <field name="website_inventory_ids" widget='many2many_tags' />
+                            <field name="website_lawsection_list"  />
+                        </group>
                         <field name="website_desc" nolabel="1"/>
                     </page>
                 </notebook>
