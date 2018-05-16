@@ -32,8 +32,8 @@
                                         <tbody>
                                             <t t-foreach="category.website_inventory_ids" t-as="inventory">
                                                 <tr>
-                                                    <td><t t-raw="inventory.website_desc"/></td>
-                                                    <td><t t-esc="inventory.website_lawsection_list"/></td>
+                                                    <td class="col-md-8 col-sm-8 col-xs-6"><t t-raw="inventory.website_desc"/></td>
+                                                    <td class="col-md-4 col-sm-4 col-xs-6"><t t-esc="inventory.website_lawsection_list"/></td>
                                                 </tr>
                                             </t>
                                         </tbody>
