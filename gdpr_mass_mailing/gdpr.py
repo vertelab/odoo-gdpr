@@ -47,6 +47,11 @@ class MailMassMailing(models.Model):
     gdpr_consent_collected = fields.Many2many(string='Collected GDPR Inventory', comodel_name='gdpr.inventory')
     wp_cond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Conditional Consents', relation='mail_mass_mailing_gdpr_inventory_cond_rel', column1='mailing_id', column2='gdpr_id', help='Conditional Consents for Web Page', domain="[('lawsection_id.name', '=', 'consent')]")
     wp_uncond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Unconditional Consents', relation='mail_mass_mailing_gdpr_inventory_uncond_rel', column1='mailing_id', column2='gdpr_id', help='Unconditional Consents for Web Page', domain="[('lawsection_id.name', '=', 'consent')]")
+    wp_mailing_title = fields.Text(string='Web Page Title')
+    wp_mailing_txt = fields.Html(string='Web Page Text')
+    def _wp_mailing_url(self):
+        self.wp_mailing_url = '<a class="btn btn-default" href="%s/mail/consent/%s/partner/${object.partner_id.id}">%s</a>' %(self.env['ir.config_parameter'].get_param('web.base.url'), self.id, _('Give Consents'))
+    wp_mailing_url = fields.Char(string='Web Page URL', compute='_wp_mailing_url')
 
     @api.onchange('gdpr_id', 'gdpr_consent')
     def get_gdpr_domain(self):
@@ -168,12 +173,12 @@ class MassMailController(MassMailController):
                 })
 
     @http.route(['/mail/consent/confirm'], type='json', auth='public', website=True)
-    def consent_confirm(self, inventory_id, consent_id, partner_id, mailing_title='', confirm=False, **kw):
+    def consent_confirm(self, inventory_id=0, consent_id=0, partner_id=0, mailing_title='', confirm=False, **kw):
         inventory = request.env['gdpr.inventory'].sudo().browse(int(inventory_id))
         partner = request.env['res.partner'].sudo().browse(int(partner_id))
         if inventory and partner:
             if confirm:
-                request.env['gdpr.consent'].add(inventory, partner, partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
+                request.env['gdpr.consent'].sudo().add(inventory, partner, partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
                 return 'ok'
             elif consent_id != 0:
                 request.env['gdpr.consent'].sudo().browse(consent_id).remove(mailing_title)
@@ -183,3 +188,12 @@ class MassMailController(MassMailController):
         else:
             return 'error'
 
+    @http.route(['/mail/consent/<int:consent_id>/confirm/<int:confirm>'], type='http', auth='public', website=True)
+    def object_consent(self, consent_id, confirm, **post):
+    # Wizard to get consent on specified object and purpose (inventory). Mail should have two links: given/withdrawn. If consent is missing, wizard creates it.
+        consent = request.env['gdpr.consent'].browse(int(consent_id))
+        if confirm == 1:
+            request.env['gdpr.consent'].sudo().add(consent.gdpr_id, consent.record_id, partner=consent.partner_id)
+        else:
+            consent.remove(_('Per mail'))
+        return request.website.render('gdpr_mass_mailing.consent_thanks', {'consent': consent, 'confirm': confirm})

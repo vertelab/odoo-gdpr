@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+
+        <record id="gdpr_dermanord" model="email.template">
+            <field name="name">GDPR Dermanord</field>
+            <field name="subject">GDPR Dermanord</field>
+            <field name="model_id" ref="gdpr_inventory.model_gdpr_consent"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="True"/>
+            <field name="body_html"><![CDATA[
+]]>
+            </field>
+        </record>
+
         <template id="subsribe_thanks" name="Subsribe Thanks">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure oe_empty">
@@ -12,23 +24,21 @@
                 </div>
             </t>
         </template>
+
         <template id="mailing_consents" name="GDPR Mailing Consents">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure oe_empty">
-                    <div class="oe_structure"/>
                     <div class="container">
-                        <h2 class="text-center">GDPR Inventory</h2>
-                        <p id="mailing_title" class="hidden" t-att-data-title="mailing.name"/>
+                        <div class="oe_structure"/>
+                        <h1 id="mailing_title" class="text-center" t-att-data-title="mailing.wp_mailing_title"><t t-esc="mailing.wp_mailing_title"/></h1>
+                        <div class="oe_structure"/>
+                        <t t-raw="mailing.wp_mailing_txt"/>
+                        <div class="oe_structure"/>
                         <table class="table" id="consent_table">
                             <tbody>
                                 <t t-foreach="consent_inventories" t-as="inv">
                                     <tr t-att-id="'inv_%s' %inv.id">
                                         <t t-set="consent" t-value="inv.consent_get(partner=partner, object=partner)"/>
-                                        <t t-foreach="inv.consent_ids" t-as="c">
-                                            <t t-if="c.partner_id == partner">
-                                                <t t-set="consent" t-value="c"/>
-                                            </t>
-                                        </t>
                                         <td><strong><t t-esc="inv.name"/></strong></td>
                                         <td><t t-esc="inv.consent_desc"/></td>
                                         <td>
@@ -52,11 +62,25 @@
                 </div>
             </t>
         </template>
+
+        <template id="consent_thanks" name="Consent Thanks">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="container">
+                        <div class="row">
+                            <h1 class="text-center">Thanks for you <t t-esc="'gave' if confirm == 1 else 'withdraw'"/> <strong t-esc="consent.name"/>.</h1>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
         <template id="assets_frontend" inherit_id="website.assets_frontend" name="Assets Frontend GDPR Mass Mailing">
             <xpath expr="." position="inside">
                 <link href="/gdpr_mass_mailing/static/src/css/main.css" rel="stylesheet" />
                 <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/main.js"></script>
             </xpath>
         </template>
+
     </data>
 </openerp>

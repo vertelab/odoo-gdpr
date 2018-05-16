@@ -27,6 +27,15 @@
                 <notebook position="inside">
                     <page string="Consents" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}">
                         <group col="4">
+                            <field name="wp_mailing_url"/>
+                        </group>
+                        <group col="4">
+                            <field name="wp_mailing_title"/>
+                        </group>
+                        <group col="4">
+                            <field name="wp_mailing_txt"/>
+                        </group>
+                        <group col="4">
                             <field name="wp_cond_consent_ids" widget="many2many_tags"/>
                         </group>
                         <group col="4">

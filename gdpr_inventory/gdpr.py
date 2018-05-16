@@ -416,9 +416,21 @@ class gdpr_consent(models.Model):
         partner = partner or self.env['res.partner'].search([('email', '=', email)], limit=1)
         if email and not partner:
             partner = self.env['res.partner'].sudo().create({'name': name or email, 'email': email})
+        if object._name != 'gdpr.object':
+            object = self.env['gdpr.object'].sudo().create({
+                'gdpr_id': gdpr_id.id,
+                'object_id': '%s,%s' %(object._name, object.id),
+                'partner_id': partner.id,
+            })
         consent = self.get_consent(gdpr_id, partner, object)
         if not consent:
-            consent = self.env['gdpr.consent'].sudo().create({'name': _('Consent %s') %partner.name, 'gdpr_id': gdpr_id.id, 'partner_id': partner.id, 'record_id': '%s,%s' %(object._name, object.id)})
+            consent = self.env['gdpr.consent'].sudo().create({
+                'name': _('Consent %s') %partner.name,
+                'gdpr_id': gdpr_id.id,
+                'partner_id': partner.id,
+                'gdpr_object_id': object.id,
+                'state': 'given'
+            })
         self.env['mail.message'].create({
             'body': msg.replace('\n', '<BR/>'),
             'subject': 'Consent given',
@@ -430,7 +442,9 @@ class gdpr_consent(models.Model):
 
     @api.model
     def get_consent(self, gdpr_id, partner_id, object_id):
-        return self.env['gdpr.consent'].sudo().search([('gdpr_id', '=', gdpr_id.id), ('partner_id', '=', partner_id.id), ('gdpr_object_id.object_id', '=', '%s,%s' % (object_id._name, object_id.id))], limit=1)
+        if object_id._name != 'gdpr.object':
+            object_id = self.env['gdpr.object'].sudo().search([('gdpr_id', '=', gdpr_id.id), ('partner_id', '=', partner_id.id), ('object_id', '=', '%s,%s' % (object_id._name, object_id.id))], limit=1)
+        return self.env['gdpr.consent'].sudo().search([('gdpr_id', '=', gdpr_id.id), ('partner_id', '=', partner_id.id), ('gdpr_object_id', '=', object_id.id)], limit=1)
 
 class gdpr_security(models.Model):
     """
