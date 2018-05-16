@@ -19,13 +19,23 @@
                 <div class="row">
                     <div id="gdpr_inventories" class="col-md-12 mt16 mb16">
                         <div class="oe_structure" />
-                        <t t-foreach="inventories" t-as="inventory">
-                            <div class="gdpr_inventory col-md-4">
-                                <div>
-                                    <h3 class="gdpr_inventory_title text-center" t-field="inventory.name" />
-                                    <div class="gdpr_inventory_content" t-field="inventory.website_desc" />
-                                </div>
-                            </div>
+                        <t t-foreach="categories" t-as="category">
+                            <h1 t-esc="category['category'].name"/>
+                            <h2 t-raw="category['category'].website_desc"/>
+                            <table class="table table-bordered" id="inventory_table">
+                                <thead>
+                                    <th>Purpose for the Treatment</th>
+                                    <th>Lawsection for the Treatment</th>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="category['inventories']" t-as="inventory">
+                                        <tr>
+                                            <td><t t-raw="inventory.website_desc"/></td>
+                                            <td></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
                         </t>
                     </div>
                 </div>

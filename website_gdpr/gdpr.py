@@ -35,11 +35,11 @@ class gdpr_inventory(models.Model):
     parent_id = fields.Many2one(comodel_name="gdpr.inventory")
     website_inventory_ids = fields.One2many(comodel_name='gdpr.inventory',inverse_name='parent_id',string="Related inventories",help='Related inventories that is included in this webdescription',)
 
+
 class gdpr_category(models.Model):
     _inherit = 'gdpr.category'
 
     website_desc = fields.Html(string="Website Description",  translation=True, track_visibility='onchange', translate=True)
-
 
 
 class GDPRController(http.Controller):
@@ -57,8 +57,21 @@ class GDPRController(http.Controller):
 
     @http.route(['/gdpr/inventories'], type='http', auth="public", website=True)
     def gdpr_inventories(self, partner=None, **post):
-        return request.website.render('website_gdpr.gdpr_inventory_page', {
-            'inventories': request.env['gdpr.inventory'].sudo().search([
+        categories = request.env['gdpr.category'].sudo().search([])
+        category_list = []
+        for category in categories:
+            inventories = request.env['gdpr.inventory'].sudo().search([
                 ('state_id', '=', request.env.ref('gdpr_inventory.inventory_state_active').id),
-                ('website_published', '=', True)])
-            })
+                ('website_published', '=', True),
+                ('category', '=', category.id)
+            ])
+            if len(inventories) > 0:
+                inventory_list = inventories.mapped('website_inventory_ids')
+                if len(inventory_list) > 0:
+                    category_list.append({
+                        'category': category,
+                        'inventories': inventory_list,
+                    })
+        return request.website.render('website_gdpr.gdpr_inventory_page', {
+            'categories': category_list,
+        })
