@@ -88,7 +88,7 @@ msgstr "Webbplatsbeskrivning"
 #. module: website_gdpr
 #: field:gdpr.inventory,website_published:0
 msgid "Website Published"
-msgstr "Webbplats publicerad"
+msgstr "Publicerad"
 
 #. module: website_gdpr
 #: field:gdpr.inventory,website_lawsection_list:0

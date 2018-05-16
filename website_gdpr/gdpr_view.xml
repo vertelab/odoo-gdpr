@@ -32,8 +32,10 @@
             <field name="arch" type="xml">
                 <tree position="inside">
                     <field name="website_published"/>
-                    
                 </tree>
+                <field name='name' position="before">
+                    <field name="sequence" widget="handle"/>
+                </field>
             </field>
         </record>
 
@@ -46,6 +48,10 @@
                     <field name="website_published"/>
                     <field name="website_inventory_ids" />
                 </field>
+                <filter name="state_id" position='after'>
+                    <filter string="Published" name="website_published" domain="[('website_published', '=', True)]"/>
+                    <filter string="Not published" name="website_published" domain="[('website_published', '=', False)]"/>
+                </filter>
             </field>
         </record>
         
@@ -57,6 +63,7 @@
             <field name="inherit_id" ref="gdpr_inventory.view_gdpr_category_form"/>
             <field name="arch" type="xml">
                 <field name="description" position="after">
+                    <field name="website_published" />
                     <field name="website_desc" nolabel="1"/>
                 </field>
             </field>
