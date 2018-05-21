@@ -45,8 +45,8 @@ class MailMassMailing(models.Model):
     recipients = fields.Integer(readonly=True)
     gdpr_mailing_list_ids = fields.Many2many(comodel_name='gdpr.mail.mass_mailing.list', string='GDPR Mailing Lists')
     gdpr_consent_collected = fields.Many2many(string='Collected GDPR Inventory', comodel_name='gdpr.inventory')
-    wp_cond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Conditional Consents', relation='mail_mass_mailing_gdpr_inventory_cond_rel', column1='mailing_id', column2='gdpr_id', help='Conditional Consents for Web Page', domain="[('lawsection_id.name', '=', 'consent')]")
-    wp_uncond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Unconditional Consents', relation='mail_mass_mailing_gdpr_inventory_uncond_rel', column1='mailing_id', column2='gdpr_id', help='Unconditional Consents for Web Page', domain="[('lawsection_id.name', '=', 'consent')]")
+    wp_cond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Conditional Consents', relation='mail_mass_mailing_gdpr_inventory_cond_rel', column1='mailing_id', column2='gdpr_id', help='Conditional Consents for Web Page', domain="[('lawsection_id.consent', '=', True)]")
+    wp_uncond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Unconditional Consents', relation='mail_mass_mailing_gdpr_inventory_uncond_rel', column1='mailing_id', column2='gdpr_id', help='Unconditional Consents for Web Page', domain="[('lawsection_id.consent', '=', True)]")
     wp_mailing_title = fields.Text(string='Web Page Title')
     wp_mailing_txt = fields.Html(string='Web Page Text')
     def _wp_mailing_url(self):
