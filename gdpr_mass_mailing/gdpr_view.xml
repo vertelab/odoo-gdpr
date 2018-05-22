@@ -78,15 +78,6 @@
         </record>
 -->
 
-        <record model="ir.actions.act_window" id="action_view_gdpr_consent_from_list">
-            <field name="name">Recipients</field>
-            <field name="res_model">gdpr.consent</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree</field>
-            <field name="domain">[]</field>
-            <field name="context">{'search_default_gdpr_id': active_id, 'search_default_state': 'state_missing'}</field>
-        </record>
-
         <!-- GDPR MASS MAILING LIST -->
         <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_search">
             <field name="name">gdpr.mail.mass_mailing.list.search</field>
@@ -122,7 +113,7 @@
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
-                            <button name="%(gdpr_mass_mailing.action_view_gdpr_consent_from_list)d" type="action" icon="fa-user" class="oe_stat_button pull-right">
+                            <button name="show_consents" type="object" icon="fa-user" class="oe_stat_button pull-right">
                                 <field name="consent_nbr" string="Recipients" widget="statinfo"/>
                             </button>
                         </div>

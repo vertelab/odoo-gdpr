@@ -283,6 +283,7 @@
                                     <field name="inventory_domain_advanced"/>
                                     <field name="inventory_domain_code" attrs="{'invisible': [('inventory_domain_advanced', '=', False)]}"/>
                                     <field name="inventory_domain"/>
+                                    <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
                                 </group>
                             </page>
 
@@ -300,7 +301,6 @@
                                     <field name="pseudo_values" attrs="{'invisible': [('restrict_type', '!=', 'pseudo')]}"/>
                                     <field name="restrict_code" attrs="{'invisible': [('restrict_type', '!=', 'code')]}"/>
                                     <field name="fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
-                                    <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
                                 </group>
                             </page>
                             <page string="Consent" attrs="{'invisible': [('consent', '=', False)]}">

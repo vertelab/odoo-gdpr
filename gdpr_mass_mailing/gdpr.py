@@ -72,26 +72,25 @@ class MailMassMailing(models.Model):
 
     @api.onchange('mailing_model', 'gdpr_mailing_list_ids')
     def on_change_gdpr_model_and_list(self):
-        consents = set()
+        consents = self.env['gdpr.consent'].browse()
         partners = set()
         for lst in self.gdpr_mailing_list_ids:
             for consent_ids in lst.mapped('gdpr_ids').mapped('consent_ids'):
-                con = consent_ids.filtered(lambda c: c.state == lst.gdpr_consent and c.partner_id.id not in partners)
-                partners = partners.union(set(con.mapped('partner_id').mapped('id')))
-                consents = consents.union(set(con.mapped('id')))
-        self.mailing_domain = "[('id', 'in', %s)]" %list(consents)
+                consents |= consent_ids.filtered(lambda c: c.state == lst.gdpr_consent and c.partner_id.id not in partners)
+                partners = partners.union(set(consents.mapped('partner_id').mapped('id')))
+        if len(consents) > 0:
+            self.mailing_domain = "[('id', 'in', %s)]" %consents.mapped('id')
 
     @api.model
     def get_recipients(self, mailing):
         if mailing.mailing_model == 'gdpr.consent':
-            consents = set()
+            consents = self.env['gdpr.consent'].browse()
             partners = set()
             for lst in mailing.gdpr_mailing_list_ids:
                 for consent_ids in lst.mapped('gdpr_ids').mapped('consent_ids'):
-                     con = consent_ids.filtered(lambda c: c.state == lst.gdpr_consent and c.partner_id.id not in partners)
-                partners = partners.union(set(con.mapped('partner_id').mapped('id')))
-                consents = consents.union(set(con.mapped('id')))
-            return consents
+                    consents |= consent_ids.filtered(lambda c: c.state == lst.gdpr_consent and c.partner_id.id not in partners)
+                    partners = partners.union(set(consents.mapped('partner_id').mapped('id')))
+            return consents.mapped('id')
         else:
             return super(MailMassMailing, self).get_recipients(mailing)
 
@@ -106,7 +105,7 @@ class GDPRMailMassMailingList(models.Model):
 
     @api.one
     def _get_consent_nbr(self):
-        self.consent_nbr = len(self.env['gdpr.consent'].search([('gdpr_id', 'in', self.gdpr_ids.mapped('id'))]))
+        self.consent_nbr = len(self.env['gdpr.consent'].search([('gdpr_id', 'in', self.gdpr_ids.mapped('id')), ('state', '=', self.gdpr_consent)]))
 
     @api.model
     def get_consents(self, mailing):
@@ -129,6 +128,19 @@ class GDPRMailMassMailingList(models.Model):
                         'state': self.gdpr_consent,
                     })
 
+    @api.multi
+    def show_consents(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'gdpr.consent',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'view_id': self.env.ref('gdpr_inventory.view_gdpr_consent_tree').id,
+            'target': 'current',
+            'domain': [('id', 'in', self.get_consents(self).mapped('id'))],
+            'context': {},
+        }
+
 
 class gdpr_consent(models.Model):
     _inherit = 'gdpr.consent'
@@ -146,17 +158,26 @@ class MassMailController(MassMailController):
             if mailing.mailing_model == 'mail.mass_mailing.contact':
                 list_ids = [l.id for l in mailing.contact_list_ids]
                 records = request.env[mailing.mailing_model].sudo().search([('list_id', 'in', list_ids), ('id', '=', res_id), ('email', 'ilike', email)])
-                consent = request.env['gdpr.consent'].sudo().search([('gdpr_object_id.record_id', '=', '%s,%s' % (mailing.mailing_model, records.id))])
+                consent = request.env['gdpr.consent'].sudo().search([('record_id', '=', '%s,%s' % (mailing.mailing_model, records.id))])
                 if consent:
-                    consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
+                    consent.sudo().remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
+            elif mailing.mailing_model == 'gdpr.consent' and res_id:
+                consent = request.env['gdpr.consent'].sudo().browse(int(res_id))
+                consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
             elif mailing.gdpr_id and res_id:
                 consent = request.env['gdpr.consent'].sudo().search([
                     ('record_id', '=', '%s,%s' % (mailing.mailing_model, res_id)),
                     ('partner_id.email', '=', email),
                     ('gdpr_id', '=', mailing.gdpr_id.id)])
                 if consent:
-                    consent.remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
-        return res
+                    consent.sudo().remove("User unsubscribed through %s (referer: %s)" % (request.httprequest.path, request.httprequest.referrer))
+                else:
+                    consent = request.env['gdpr.consent'].sudo().create([
+                    ('record_id', '=', '%s,%s' % (mailing.mailing_model, res_id)),
+                    ('partner_id.email', '=', email),
+                    ('gdpr_id', '=', mailing.gdpr_id.id),
+                    ('state', '=', 'withdrawn')])
+        return request.website.render('gdpr_mass_mailing.consent_thanks', {'inventory': mailing.gdpr_id if mailing.gdpr_id else consent.gdpr_id, 'confirm': 0})
 
     @http.route(['/mail/consent/<int:mailing_id>/partner/<int:partner_id>'], type='http', auth='public', website=True)
     def mailing_consents(self, mailing_id, partner_id, **post):
@@ -196,4 +217,4 @@ class MassMailController(MassMailController):
             request.env['gdpr.consent'].sudo().add(consent.gdpr_id, consent.record_id, partner=consent.partner_id)
         else:
             consent.remove(_('Per mail'))
-        return request.website.render('gdpr_mass_mailing.consent_thanks', {'consent': consent, 'confirm': confirm})
+        return request.website.render('gdpr_mass_mailing.consent_thanks', {'inventory': consent.gdpr_id, 'confirm': confirm})

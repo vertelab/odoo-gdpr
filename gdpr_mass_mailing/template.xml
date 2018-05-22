@@ -66,11 +66,14 @@
         <template id="consent_thanks" name="Consent Thanks">
             <t t-call="website.layout">
                 <div id="wrap" class="oe_structure oe_empty">
-                    <div class="container">
+                    <div class="oe_structure"/>
+                    <div class="container mt32 mb32">
                         <div class="row">
-                            <h1 class="text-center">Thanks for you <t t-esc="'gave' if confirm == 1 else 'withdraw'"/> <strong t-esc="consent.name"/>.</h1>
+                            <h1 class="text-center mb16">Thanks for your response.</h1>
+                            <p class="text-center">You have now <t t-esc="'given' if confirm == 1 else 'withdrawn'"/> your consent for <strong t-esc="inventory.name"/>.</p>
                         </div>
                     </div>
+                    <div class="oe_structure"/>
                 </div>
             </t>
         </template>
