@@ -149,7 +149,10 @@ class MailMail(models.Model):
     def send_get_mail_body(self, mail, partner=None):
         """ Override to add the full website version URL to the body. """
         body = super(MailMail, self).send_get_mail_body(mail, partner=partner)
-        return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Give Consents</a>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.id, partner.id))
+        if mail.model == 'gdpr.consent':
+            return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Give Consents</a>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
+        else:
+            return body
 
 
 class gdpr_consent(models.Model):
