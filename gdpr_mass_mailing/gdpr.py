@@ -150,7 +150,7 @@ class MailMail(models.Model):
     def send_get_mail_body(self, mail, partner=None):
         """ Override to add the full website version URL to the body. """
         body = super(MailMail, self).send_get_mail_body(mail, partner=partner)
-        if mail.model != 'mail.mass_mailing.contact':
+        if mail.model != 'mail.mass_mailing.contact' and partner:
             return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Give Consents</a>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
         else:
             return body
@@ -212,9 +212,13 @@ class MassMailController(MassMailController):
         inventory = request.env['gdpr.inventory'].sudo().browse(int(inventory_id))
         partner = request.env['res.partner'].sudo().browse(int(partner_id))
         if inventory and partner:
+            object = request.env['gdpr.object'].search([('gdpr_id', '=', inventory.id), ('partner_id', '=', partner.id)])
             if confirm:
-                request.env['gdpr.consent'].sudo().add(inventory, partner, partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
-                return 'ok'
+                if object:
+                    consent = request.env['gdpr.consent'].sudo().add(inventory, object, partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
+                    return 'ok'
+                else:
+                    return 'error'
             elif consent_id != 0:
                 request.env['gdpr.consent'].sudo().browse(consent_id).remove(mailing_title)
             else:

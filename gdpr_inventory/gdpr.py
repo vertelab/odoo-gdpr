@@ -463,20 +463,28 @@ class gdpr_consent(models.Model):
         if email and not partner:
             partner = self.env['res.partner'].sudo().create({'name': name or email, 'email': email})
         if object._name != 'gdpr.object':
-            object = self.env['gdpr.object'].sudo().create({
-                'gdpr_id': gdpr_id.id,
-                'object_id': '%s,%s' %(object._name, object.id),
-                'partner_id': partner.id,
-            })
-        consent = self.get_consent(gdpr_id, partner, object)
+            object_id = self.env['gdpr.object'].sudo().search([
+                ('gdpr_id', '=', gdpr_id.id),
+                ('object_id', '=', '%s,%s' %(object._name, object.id)),
+                ('partner_id', '=', partner.id),
+            ])
+            if not object_id:
+                object_id = self.env['gdpr.object'].sudo().create({
+                    'gdpr_id': gdpr_id.id,
+                    'object_id': '%s,%s' %(object._name, object.id),
+                    'partner_id': partner.id,
+                })
+        else:
+            object_id = object
+        consent = self.get_consent(gdpr_id, partner, object_id)
         if not consent:
             consent = self.env['gdpr.consent'].sudo().create({
                 'name': _('Consent %s') %partner.name,
                 'gdpr_id': gdpr_id.id,
                 'partner_id': partner.id,
-                'gdpr_object_id': object.id,
-                'state': 'given'
+                'gdpr_object_id': object_id.id,
             })
+        consent.state = 'given'
         self.env['mail.message'].create({
             'body': msg.replace('\n', '<BR/>'),
             'subject': 'Consent given',
