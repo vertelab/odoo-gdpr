@@ -25,9 +25,9 @@
                     <attribute name="options">{'model_field': 'mailing_model', 'gdpr_domain_field': 'gdpr_domain'}</attribute>
                 </field>
                 <notebook position="inside">
-                    <page string="Consents" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}">
+                    <page string="Consents" attrs="{'invisible': [('mailing_model', '=', 'mail.mass_mailing.contact')]}">
                         <group col="4">
-                            <field name="wp_mailing_url"/>
+                            <field name="wp_consent_url"/>
                         </group>
                         <group col="4">
                             <field name="wp_mailing_title"/>
