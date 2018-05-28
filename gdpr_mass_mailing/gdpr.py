@@ -47,7 +47,7 @@ class MailMassMailing(models.Model):
     gdpr_consent_collected = fields.Many2many(string='Collected GDPR Inventory', comodel_name='gdpr.inventory')
     wp_cond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Conditional', relation='mail_mass_mailing_gdpr_inventory_cond_rel', column1='mailing_id', column2='gdpr_id', help='Conditional Consents for Web Page', domain="[('lawsection_id.consent', '=', True)]")
     wp_uncond_consent_ids = fields.Many2many(comodel_name='gdpr.inventory', string='Unconditional', relation='mail_mass_mailing_gdpr_inventory_uncond_rel', column1='mailing_id', column2='gdpr_id', help='Unconditional Consents for Web Page', domain="[('lawsection_id.consent', '=', True)]")
-    wp_consent_url = fields.Char(string='Web Page URL', default='$website_consent', help='URL for give consent.')
+    wp_consent_url = fields.Char(string='Web Page URL', default='$website_consent', help='URL for give consent.', readonly=True)
     wp_mailing_title = fields.Char(string='Web Page Title')
     wp_mailing_txt = fields.Html(string='Web Page Text')
     # ~ def _wp_mailing_url(self):
@@ -62,7 +62,7 @@ class MailMassMailing(models.Model):
                 if self.gdpr_consent in ['given', 'withdrawn']:
                     object_ids = [d['gdpr_object_id'][0] for d in self.env['gdpr.consent'].search_read([('state', '=', self.gdpr_consent), ('gdpr_id', '=', self.gdpr_id.id)], ['gdpr_object_id'])]
                 else:
-                    object_ids = (self.gdpr_id.object_ids - self.env['gdpr.consent'].search([('gdpr_id', '=', self.gdpr_id.id)]).mapped('gdpr_object_id')).mapped('id')
+                    object_ids = list(set(self.gdpr_id.object_ids.mapped('id')) - set(self.env['gdpr.consent'].search([('gdpr_id', '=', self.gdpr_id.id)]).mapped('gdpr_object_id').mapped('id')))
                 # ~ _logger.warn(self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id']))
                 # ~ object_ids = [d['object_res_id'] for d in self.env['gdpr.object'].search_read([('id', 'in', object_ids), ('restricted', '=', False)], ['object_res_id'])]
             else:
@@ -150,7 +150,7 @@ class MailMail(models.Model):
     def send_get_mail_body(self, mail, partner=None):
         """ Override to add the full website version URL to the body. """
         body = super(MailMail, self).send_get_mail_body(mail, partner=partner)
-        if mail.model == 'gdpr.consent':
+        if mail.model != 'mail.mass_mailing.contact':
             return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Give Consents</a>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
         else:
             return body

@@ -26,20 +26,12 @@
                 </field>
                 <notebook position="inside">
                     <page string="Consents" attrs="{'invisible': [('mailing_model', '=', 'mail.mass_mailing.contact')]}">
-                        <group col="4">
-                            <field name="wp_consent_url"/>
-                        </group>
-                        <group col="4">
+                        <group string="Form for collection of consents">
                             <field name="wp_mailing_title"/>
-                        </group>
-                        <group col="4">
                             <field name="wp_mailing_txt"/>
-                        </group>
-                        <group col="4">
                             <field name="wp_cond_consent_ids" widget="many2many_tags"/>
-                        </group>
-                        <group col="4">
                             <field name="wp_uncond_consent_ids" widget="many2many_tags"/>
+                            <field name="wp_consent_url"/>
                         </group>
                     </page>
                 </notebook>

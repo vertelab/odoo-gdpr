@@ -39,14 +39,16 @@
                                 <t t-foreach="consent_inventories" t-as="inv">
                                     <tr t-att-id="'inv_%s' %inv.id">
                                         <t t-set="consent" t-value="inv.consent_get(partner=partner, object=partner)"/>
-                                        <td><strong><t t-esc="inv.name"/></strong></td>
-                                        <td><t t-esc="inv.consent_desc"/></td>
+                                        <td>
+                                            <h4><t t-esc="inv.name"/></h4>
+                                            <small><t t-esc="inv.consent_desc"/></small>
+                                        </td>
                                         <td>
                                             <div>
 <!--
                                                     <label class="switch">
 -->
-                                                        <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
+                                                        <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent pull-right" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
 <!--
                                                         <span class="slider round"></span>
                                                     </label>
@@ -57,6 +59,21 @@
                                 </t>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="oe_structure">
+                        <section class="mb16">
+                            <div class="container">
+                                <h3>Our privacy policy</h3>
+                                <div class="">
+                                    <ul>
+                                      <li>We protect your personal data by ...</li>
+                                      <li>We will never share personal data with third parties.</li>
+                                      <li>...</li>
+                                    </ul>
+                                    <div>Read more about our <a class="btn btn-primary" href="/gdpr/inventories">Privacy Policy</a></div>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                     <div class="oe_structure"/>
                 </div>
