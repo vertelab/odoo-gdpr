@@ -40,7 +40,7 @@
                                     <tr t-att-id="'inv_%s' %inv.id">
                                         <t t-set="consent" t-value="inv.consent_get(partner=partner, object=partner)"/>
                                         <td>
-                                            <h4><t t-esc="inv.name"/></h4>
+                                            <h4><t t-esc="inv.consent_title or inv.name"/></h4>
                                             <small><t t-esc="inv.consent_desc"/></small>
                                         </td>
                                         <td>

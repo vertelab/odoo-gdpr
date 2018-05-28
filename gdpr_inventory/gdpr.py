@@ -176,9 +176,8 @@ class gdpr_inventory(models.Model):
     data_sharing_ids = fields.Many2many(comodel_name='res.partner', relation='gdpr_inventory_res_partner_sharing_rel', column1='gdpr_id', column2='partner_id', string='Data Sharing', help="Any partners that we share this data with.", track_visibility='onchange')
 
     # Consent
-    consent_desc = fields.Text(string="consent Explanation")
-    consent_add = fields.Text(string="consent Add", help="Code for consent add")
-    consent_remove = fields.Text(string="consent Remove", help="Code for consent remove")
+    consent_title = fields.Char(string="Title")
+    consent_desc = fields.Text(string="Description")
     consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
 

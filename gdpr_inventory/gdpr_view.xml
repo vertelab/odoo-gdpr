@@ -305,9 +305,8 @@
                             </page>
                             <page string="Consent" attrs="{'invisible': [('consent', '=', False)]}">
                                 <group>
+                                    <field name="consent_title"/>
                                     <field name="consent_desc"/>
-                                    <field name="consent_add"/>
-                                    <field name="consent_remove"/>
                                 </group>
                             </page>
                         </notebook>
@@ -351,10 +350,9 @@
                     <field name="lawsection_id"/>
                     <field name="lawsection_desc"/>
                     <field name="consent"/>
+                    <field name="consent_title"/>
                     <field name="consent_desc"/>
-                    <field name="consent_add"/>
                     <field name="consent_count"/>
-                    <field name="consent_remove"/>
                     <field name="restrict_time_days"/>
                     <field name="restrict_method_id"/>
                     <field name="inventory_model"/>
