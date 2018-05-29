@@ -100,11 +100,10 @@ class MailMassMailing(models.Model):
         if self.gdpr_id and self.gdpr_consent == 'missing':
             for partner in self.gdpr_id.partner_ids:
                 if not partner.consent_ids.filtered(lambda c: c.gdpr_id == self.gdpr_id):
-                    gdpr_object = self.gdpr_id.object_ids.filtered(lambda o: o.partner_id == partner)
-                    if gdpr_object:
+                    for o in self.gdpr_id.object_ids.filtered(lambda o: o.partner_id == partner):
                         self.env['gdpr.consent'].create({
                             'name': '%s - %s' %(self.gdpr_id.name, partner.name),
-                            'gdpr_object_id': gdpr_object.id,
+                            'gdpr_object_id': o.id,
                             'partner_id': partner.id,
                             'gdpr_id': self.gdpr_id.id,
                             'state': self.gdpr_consent,
@@ -136,11 +135,10 @@ class GDPRMailMassMailingList(models.Model):
         for inventory in self.gdpr_ids:
             for partner in inventory.partner_ids:
                 if not partner.consent_ids.filtered(lambda c: c.gdpr_id == inventory):
-                    gdpr_object = inventory.object_ids.filtered(lambda o: o.partner_id == partner)
-                    if gdpr_object:
+                    for o in inventory.object_ids.filtered(lambda o: o.partner_id == partner):
                         self.env['gdpr.consent'].create({
                             'name': '%s - %s' %(inventory.name, partner.name),
-                            'gdpr_object_id': gdpr_object.id,
+                            'gdpr_object_id': o.id,
                             'partner_id': partner.id,
                             'gdpr_id': inventory.id,
                             'state': self.gdpr_consent,

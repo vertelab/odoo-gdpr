@@ -42,6 +42,7 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
         'security/ir.model.access.csv',
         'gdpr_data.xml',
         'gdpr_view.xml',
+        # ~ 'wizard/consent_view.xml',
         #'report/gdpr_report.xml',
     ],
     'demo': ['gdpr_demo.xml'],

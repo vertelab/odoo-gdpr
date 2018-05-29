@@ -763,4 +763,3 @@ class ir_attachment(models.Model):
         if type(self.id) == int:
             self.consent_ids = self.env['gdpr.consent'].search([('gdpr_object_id.object_id', '=', '%s,%s' % (self._name, self.id),)])
     consent_ids = fields.One2many(comodel_name='gdpr.consent', compute='_consent_ids')
-
