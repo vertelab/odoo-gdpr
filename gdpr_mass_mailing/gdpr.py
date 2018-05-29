@@ -50,6 +50,7 @@ class MailMassMailing(models.Model):
     wp_consent_url = fields.Char(string='Web Page URL', default='$website_consent', help='URL for give consent.', readonly=True)
     wp_mailing_title = fields.Char(string='Web Page Title')
     wp_mailing_txt = fields.Html(string='Web Page Text')
+    group_per_object = fields.Boolean(string='Group per object', help='When this is not checked, GDPR objects will show as separate line in the inventories to your recipents.')
     # ~ def _wp_mailing_url(self):
         # ~ self.wp_mailing_url = '<a class="btn btn-default" href="%s/mail/consent/%s/partner/${object.partner_id.id}">%s</a>' %(self.env['ir.config_parameter'].get_param('web.base.url'), self.id, _('Give Consents'))
     # ~ wp_mailing_url = fields.Char(string='Web Page URL', compute='_wp_mailing_url')
@@ -166,7 +167,7 @@ class MailMail(models.Model):
         """ Override to add the full website version URL to the body. """
         body = super(MailMail, self).send_get_mail_body(mail, partner=partner)
         if mail.model != 'mail.mass_mailing.contact' and partner:
-            return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Click here</a><br/>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
+            return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Click here to review this consent</a><br/>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
         else:
             return body
 
@@ -239,17 +240,18 @@ class MassMailController(MassMailController):
                     'mailing': mailing,
                     'partner': partner,
                     'consent_inventories': cond_consent_inventories + uncond_consent_inventories,
+                    'group_per_object': mailing.group_per_object,
                 })
 
     @http.route(['/mail/consent/confirm'], type='json', auth='public', website=True)
-    def consent_confirm(self, inventory_id=0, consent_id=0, partner_id=0, mailing_title='', confirm=False, **kw):
+    def consent_confirm(self, inventory_id=0, object_id=0, consent_id=0, partner_id=0, mailing_title='', confirm=False, **kw):
         inventory = request.env['gdpr.inventory'].sudo().browse(int(inventory_id))
         partner = request.env['res.partner'].sudo().browse(int(partner_id))
         if inventory and partner:
-            object = request.env['gdpr.object'].search([('gdpr_id', '=', inventory.id), ('partner_id', '=', partner.id)])
+            object = request.env['gdpr.object'].browse(object_id)
             if confirm:
                 if object:
-                    consent = request.env['gdpr.consent'].sudo().add(inventory, object, partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
+                    consent = request.env['gdpr.consent'].sudo().add(inventory, object[0], partner=partner, name='%s - %s' %(inventory.name, partner.name), msg=mailing_title)
                     return 'ok'
                 else:
                     return 'error'
@@ -260,6 +262,12 @@ class MassMailController(MassMailController):
             return 'ok'
         else:
             return 'error'
+
+    @http.route(['/mail/consent/<int:mailing_id>/thanks'], type='http', auth='public', website=True)
+    def mail_consent_thanks(self, mailing_id=0, **post):
+        mailing = request.env['mail.mass_mailing'].sudo().browse(mailing_id)
+        if mailing:
+            return request.website.render('gdpr_mass_mailing.mailing_consent_thanks', {'mailing': mailing})
 
     @http.route(['/mail/consent/<int:consent_id>/confirm/<int:confirm>'], type='http', auth='public', website=True)
     def object_consent(self, consent_id, confirm, **post):

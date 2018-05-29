@@ -37,26 +37,56 @@
                         <table class="table" id="consent_table">
                             <tbody>
                                 <t t-foreach="consent_inventories" t-as="inv">
-                                    <tr t-att-id="'inv_%s' %inv.id">
-                                        <t t-set="consent" t-value="inv.consent_get(partner=partner, object=request.env['gdpr.object'].sudo().search([('gdpr_id', '=', inv.id), ('partner_id', '=', partner.id)]).object_id)"/>
-                                        <td>
-                                            <h4><t t-esc="inv.consent_title or inv.name"/></h4>
-                                            <small><t t-esc="inv.consent_desc"/></small>
-                                        </td>
-                                        <td>
-                                            <div>
+                                    <t t-if="not group_per_object">
+                                        <t t-foreach="inv.sudo().object_ids.with_context(partner=partner).filtered(lambda o: o.partner_id == o._context.get('partner'))" t-as="obj">
+                                            <tr t-att-id="'inv_%s' %inv.id">
+                                                <t t-set="consent" t-value="inv.consent_get(partner=partner, object=obj)"/>
+                                                <td>
+                                                    <h4><t t-esc="obj.name"/></h4>
+                                                    <h4><t t-esc="inv.consent_title or inv.name"/></h4>
+                                                    <small><t t-esc="inv.consent_desc"/></small>
+                                                </td>
+                                                <td>
+                                                    <h4/>
+                                                    <br/>
+                                                    <div>
+                                                        <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id" t-att-data-object_id="obj.id" t-att-data-partner_id="partner.id" class="confirm_consent pull-right" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                    <t t-if="group_per_object">
+                                        <tr t-att-id="'inv_%s' %inv.id">
+                                            <t t-set="obj_id" t-value="request.env['gdpr.object'].sudo().search([('gdpr_id', '=', inv.id), ('partner_id', '=', partner.id)])"/>
+                                            <t t-if="obj_id">
+                                                <t t-set="consent" t-value="inv.consent_get(partner=partner, object=obj_id[0].object_id)"/>
+                                                <td>
+                                                    <h4><t t-esc="inv.consent_title or inv.name"/></h4>
+                                                    <small><t t-esc="inv.consent_desc"/></small>
+                                                </td>
+                                                <td>
+                                                    <div>
 <!--
-                                                    <label class="switch">
+                                                            <label class="switch">
 -->
-                                                        <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id" t-att-data-partner_id="partner.id" class="confirm_consent pull-right" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
+                                                                <input type="checkbox" t-att-data-consent_id="consent.id if consent else 0" t-att-data-inventory_id="inv.id"  t-att-data-object_id="obj_id[0].id" t-att-data-partner_id="partner.id" class="confirm_consent pull-right" t-att="{'checked': '1'} if consent and consent.state == 'given' else {}"/>
 <!--
-                                                        <span class="slider round"></span>
-                                                    </label>
+                                                                <span class="slider round"></span>
+                                                            </label>
 -->
-                                            </div>
-                                        </td>
-                                    </tr>
+                                                    </div>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
                                 </t>
+                                <tr>
+                                    <td/>
+                                    <td>
+                                        <a class="btn btn-primary pull-right" t-att-href="'/mail/consent/%s/thanks' %mailing.id">Done</a>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -74,6 +104,24 @@
                                 </div>
                             </div>
                         </section>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </template>
+
+        <template id="mailing_consent_thanks" name="Mailing Consent Thanks">
+            <t t-call="website.layout">
+                <div id="wrap" class="oe_structure oe_empty">
+                    <div class="oe_structure"/>
+                    <div class="container mt32 mb32">
+                        <div class="row">
+                            <h1 id="mailing_title" class="text-center" t-att-data-title="mailing.wp_mailing_title"><t t-esc="mailing.wp_mailing_title"/></h1>
+                            <t t-raw="mailing.wp_mailing_txt"/>
+                            <div class="col-md-12">
+                                <h3 class="text-center">Thanks for your time and your response.</h3>
+                            </div>
+                        </div>
                     </div>
                     <div class="oe_structure"/>
                 </div>

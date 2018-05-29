@@ -36,6 +36,7 @@
                             <field name="wp_cond_consent_ids" widget="many2many_tags"/>
                             <field name="wp_uncond_consent_ids" widget="many2many_tags"/>
                             <field name="wp_consent_url"/>
+                            <field name="group_per_object"/>
                         </group>
                     </page>
                 </notebook>
