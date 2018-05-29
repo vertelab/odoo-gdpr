@@ -167,42 +167,18 @@ class MailMail(models.Model):
         """ Override to add the full website version URL to the body. """
         body = super(MailMail, self).send_get_mail_body(mail, partner=partner)
         if mail.model != 'mail.mass_mailing.contact' and partner:
-            tmp = body
-            if '$website_consent' in tmp:
-                tmp = body.replace(_('Click to unsubscribe'),'')
-            return tmp.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Click here to review this consent</a><br/>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
+            return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Click here to review this consent</a><br/>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
         else:
             return body
 
     @api.model
     def _get_unsubscribe_url(self, mail, email_to, msg=None):
         res = super(MailMail, self)._get_unsubscribe_url(mail, email_to, msg)
-        _logger.warn('context : %s' %self._context)
-        if not self._context.get('no_unsubscribe_url'):
+        if not (mail.mailing_id.wp_cond_consent_ids or mail.mailing_id.wp_uncond_consent_ids): # Not Collecting consents
             return res
     
     
-    # ~ def _get_unsubscribe_url(self, cr, uid, mail, email_to, msg=None, context=None):
-        # ~ base_url = self.pool.get('ir.config_parameter').get_param(cr, uid, 'web.base.url')
-        # ~ url = urlparse.urljoin(
-            # ~ base_url, 'mail/mailing/%(mailing_id)s/unsubscribe?%(params)s' % {
-                # ~ 'mailing_id': mail.mailing_id.id,
-                # ~ 'params': werkzeug.url_encode({'db': cr.dbname, 'res_id': mail.res_id, 'email': email_to})
-            # ~ }
-        # ~ )
-        # ~ return '<small><a href="%s">%s</a></small>' % (url, msg or _('Click to unsubscribe'))
-        
-    # ~ @api.model
-    # ~ def send_get_email_dict(self, mail, partner=None):
-        # ~ _logger.warn('send_get_email_dict')
-        # ~ res = super(MailMail, self).with_context(no_unsubscribe_url='$website_consent' in res.get('body')).send_get_email_dict(mail, partner)
-        # ~ _logger.warn('$website_consent' in res.get('body'))
-        # ~ return res
 
-    # ~ @api.multi
-    # ~ def send(self, auto_commit=False, raise_exception=False):
-        # ~ res = super(MailMail, self).with_context(no_unsubscribe_url=True).send(auto_commit=auto_commit, raise_exception=raise_exception)
-        # ~ return res
 
 
 class gdpr_consent(models.Model):
