@@ -38,7 +38,7 @@
                             <tbody>
                                 <t t-foreach="consent_inventories" t-as="inv">
                                     <tr t-att-id="'inv_%s' %inv.id">
-                                        <t t-set="consent" t-value="inv.consent_get(partner=partner, object=request.env['gdpr.object'].search([('gdpr_id', '=', inv.id), ('partner_id', '=', partner.id)]).object_id)"/>
+                                        <t t-set="consent" t-value="inv.consent_get(partner=partner, object=request.env['gdpr.object'].sudo().search([('gdpr_id', '=', inv.id), ('partner_id', '=', partner.id)]).object_id)"/>
                                         <td>
                                             <h4><t t-esc="inv.consent_title or inv.name"/></h4>
                                             <small><t t-esc="inv.consent_desc"/></small>
