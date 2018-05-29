@@ -59,7 +59,7 @@ class MailMassMailing(models.Model):
         domain = []
         if self.gdpr_id:
             if self.gdpr_id.lawsection_id.consent:
-                if self.gdpr_consent in ['given', 'withdrawn']:
+                if self.gdpr_consent in ['given', 'withdrawn', 'missing']:
                     object_ids = [d['gdpr_object_id'][0] for d in self.env['gdpr.consent'].search_read([('state', '=', self.gdpr_consent), ('gdpr_id', '=', self.gdpr_id.id)], ['gdpr_object_id'])]
                 else:
                     object_ids = list(set(self.gdpr_id.object_ids.mapped('id')) - set(self.env['gdpr.consent'].search([('gdpr_id', '=', self.gdpr_id.id)]).mapped('gdpr_object_id').mapped('id')))
@@ -95,6 +95,21 @@ class MailMassMailing(models.Model):
         else:
             return super(MailMassMailing, self).get_recipients(mailing)
 
+    @api.one
+    def create_missing_consents(self):
+        if self.gdpr_id and self.gdpr_consent == 'missing':
+            for partner in self.gdpr_id.partner_ids:
+                if not partner.consent_ids.filtered(lambda c: c.gdpr_id == self.gdpr_id):
+                    gdpr_object = self.gdpr_id.object_ids.filtered(lambda o: o.partner_id == partner)
+                    if gdpr_object:
+                        self.env['gdpr.consent'].create({
+                            'name': '%s - %s' %(self.gdpr_id.name, partner.name),
+                            'gdpr_object_id': gdpr_object.id,
+                            'partner_id': partner.id,
+                            'gdpr_id': self.gdpr_id.id,
+                            'state': self.gdpr_consent,
+                        })
+
 
 class GDPRMailMassMailingList(models.Model):
     _name = 'gdpr.mail.mass_mailing.list'
@@ -121,13 +136,15 @@ class GDPRMailMassMailingList(models.Model):
         for inventory in self.gdpr_ids:
             for partner in inventory.partner_ids:
                 if not partner.consent_ids.filtered(lambda c: c.gdpr_id == inventory):
-                    self.env['gdpr.consent'].create({
-                        'name': '%s - %s' %(inventory.name, partner.name),
-                        'record_id': '%s,%s' %(partner._name, partner.id),
-                        'partner_id': partner.id,
-                        'gdpr_id': inventory.id,
-                        'state': self.gdpr_consent,
-                    })
+                    gdpr_object = inventory.object_ids.filtered(lambda o: o.partner_id == partner)
+                    if gdpr_object:
+                        self.env['gdpr.consent'].create({
+                            'name': '%s - %s' %(inventory.name, partner.name),
+                            'gdpr_object_id': gdpr_object.id,
+                            'partner_id': partner.id,
+                            'gdpr_id': inventory.id,
+                            'state': self.gdpr_consent,
+                        })
 
     @api.multi
     def show_consents(self):
@@ -154,6 +171,25 @@ class MailMail(models.Model):
             return body.replace('$website_consent', _('<a href="%s/mail/consent/%s/partner/%s">Give Consents</a>') %(self.env['ir.config_parameter'].get_param('web.base.url'), mail.mailing_id.id, partner.id))
         else:
             return body
+
+    @api.model
+    def _get_unsubscribe_url(self, mail, email_to, msg=None):
+        res = super(MailMail, self)._get_unsubscribe_url(mail, email_to, msg)
+        _logger.warn('context : %s' %self._context)
+        if not self._context.get('no_unsubscribe_url'):
+            return res
+
+    # ~ @api.model
+    # ~ def send_get_email_dict(self, mail, partner=None):
+        # ~ _logger.warn('send_get_email_dict')
+        # ~ res = super(MailMail, self).with_context(no_unsubscribe_url='$website_consent' in res.get('body')).send_get_email_dict(mail, partner)
+        # ~ _logger.warn('$website_consent' in res.get('body'))
+        # ~ return res
+
+    # ~ @api.multi
+    # ~ def send(self, auto_commit=False, raise_exception=False):
+        # ~ res = super(MailMail, self).with_context(no_unsubscribe_url=True).send(auto_commit=auto_commit, raise_exception=raise_exception)
+        # ~ return res
 
 
 class gdpr_consent(models.Model):
