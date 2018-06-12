@@ -8,10 +8,10 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12 text-center mt16 mb32">
-                                    <h2>GDPR Policy</h2>
-                                    <h3 class="text-muted">This is a compilation of our personal data processing</h3>
+                                    <h1 id="policy_title">GDPR Policy</h1>
+                                    <h3 id="policy_subtitle" class="text-muted">This is a compilation of our personal data processing</h3>
                                 </div>
-                                <div class="col-md-12 mb16 mt16">
+                                <div id="policy_description" class="col-md-12 mb16 mt16">
                                     <p>Here you can read about all types of personal data processing we do when we deliver our service to public. We try minimize what data we collect and store and removes it when it is no longer necessary to store</p>
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                             <div id="gdpr_inventories" class="col-md-12 mt16 mb16">
                                 <div class="oe_structure" />
                                 <t t-foreach="categories" t-as="category">
-                                    <h1 t-esc="category.name"/>
+                                    <h1 class="category_title" t-esc="category.name"/>
                                     <h2 t-raw="category.website_desc"/>
                                     <table class="table table-bordered" id="inventory_table">
                                         <thead>
