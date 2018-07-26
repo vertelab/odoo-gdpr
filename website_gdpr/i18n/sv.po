@@ -18,10 +18,10 @@ msgstr ""
 "X-Generator: Poedit 2.0.4\n"
 
 #. module: website_gdpr
-#: code:addons/website_gdpr/gdpr.py:41
+#: code:addons/website_gdpr/gdpr.py:42
 #, python-format
-msgid "%s and %s"
-msgstr "%s samt %s"
+msgid "%s and %s."
+msgstr "%s samt %s."
 
 #. module: website_gdpr
 #: view:website:website_gdpr.gdpr_main_page
@@ -84,6 +84,16 @@ msgstr "Detta är en sammanställning av vår personuppgiftsbehandling"
 #: field:gdpr.inventory,website_desc:0
 msgid "Website Description"
 msgstr "Webbplatsbeskrivning"
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdrp_inventories
+msgid "Purpose for the Treatment"
+msgstr "Syftet med behandlingen"
+
+#. module: website_gdpr
+#: view:website:website_gdpr.gdrp_inventories
+msgid "Lawsection for the Treatment"
+msgstr "Laglig grund för behandling"
 
 #. module: website_gdpr
 #: field:gdpr.inventory,website_published:0

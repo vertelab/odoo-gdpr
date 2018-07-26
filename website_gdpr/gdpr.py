@@ -39,9 +39,9 @@ class gdpr_inventory(models.Model):
     def _website_lawsection_list(self):
         lawsections = [n.lower() for n in set([self.lawsection_id.name] + self.website_inventory_ids.mapped('lawsection_id').mapped('name'))]
         if len(lawsections) > 1:
-            self.website_lawsection_list = (_('%s and %s.') % (', '.join(lawsections[:-1]),lawsections[-1])).capitalize()
+            self.website_lawsection_list = (_('%s and %s.') % (', '.join(lawsections[:-1]),lawsections[-1])).capitalize() + '*'
         else:
-            self.website_lawsection_list = lawsections[0].capitalize()
+            self.website_lawsection_list = lawsections[0].capitalize() + '.*'
     website_lawsection_list = fields.Char(compute='_website_lawsection_list')
 
 
