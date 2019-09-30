@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
-        <menuitem id="menu_gdpr" name="GDPR" parent="knowledge.menu_document" sequence="45"/>
-        <menuitem id="menu_gdpr_config" name="GDPR" parent="knowledge.menu_document_configuration" sequence="10" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
-
+        <menuitem id="menu_gdpr" name="GDPR" parent="knowledge.menu_document" sequence="45" />
+        <menuitem id="menu_gdpr_config" name="GDPR" parent="knowledge.menu_document_configuration" sequence="10" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
         <!-- GDPR Object -->
-
         <record id="view_gdpr_object_form" model="ir.ui.view">
             <field name="name">gdpr.object.form</field>
             <field name="model">gdpr.object</field>
@@ -14,382 +11,388 @@
                 <form string="GDPR Object">
                     <sheet>
                         <group>
-                            <field name="object_id"/>
-                            <field name="name"/>
-                            <field name="partner_id"/>
-                            <field name="gdpr_id"/>
-                            <field name="restricted"/>
-                            <field name="manual"/>
+                            <field name="object_id" />
+                            <field name="name" />
+                            <field name="partner_id" />
+                            <field name="gdpr_id" />
+                            <field name="restricted" />
+                            <field name="manual" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_object_tree" model="ir.ui.view">
             <field name="name">gdpr.object.tree</field>
             <field name="model">gdpr.object</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Object">
-                    <field name="object_id"/>
-                    <field name="restricted"/>
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="gdpr_id"/>
+                    <field name="object_id" />
+                    <field name="restricted" />
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="gdpr_id" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_object_filter" model="ir.ui.view">
             <field name="name">gdpr.object.filter</field>
             <field name="model">gdpr.object</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Object">
-                    <field name="object_id"/>
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="gdpr_id"/>
-                    <filter name="restricted" string="Restricted" domain="[('restricted', '=', True)]"/>
-                    <filter name="unrestricted" string="Unrestricted" domain="[('restricted', '=', False)]"/>
-                    <separator/>
-                    <filter name="manual" string="Manual Action Required" domain="[('manual', '=', True)]"/>
-                    <separator/>
+                    <field name="object_id" />
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="gdpr_id" />
+                    <filter name="restricted" string="Restricted" domain="[('restricted', '=', True)]" />
+                    <filter name="unrestricted" string="Unrestricted" domain="[('restricted', '=', False)]" />
+                    <separator />
+                    <filter name="manual" string="Manual Action Required" domain="[('manual', '=', True)]" />
+                    <separator />
                     <group expand="0" string="Group By">
-                        <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
-                        <filter string="Inventories" domain="[]" context="{'group_by': 'gdpr_id'}"/>
+                        <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}" />
+                        <filter string="Inventories" domain="[]" context="{'group_by': 'gdpr_id'}" />
                     </group>
-               </search>
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_object" model="ir.actions.act_window">
             <field name="name">GDPR Object</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.object</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_object_filter"/>
+            <field name="search_view_id" ref="view_gdpr_object_filter" />
         </record>
-
         <!-- GDPR Consent -->
-
         <record id="view_gdpr_consent_form" model="ir.ui.view">
             <field name="name">gdpr.consent.form</field>
             <field name="model">gdpr.consent</field>
             <field name="arch" type="xml">
                 <form string="GDPR Consent">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,missing" clickable="True"/>
+                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,missing" clickable="True" />
                     </header>
                     <sheet>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
                         </div>
                         <group>
-                            <field name="partner_id"/>
-                            <field name="record_id"/>
-                            <field name="gdpr_id"/>
-                            <field name="date"/>
+                            <field name="partner_id" />
+                            <field name="record_id" />
+                            <field name="gdpr_id" />
+                            <field name="date" />
                         </group>
                     </sheet>
                     <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_consent_tree" model="ir.ui.view">
             <field name="name">gdpr.consent.tree</field>
             <field name="model">gdpr.consent</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Consent">
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="record_id"/>
-                    <field name="gdpr_id"/>
-                    <field name="date"/>
-                    <field name="state"/>
+                    <field name="name" />
+                    <field name="partner_id" />
+                    <field name="record_id" />
+                    <field name="gdpr_id" />
+                    <field name="date" />
+                    <field name="state" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_consent_filter" model="ir.ui.view">
             <field name="name">gdpr.consent.filter</field>
             <field name="model">gdpr.consent</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Consent">
-                    <field name="name"/>
-                    <field name="partner_id" string="Partner"/>
-                    <field name="gdpr_id" string="Inventory"/>
-                    <field name="date" string="Date"/>
-                    <field name="state" string="State"/>
-                    <separator/>
-                    <filter string="Name" domain="[('name', '=', self)]"/>
-                    <filter string="Consent Given" name="state_given" domain="[('state', '=', 'given')]"/>
-                    <filter string="Consent Withdrawn" name="state_withdrawn" domain="[('state', '=', 'withdrawn')]"/>
-                    <filter string="Consent Missing" name="state_missing" domain="[('state', '=', 'missing')]"/>
-                    <separator/>
+                    <field name="name" />
+                    <field name="partner_id" string="Partner" />
+                    <field name="gdpr_id" string="Inventory" />
+                    <field name="date" string="Date" />
+                    <field name="state" string="State" />
+                    <separator />
+                    <filter string="Name" domain="[('name', '=', self)]" />
+                    <filter string="Consent Given" name="state_given" domain="[('state', '=', 'given')]" />
+                    <filter string="Consent Withdrawn" name="state_withdrawn" domain="[('state', '=', 'withdrawn')]" />
+                    <filter string="Consent Missing" name="state_missing" domain="[('state', '=', 'missing')]" />
+                    <separator />
                     <group expand="0" string="Group By">
-                        <filter string="State" domain="[]" context="{'group_by': 'state'}"/>
-                        <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                        <filter string="State" domain="[]" context="{'group_by': 'state'}" />
+                        <filter string="Partner" domain="[]" context="{'group_by': 'partner_id'}" />
                     </group>
-               </search>
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_consent" model="ir.actions.act_window">
             <field name="name">GDPR Consent</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.consent</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+            <field name="search_view_id" ref="view_gdpr_consent_filter" />
         </record>
-
-        <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
-
+        <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
         <!-- button actions -->
-
         <record id="act_gdpr_inventory_2_gdpr_consent" model="ir.actions.act_window">
             <field name="name">GDPR Inventory 2 GDPR Consent</field>
             <field name="res_model">gdpr.consent</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{
+            <field name="context">
+                {
                 'search_default_gdpr_id': [active_id],
                 'default_gdpr_id': active_id,
-            }</field>
-            <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+                }
+            </field>
+            <field name="search_view_id" ref="view_gdpr_consent_filter" />
         </record>
-
         <record id="act_gdpr_inventory_2_gdpr_object" model="ir.actions.act_window">
             <field name="name">View GDPR Objects</field>
             <field name="res_model">gdpr.object</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{
+            <field name="context">
+                {
                 'search_default_gdpr_id': [active_id],
                 'default_gdpr_id': active_id,
-            }</field>
-            <field name="search_view_id" ref="view_gdpr_object_filter"/>
+                }
+            </field>
+            <field name="search_view_id" ref="view_gdpr_object_filter" />
         </record>
-
         <record id="ir_values_gdpr_inventory_2_gdpr_object" model="ir.values">
-        <field name="name">View GDPR Objects</field>
-        <field name="model">gdpr.inventory</field>
-        <field name="key2">client_action_multi</field>
-        <field name="value" eval="'ir.actions.act_window,%s' %ref('act_gdpr_inventory_2_gdpr_object')"/>
-    </record>
-
+            <field name="name">View GDPR Objects</field>
+            <field name="model">gdpr.inventory</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%s' %ref('act_gdpr_inventory_2_gdpr_object')" />
+        </record>
         <record id="act_res_partner_2_gdpr_consent" model="ir.actions.act_window">
             <field name="name">Res Partner 2 GDPR Consents</field>
             <field name="res_model">gdpr.consent</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{
+            <field name="context">
+                {
                 'search_default_partner_id': [active_id],
                 'default_partner_id': active_id,
-            }</field>
-            <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+                }
+            </field>
+            <field name="search_view_id" ref="view_gdpr_consent_filter" />
         </record>
-
         <record id="act_res_partner_2_gdpr_object" model="ir.actions.act_window">
             <field name="name">Res Partner 2 GDPR Objects</field>
             <field name="res_model">gdpr.object</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{
+            <field name="context">
+                {
                 'search_default_partner_id': [active_id],
                 'default_partner_id': active_id,
-            }</field>
-            <field name="search_view_id" ref="view_gdpr_object_filter"/>
+                }
+            </field>
+            <field name="search_view_id" ref="view_gdpr_object_filter" />
         </record>
-
         <!-- GDPR Inventory -->
-
         <record id="view_gdpr_inventory_form" model="ir.ui.view">
             <field name="name">gdpr.inventory.form</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <form string="GDPR Inventory">
                     <header>
-                        <button type="object" name="update_object_ids" string="Update Objects"/>
-                        <button type="object" name="restrict_objects" string="Restrict Objects"/>
-                        <field name="state_id" widget="statusbar" clickable="True"/>
-                        <field name="state" invisible="1"/>
+                        <button type="object" name="update_object_ids" string="Update Objects" />
+                        <button type="object" name="restrict_objects" string="Restrict Objects" />
+                        <field name="state_id" widget="statusbar" clickable="True" />
+                        <field name="state" invisible="1" />
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
                             <button class="oe_inline oe_stat_button" name="%(act_gdpr_inventory_2_gdpr_consent)d" type="action" icon="fa-files-o" attrs="{'invisible': [('consent', '=', False)]}">
-                                <field string="Consents" name="consent_count" widget="statinfo"/>
+                                <field string="Consents" name="consent_count" widget="statinfo" />
                             </button>
-<!--
-                            <button class="oe_inline oe_stat_button" name="%(act_gdpr_inventory_2_gdpr_object)d" type="action" icon="fa-files-o">
-                                <field string="Objects" name="object_count" widget="statinfo"/>
-                            </button>
--->
+                            <!--
+                                 <button class="oe_inline oe_stat_button" name="%(act_gdpr_inventory_2_gdpr_object)d" type="action" icon="fa-files-o">
+                                 <field string="Objects" name="object_count" widget="statinfo"/>
+                                 </button>
+                            -->
                             <button class="oe_inline oe_stat_button" name="action_view_manual_objects" help="foobar gazonk" type="object" icon="fa-files-o" attrs="{'invisible': [('restrict_type', '!=', 'manual')]}">
-                                <field string="Action Req." name="manual_count" widget="statinfo"/>
+                                <field string="Action Req." name="manual_count" widget="statinfo" />
                             </button>
                             <button class="oe_inline oe_stat_button" name="action_view_objects" type="object" icon="fa-files-o">
-                                <field string="Objects" name="object_count" widget="statinfo"/>
+                                <field string="Objects" name="object_count" widget="statinfo" />
                             </button>
                             <button class="oe_inline oe_stat_button" name="act_gdpr_inventory_2_gdpr_res_partner" type="object" icon="fa-users">
-                                <field string="Partners" name="partner_count" widget="statinfo"/>
+                                <field string="Partners" name="partner_count" widget="statinfo" />
                             </button>
                         </div>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name" placeholder="Describe the item..."/></h1>
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" placeholder="Describe the item..." />
+                            </h1>
                         </div>
                         <group col="4">
-                            <field name="type_of_personal_data"/>
-                            <field name="role"/>
-                            <field name="user_id"/>
-                            <field name="security_of_processing_ids" widget="many2many_tags"/>
+                            <field name="type_of_personal_data" />
+                            <field name="role" />
+                            <field name="user_id" />
+                            <field name="security_of_processing_ids" widget="many2many_tags" />
                             <field name="category" />
                             <field name="business_process" />
                         </group>
                         <notebook>
                             <page string="Purpose">
-                                <separator string="Purpose"/>
-                                <field name="purpose_limitation" placeholder="Purpose Limitation"/>
-                                <separator string="Lawsection"/>
-                                <field name="lawsection_desc" placeholder="Lawsection description"/>
+                                <separator string="Purpose" />
+                                <field name="purpose_limitation" placeholder="Purpose Limitation" />
+                                <separator string="Lawsection" />
+                                <field name="lawsection_desc" placeholder="Lawsection description" />
                                 <group>
-                                    <field name="lawsection_id"/>
-                                    <field name="lawsection_description"/>
-                                    <field name="consent" invisible="1"/>
+                                    <field name="lawsection_id" />
+                                    <field name="lawsection_description" />
+                                    <field name="consent" invisible="1" />
                                 </group>
                             </page>
                             <page string="Data Description">
                                 <group>
-                                    <field name="data_subject_ids" widget="many2many_tags"/>
-                                    <field name="data_type_ids" widget="many2many_tags"/>
-                                    <field name="data_collection_ids" widget="many2many_tags"/>
-                                    <field name="data_storage_ids" widget="many2many_tags"/>
-                                    <field name="data_sharing_ids" widget="many2many_tags"/>
+                                    <field name="data_subject_ids" widget="many2many_tags" />
+                                    <field name="data_type_ids" widget="many2many_tags" />
+                                    <field name="data_collection_ids" widget="many2many_tags" />
+                                    <field name="data_storage_ids" widget="many2many_tags" />
+                                    <field name="data_sharing_ids" widget="many2many_tags" />
                                 </group>
                             </page>
-
-
                             <page string="Identification">
-                                <label for="identification_desc"/>
-                                <field name="identification_desc"/>
+                                <label for="identification_desc" />
+                                <field name="identification_desc" />
                                 <group>
-                                    <field name="data_local"/>
+                                    <field name="data_local" />
                                 </group>
                                 <group attrs="{'invisible': [('data_local', '=', False)]}">
-                                    <field name="inventory_model"/>
-                                    <field name="inventory_domain_advanced"/>
-                                    <field name="inventory_domain_code" attrs="{'invisible': [('inventory_domain_advanced', '=', False)]}"/>
-                                    <field name="inventory_domain"/>
-                                    <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
+                                    <field name="inventory_model" />
+                                    <field name="inventory_domain_advanced" />
+                                    <field name="inventory_domain_code" attrs="{'invisible': [('inventory_domain_advanced', '=', False)]}" />
+                                    <field name="inventory_domain" />
+                                    <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]" />
                                 </group>
                             </page>
-
-
                             <page string="Restrictions">
                                 <group>
-                                    <field name="restrict_time_days"/>
-                                    <field name="restrict_method_id"/>
-                                    <field name="restrict_type" invisible="1"/>
+                                    <field name="restrict_time_days" />
+                                    <field name="restrict_method_id" />
+                                    <field name="restrict_type" invisible="1" />
                                 </group>
                                 <group attrs="{'invisible': [('data_local', '=', False)]}">
-                                    <field name="restrict_domain_advanced"/>
-                                    <field name="restrict_domain_code" attrs="{'invisible': [('restrict_domain_advanced', '=', False)]}"/>
-                                    <field name="restrict_domain"/>
-                                    <field name="pseudo_values" attrs="{'invisible': [('restrict_type', '!=', 'pseudo')]}"/>
-                                    <field name="restrict_code" attrs="{'invisible': [('restrict_type', '!=', 'code')]}"/>
-                                    <field name="fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
+                                    <field name="restrict_domain_advanced" />
+                                    <field name="restrict_domain_code" attrs="{'invisible': [('restrict_domain_advanced', '=', False)]}" />
+                                    <field name="restrict_domain" />
+                                    <field name="pseudo_values" attrs="{'invisible': [('restrict_type', '!=', 'pseudo')]}" />
+                                    <field name="restrict_code" attrs="{'invisible': [('restrict_type', '!=', 'code')]}" />
+                                    <field name="fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]" />
                                 </group>
                             </page>
                             <page string="Consent" attrs="{'invisible': [('consent', '=', False)]}">
                                 <group>
-                                    <field name="consent_title"/>
-                                    <field name="consent_desc"/>
+                                    <field name="consent_title" />
+                                    <field name="consent_desc" />
                                 </group>
                             </page>
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+                        <field name="message_ids" widget="mail_thread" />
                     </div>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_inventory_tree" model="ir.ui.view">
             <field name="name">gdpr.inventory.tree</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Inventory">
-                    <field name="name"/>
-                    <field name="type_of_personal_data"/>
-                    <field name="user_id"/>
-                    <field name="lawsection_id"/>
-                    <field name="restrict_method_id"/>
-                    <field name="restrict_time_days"/>
-                    <field name="security_of_processing_ids"/>
-                    <field name="state_id"/>
+                    <field name="name" />
+                    <field name="type_of_personal_data" />
+                    <field name="user_id" />
+                    <field name="lawsection_id" />
+                    <field name="restrict_method_id" />
+                    <field name="restrict_time_days" />
+                    <field name="security_of_processing_ids" />
+                    <field name="state_id" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_inventory_kanban" model="ir.ui.view">
             <field name="name">gdpr.inventory.kanban</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <kanban class="oe_background_grey" default_group_by="state_id">
-                    <field name="name"/>
-                    <field name="color"/>
-                    <field name="state_id"/>
-                    <field name="type_of_personal_data"/>
-                    <field name="purpose_limitation"/>
-                    <field name="user_id"/>
-                    <field name="lawsection_id"/>
-                    <field name="lawsection_desc"/>
-                    <field name="consent"/>
-                    <field name="consent_title"/>
-                    <field name="consent_desc"/>
-                    <field name="consent_count"/>
-                    <field name="restrict_time_days"/>
-                    <field name="restrict_method_id"/>
-                    <field name="inventory_model"/>
-                    <field name="inventory_domain"/>
-                    <field name="fields_ids"/>
-                    <field name="partner_fields_ids"/>
-                    <field name="security_of_processing_ids"/>
-                    <field name="partner_count"/>
-                    <field name="object_count"/>
+                    <field name="name" />
+                    <field name="color" />
+                    <field name="state_id" />
+                    <field name="type_of_personal_data" />
+                    <field name="purpose_limitation" />
+                    <field name="user_id" />
+                    <field name="lawsection_id" />
+                    <field name="lawsection_desc" />
+                    <field name="consent" />
+                    <field name="consent_title" />
+                    <field name="consent_desc" />
+                    <field name="consent_count" />
+                    <field name="restrict_time_days" />
+                    <field name="restrict_method_id" />
+                    <field name="inventory_model" />
+                    <field name="inventory_domain" />
+                    <field name="fields_ids" />
+                    <field name="partner_fields_ids" />
+                    <field name="security_of_processing_ids" />
+                    <field name="partner_count" />
+                    <field name="object_count" />
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_project oe_kanban_global_click">
                                 <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
                                     <span class="oe_e">í</span>
                                     <ul class="oe_dropdown_menu">
-                                        <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Inventory Settings</a></li></t>
-                                        <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
-                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                        <t t-if="widget.view.is_action_enabled('edit')">
+                                            <li>
+                                                <a type="edit">Inventory Settings</a>
+                                            </li>
+                                        </t>
+                                        <t t-if="widget.view.is_action_enabled('delete')">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                        </t>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker" data-field="color" />
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="oe_kanban_content">
-                                    <h4 class="text-center"><strong><field name="name"/></strong></h4>
+                                    <h4 class="text-center">
+                                        <strong>
+                                            <field name="name" />
+                                        </strong>
+                                    </h4>
                                     <div>
                                         <a t-if="record.consent.raw_value" name="%(act_gdpr_inventory_2_gdpr_consent)d" type="action" style="margin-right: 10px">
-                                            <t t-raw="record.consent_count.raw_value"/> Consents
+                                            <t t-raw="record.consent_count.raw_value" />
+                                            Consents
                                         </a>
-                                        <br t-if="record.consent.raw_value"/>
+                                        <br t-if="record.consent.raw_value" />
                                         <a name="%(act_gdpr_inventory_2_gdpr_object)d" type="action" style="margin-right: 10px">
-                                            <t t-raw="record.object_count.raw_value"/> Objects
+                                            <t t-raw="record.object_count.raw_value" />
+                                            Objects
                                         </a>
-                                        <br/>
+                                        <br />
                                         <a name="act_gdpr_inventory_2_gdpr_res_partner" type="object" style="margin-right: 10px">
-                                            <t t-raw="record.partner_count.raw_value"/> Partners
+                                            <t t-raw="record.partner_count.raw_value" />
+                                            Partners
                                         </a>
                                     </div>
                                     <div>
-                                        <img t-att-src="kanban_image('res.users', 'image', record.user_id.raw_value)" width="48" height="48" t-att-data-member_id="record.user_id"/>
+                                        <img t-att-src="kanban_image('res.users', 'image', record.user_id.raw_value)" width="48" height="48" t-att-data-member_id="record.user_id" />
                                     </div>
                                 </div>
                             </div>
@@ -398,51 +401,46 @@
                 </kanban>
             </field>
         </record>
-
         <record id="view_gdpr_inventory_filter" model="ir.ui.view">
             <field name="name">gdpr.inventory.filter</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Inventory">
-                    <field name="state_id"/>
-                    <field name="user_id"/>
-                    <field name="lawsection_id"/>
-                    <separator/>
-                    <filter string="Draft" name="state_id" domain="[('state_id', '=', %(gdpr_inventory.inventory_state_draft)d)]"/>
-                    <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', %(gdpr_inventory.inventory_state_ceased)d)]"/>
-                    <filter string="General" name="type" domain="[('type_of_personal_data', '=', 'general')]"/>
-                    <filter string="Special" name="type" domain="[('type_of_personal_data', '=', 'special')]"/>
-                    <filter string="Data is local" name="type" domain="[('data_local', '=', True)]"/>
-                    <filter string="Data is not local" name="type" domain="[('data_local', '=', False)]"/>
-                    <separator/>
+                    <field name="state_id" />
+                    <field name="user_id" />
+                    <field name="lawsection_id" />
+                    <separator />
+                    <filter string="Draft" name="state_id" domain="[('state_id', '=', %(gdpr_inventory.inventory_state_draft)d)]" />
+                    <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', %(gdpr_inventory.inventory_state_ceased)d)]" />
+                    <filter string="General" name="type" domain="[('type_of_personal_data', '=', 'general')]" />
+                    <filter string="Special" name="type" domain="[('type_of_personal_data', '=', 'special')]" />
+                    <filter string="Data is local" name="type" domain="[('data_local', '=', True)]" />
+                    <filter string="Data is not local" name="type" domain="[('data_local', '=', False)]" />
+                    <separator />
                     <group expand="0" string="Group By">
-                        <filter string="State" domain="[]" context="{'group_by': 'state_id'}"/>
-                        <filter string="Responsible" domain="[]" context="{'group_by': 'user_id'}"/>
-                        <filter string="Category" domain="[]" context="{'group_by': 'category'}"/>
-                        <filter string="Business Process" domain="[]" context="{'group_by': 'business_process'}"/>
-                        <filter string="Role" domain="[]" context="{'group_by': 'role'}"/>
-                        <filter string="Lawsection" domain="[]" context="{'group_by': 'lawsection_id'}"/>
-                        <filter string="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
-                        <filter string="Restrict Method" domain="[]" context="{'group_by': 'restrict_method_id'}"/>
-                        <filter string="Type" domain="[]" context="{'group_by': 'type_of_personal_data'}"/>
+                        <filter string="State" domain="[]" context="{'group_by': 'state_id'}" />
+                        <filter string="Responsible" domain="[]" context="{'group_by': 'user_id'}" />
+                        <filter string="Category" domain="[]" context="{'group_by': 'category'}" />
+                        <filter string="Business Process" domain="[]" context="{'group_by': 'business_process'}" />
+                        <filter string="Role" domain="[]" context="{'group_by': 'role'}" />
+                        <filter string="Lawsection" domain="[]" context="{'group_by': 'lawsection_id'}" />
+                        <filter string="Parent" domain="[]" context="{'group_by': 'parent_id'}" />
+                        <filter string="Restrict Method" domain="[]" context="{'group_by': 'restrict_method_id'}" />
+                        <filter string="Type" domain="[]" context="{'group_by': 'type_of_personal_data'}" />
                     </group>
-               </search>
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_inventory" model="ir.actions.act_window">
             <field name="name">GDPR Inventory</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.inventory</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_inventory_filter"/>
+            <field name="search_view_id" ref="view_gdpr_inventory_filter" />
         </record>
-
-        <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10" groups="base.group_gdpr_user,base.group_gdpr_officer,base.group_gdpr_manager"/>
-
+        <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10" groups="base.group_gdpr_user,base.group_gdpr_officer,base.group_gdpr_manager" />
         <!-- GDPR Inventory State -->
-
         <record id="view_gdpr_inventory_state_form" model="ir.ui.view">
             <field name="name">gdpr.inventory.state.form</field>
             <field name="model">gdpr.inventory.state</field>
@@ -450,55 +448,51 @@
                 <form string="GDPR Inventory State">
                     <sheet>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
                         </div>
                         <div>
-                            <field name="fold" class="oe_inline"/>
+                            <field name="fold" class="oe_inline" />
                         </div>
                         <group>
-                            <field name="sequence"/>
+                            <field name="sequence" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_inventory_state_tree" model="ir.ui.view">
             <field name="name">gdpr.inventory.state.tree</field>
             <field name="model">gdpr.inventory.state</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Inventory State">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
-                    <field name="fold"/>
+                    <field name="sequence" widget="handle" />
+                    <field name="name" />
+                    <field name="fold" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_inventory_state_filter" model="ir.ui.view">
             <field name="name">gdpr.inventory.state.filter</field>
             <field name="model">gdpr.inventory.state</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Inventory State">
-                    <field name="name" string="Name"/>
-               </search>
+                    <field name="name" string="Name" />
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_inventory_state" model="ir.actions.act_window">
             <field name="name">GDPR Inventory State</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.inventory.state</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_inventory_state_filter"/>
+            <field name="search_view_id" ref="view_gdpr_inventory_state_filter" />
         </record>
-
-        <menuitem action="action_gdpr_inventory_state" id="menu_inventory_state" parent="menu_gdpr_config" sequence="21" groups="base.group_gdpr_manager"/>
-
+        <menuitem action="action_gdpr_inventory_state" id="menu_inventory_state" parent="menu_gdpr_config" sequence="21" groups="base.group_gdpr_manager" />
         <!-- GDPR Lawsection -->
-
         <record id="view_gdpr_lawsection_form" model="ir.ui.view">
             <field name="name">gdpr.lawsection.form</field>
             <field name="model">gdpr.lawsection</field>
@@ -506,170 +500,157 @@
                 <form string="GDPR Lawsection">
                     <sheet>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
                         </div>
                         <group>
-                            <field name="description"/>
-                            <field name="consent"/>
+                            <field name="description" />
+                            <field name="consent" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_lawsection_tree" model="ir.ui.view">
             <field name="name">gdpr.lawsection.tree</field>
             <field name="model">gdpr.lawsection</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Lawsection">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
-                    <field name="consent"/>
+                    <field name="sequence" widget="handle" />
+                    <field name="name" />
+                    <field name="consent" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_lawsection_filter" model="ir.ui.view">
             <field name="name">gdpr.lawsection.filter</field>
             <field name="model">gdpr.lawsection</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Lawsection">
-                    <field name="name" string="Name"/>
-               </search>
+                    <field name="name" string="Name" />
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_lawsection" model="ir.actions.act_window">
             <field name="name">GDPR Lawsection</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.lawsection</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_lawsection_filter"/>
+            <field name="search_view_id" ref="view_gdpr_lawsection_filter" />
         </record>
-
-        <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr_config" sequence="20" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
-
+        <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr_config" sequence="20" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
         <!-- GDPR Security -->
-
         <record id="view_gdpr_security_form" model="ir.ui.view">
             <field name="name">gdpr.security.form</field>
             <field name="model">gdpr.security</field>
             <field name="arch" type="xml">
                 <form string="GDPR security">
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
                     </div>
                     <sheet>
                         <group>
-                            <field name="description"/>
+                            <field name="description" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_security_tree" model="ir.ui.view">
             <field name="name">gdpr.security.tree</field>
             <field name="model">gdpr.security</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Security">
-                    <field name="name"/>
-                    <field name="description"/>
+                    <field name="name" />
+                    <field name="description" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_security_filter" model="ir.ui.view">
             <field name="name">gdpr.security.filter</field>
             <field name="model">gdpr.security</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Security">
-                    <field name="name" string="Name"/>
-                    <field name="description" string="Description"/>
-               </search>
+                    <field name="name" string="Name" />
+                    <field name="description" string="Description" />
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_security" model="ir.actions.act_window">
             <field name="name">GDPR Security</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.security</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_security_filter"/>
+            <field name="search_view_id" ref="view_gdpr_security_filter" />
         </record>
-
-        <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr_config" sequence="40" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
-
+        <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr_config" sequence="40" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
         <!-- GDPR Restrict Method -->
-
         <record id="view_gdpr_restrict_method_form" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.form</field>
             <field name="model">gdpr.restrict_method</field>
             <field name="arch" type="xml">
                 <form string="GDPR Restrict Method">
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" />
+                        </h1>
                     </div>
                     <sheet>
                         <group>
-                            <field name="description"/>
-                            <field name="type"/>
-                            <field name="code"/>
+                            <field name="description" />
+                            <field name="type" />
+                            <field name="code" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_restrict_method_tree" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.tree</field>
             <field name="model">gdpr.restrict_method</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Restrict Method">
-                    <field name="name"/>
-                    <field name="description"/>
-                    <field name="type"/>
-                    <field name="code"/>
+                    <field name="name" />
+                    <field name="description" />
+                    <field name="type" />
+                    <field name="code" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_restrict_method_filter" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.filter</field>
             <field name="model">gdpr.restrict_method</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Restrict Method">
-                    <field name="name" string="Name"/>
-                    <field name="code" string="Code"/>
-                    <field name="description" string="Description"/>
-                    <field name="type" string="Type"/>
-                    <separator/>
+                    <field name="name" string="Name" />
+                    <field name="code" string="Code" />
+                    <field name="description" string="Description" />
+                    <field name="type" string="Type" />
+                    <separator />
                     <group expand="0" string="Group By">
-                        <filter string="" domain="[]" context="{'group_by': 'type'}"/>
+                        <filter string="" domain="[]" context="{'group_by': 'type'}" />
                     </group>
-               </search>
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_restrict_method" model="ir.actions.act_window">
             <field name="name">GDPR Restrict Method</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.restrict_method</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_restrict_method_filter"/>
+            <field name="search_view_id" ref="view_gdpr_restrict_method_filter" />
         </record>
-
-        <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr_config" sequence="50" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
-
-
- <!-- GDPR Category -->
-
+        <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr_config" sequence="50" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- GDPR Category -->
         <record id="view_gdpr_category_form" model="ir.ui.view">
             <field name="name">gdpr.category.form</field>
             <field name="model">gdpr.category</field>
@@ -677,15 +658,17 @@
                 <form string="GDPR Category">
                     <sheet>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
+                            <label for="name" class="oe_edit_only" />
+                            <h1>
+                                <field name="name" />
+                            </h1>
                         </div>
-                        <field name="inventory_ids" widget="many2many_tags"/>
+                        <field name="inventory_ids" widget="many2many_tags" />
                         <notebook>
                             <page string="Description">
                                 <group>
                                     <group col="4">
-                                        <field name="description" nolabel="1"/>
+                                        <field name="description" nolabel="1" />
                                     </group>
                                 </group>
                             </page>
@@ -694,78 +677,90 @@
                 </form>
             </field>
         </record>
-
         <record id="view_gdpr_category_tree" model="ir.ui.view">
             <field name="name">gdpr.category.tree</field>
             <field name="model">gdpr.category</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Category">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
+                    <field name="sequence" widget="handle" />
+                    <field name="name" />
                 </tree>
             </field>
         </record>
-
         <record id="view_gdpr_category_filter" model="ir.ui.view">
             <field name="name">gdpr.category.filter</field>
             <field name="model">gdpr.category</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Category">
-                    <field name="name" string="Name"/>
-                    <field name="description" string="Description"/>
-                    <separator/>
-               </search>
+                    <field name="name" string="Name" />
+                    <field name="description" string="Description" />
+                    <separator />
+                </search>
             </field>
         </record>
-
         <record id="action_gdpr_category" model="ir.actions.act_window">
             <field name="name">GDPR Category</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.category</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_category_filter"/>
+            <field name="search_view_id" ref="view_gdpr_category_filter" />
         </record>
-
-        <menuitem action="action_gdpr_category" id="menu_gdpr_category" parent="menu_gdpr_config" sequence="60" groups="base.group_gdpr_officer,base.group_gdpr_manager"/>
-
+        <menuitem action="action_gdpr_category" id="menu_gdpr_category" parent="menu_gdpr_config" sequence="60" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
         <!-- add a notebook page in ir.attachment -->
-
         <record id="view_attachment_form" model="ir.ui.view">
             <field name="name">ir.attachment.form.notebook.inherited.gdpr_inventory</field>
             <field name="model">ir.attachment</field>
-            <field name="inherit_id" ref="attachment_notebook.view_attachment_form"/>
+            <field name="inherit_id" ref="attachment_notebook.view_attachment_form" />
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="GDPR Consents">
                         <tree>
-                            <field name="consent_ids"/>
+                            <field name="consent_ids" />
                         </tree>
                     </page>
                 </notebook>
             </field>
         </record>
-
         <!-- buttons on res.partner -->
-
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form.inherited.gdpr_inventory</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <xpath expr="//div[@name='buttons']" position="inside">
                     <button class="oe_inline oe_stat_button" type="object" name="act_res_partner_2_gdpr_inventory" icon="fa-files-o">
-                        <field string="Inventories" name="gdpr_count" widget="statinfo"/>
+                        <!--
+                             <field string="Inventories" name="gdpr_count" widget="statinfo" />
+                        -->
+                        <div>
+                            <strong>xxxx</strong>
+                            <br />
+                            Inventarie
+                        </div>
                     </button>
                     <button class="oe_inline oe_stat_button" type="action" name="%(act_res_partner_2_gdpr_consent)d" icon="fa-files-o">
-                        <field string="Consents" name="consent_count" widget="statinfo"/>
+                        <!--
+                             <field string="Consents" name="consent_count" widget="statinfo" />
+                        -->
+                        <div>
+                            <strong>xxxx</strong>
+                            <br />
+                            Medgivanden
+                        </div>
                     </button>
                     <button class="oe_inline oe_stat_button" type="action" name="%(act_res_partner_2_gdpr_object)d" icon="fa-files-o">
-                        <field string="Objects" name="gdpr_object_count" widget="statinfo"/>
+                        <!--
+                             <field string="Objects" name="gdpr_object_count" widget="statinfo" />
+                        -->
+                        <div>
+                            <strong>xxxx</strong>
+                            <br />
+                            Samtycken
+                        </div>
                     </button>
                 </xpath>
             </field>
         </record>
-
     </data>
 </openerp>

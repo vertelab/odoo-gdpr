@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record id="view_mail_mass_mailing_form" model="ir.ui.view">
             <field name="name">mail.mass_mailing.gdpr.form</field>
             <field name="model">mail.mass_mailing</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form"/>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']/../div" position="after">
-                    <field name="gdpr_id" attrs="{'invisible': [('mailing_model', '=', 'gdpr.consent')]}"/>
-                    <field name="gdpr_consent_collected" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}" widget="many2many_tags"/>
-                    <field name="gdpr_domain" invisible="1"/>
-                    <field name="gdpr_lawsection_consent" invisible="1"/>
+                    <field name="gdpr_id" attrs="{'invisible': [('mailing_model', '=', 'gdpr.consent')]}" />
+                    <field name="gdpr_consent_collected" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}" widget="many2many_tags" />
+                    <field name="gdpr_domain" invisible="1" />
+                    <field name="gdpr_lawsection_consent" invisible="1" />
                     <label for="gdpr_consent" string="Consent State" />
                     <div>
-                         <field name="gdpr_consent" style="width: 50%" />
-                         <button class="oe_inline oe_highlight" type="object" string="Create Missing Consents" name="create_missing_consents" attrs="{'invisible': [('gdpr_consent', '!=', 'missing')]}" style="width: 50%"/>
+                        <field name="gdpr_consent" style="width: 50%" />
+                        <button class="oe_inline oe_highlight" type="object" string="Create Missing Consents" name="create_missing_consents" attrs="{'invisible': [('gdpr_consent', '!=', 'missing')]}" style="width: 50%" />
                     </div>
-                    <field name="recipients"/>
+                    <field name="recipients" />
                 </xpath>
                 <field name="mailing_domain" position="after">
                     <div attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}">
-                        <label for="gdpr_mailing_list_ids" string="Select GDPR mailing lists:" class="oe_edit_only"/>
-                        <field name="gdpr_mailing_list_ids" widget="many2many_tags" placeholder="Select GDPR mailing lists..." class="oe_inline"/>
+                        <label for="gdpr_mailing_list_ids" string="Select GDPR mailing lists:" class="oe_edit_only" />
+                        <field name="gdpr_mailing_list_ids" widget="many2many_tags" placeholder="Select GDPR mailing lists..." class="oe_inline" />
                     </div>
                 </field>
                 <field name="mailing_domain" position="attributes">
@@ -31,61 +30,56 @@
                 <notebook position="inside">
                     <page string="Consents" attrs="{'invisible': [('mailing_model', '=', 'mail.mass_mailing.contact')]}">
                         <group string="Form for collection of consents">
-                            <field name="wp_mailing_title"/>
-                            <field name="wp_mailing_txt"/>
-                            <field name="wp_cond_consent_ids" widget="many2many_tags"/>
-                            <field name="wp_uncond_consent_ids" widget="many2many_tags"/>
-                            <field name="wp_consent_url"/>
-                            <field name="group_per_object"/>
+                            <field name="wp_mailing_title" />
+                            <field name="wp_mailing_txt" />
+                            <field name="wp_cond_consent_ids" widget="many2many_tags" />
+                            <field name="wp_uncond_consent_ids" widget="many2many_tags" />
+                            <field name="wp_consent_url" />
+                            <field name="group_per_object" />
                         </group>
                     </page>
                 </notebook>
             </field>
         </record>
-
         <record id="view_mail_mass_mailing_list_form" model="ir.ui.view">
             <field name="name">mail.mass_mailing.list.gdpr.form</field>
             <field name="model">mail.mass_mailing.list</field>
-            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form"/>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_list_form" />
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']/../.." position="after">
                     <group>
-                        <field name="gdpr_id"/>
+                        <field name="gdpr_id" />
                     </group>
                 </xpath>
             </field>
         </record>
-
         <template id="assets_backend" inherit_id="web.assets_backend">
             <xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
-                <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/mass_mailing.js"></script>
+                <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/mass_mailing.js" />
             </xpath>
         </template>
-
-<!--
-        <record id="view_gdpr_inventory_filter" model="ir.ui.view">
-            <field name="name">gdpr.inventory.filter</field>
-            <field name="model">gdpr.inventory</field>
-            <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_filter"/>
-            <field name="arch" type="xml">
-                    <field name="user_id" position="after">
-                        <field name="website_publish"/>
-                    </field>
-            </field>
-        </record>
--->
-
+        <!--
+             <record id="view_gdpr_inventory_filter" model="ir.ui.view">
+             <field name="name">gdpr.inventory.filter</field>
+             <field name="model">gdpr.inventory</field>
+             <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_filter"/>
+             <field name="arch" type="xml">
+             <field name="user_id" position="after">
+             <field name="website_publish"/>
+             </field>
+             </field>
+             </record>
+        -->
         <!-- GDPR MASS MAILING LIST -->
         <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_search">
             <field name="name">gdpr.mail.mass_mailing.list.search</field>
             <field name="model">gdpr.mail.mass_mailing.list</field>
             <field name="arch" type="xml">
-               <search string="GDPR Mailing Lists">
-                   <field name="name"/>
-               </search>
+                <search string="GDPR Mailing Lists">
+                    <field name="name" />
+                </search>
             </field>
         </record>
-
         <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_tree">
             <field name="name">gdpr.mail.mass_mailing.list.tree</field>
             <field name="model">gdpr.mail.mass_mailing.list</field>
@@ -93,12 +87,11 @@
             <field name="priority">20</field>
             <field name="arch" type="xml">
                 <tree string="GDPR Mailing Lists">
-                    <field name="name"/>
-                    <field name="consent_nbr"/>
+                    <field name="name" />
+                    <field name="consent_nbr" />
                 </tree>
             </field>
         </record>
-
         <record model="ir.ui.view" id="view_gdpr_mail_mass_mailing_list_form">
             <field name="name">gdpr.mail.mass_mailing.list.form</field>
             <field name="model">gdpr.mail.mass_mailing.list</field>
@@ -106,44 +99,41 @@
             <field name="arch" type="xml">
                 <form string="GDPR Contact List">
                     <header>
-                        <button type="object" name="create_missing_consents" string="Create Missing Consents"/>
+                        <button type="object" name="create_missing_consents" string="Create Missing Consents" />
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
                             <button name="show_consents" type="object" icon="fa-user" class="oe_stat_button pull-right">
-                                <field name="consent_nbr" string="Recipients" widget="statinfo"/>
+                                <field name="consent_nbr" string="Recipients" widget="statinfo" />
                             </button>
                         </div>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
+                            <label for="name" class="oe_edit_only" />
                             <h1>
-                                <field name="name"/>
+                                <field name="name" />
                             </h1>
                         </div>
                         <group>
-                            <field name="gdpr_ids" widget="many2many_tags"/>
-                            <field name="gdpr_consent"/>
+                            <field name="gdpr_ids" widget="many2many_tags" />
+                            <field name="gdpr_consent" />
                         </group>
                     </sheet>
                 </form>
             </field>
         </record>
-
         <record model="ir.actions.act_window" id="action_view_gdpr_mass_mailing_lists">
             <field name="name">GDPR Mailing Lists</field>
             <field name="res_model">gdpr.mail.mass_mailing.list</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-<p class="oe_view_nocontent_create">
-    Click here to create a new GDPR mailing list.
-</p><p>
-    Mailing lists allows you to to manage customers and
-    contacts easily and to send to mailings in a single click.
-</p></field>
+                <p class="oe_view_nocontent_create">Click here to create a new GDPR mailing list.</p>
+                <p>
+                    Mailing lists allows you to to manage customers and
+                    contacts easily and to send to mailings in a single click.
+                </p>
+            </field>
         </record>
-
-        <menuitem name="GDPR Mailing Lists" id="menu_email_gdpr_mass_mailing_lists" parent="mass_mailing.mass_mailing_list" sequence="60" action="action_view_gdpr_mass_mailing_lists"/>
-
+        <menuitem name="GDPR Mailing Lists" id="menu_email_gdpr_mass_mailing_lists" parent="mass_mailing.mass_mailing_list" sequence="60" action="action_view_gdpr_mass_mailing_lists" />
     </data>
 </openerp>
