@@ -146,7 +146,7 @@ objects.unlink()</field>
         <field name="model">gdpr.inventory</field>
         <field name="key2">client_action_multi</field>
         <field name="value" eval="'ir.actions.server,%s' %ref('gdpr_inventory.action_create_gdrp_object')"/>
-    </record> -->
+    </record>  -->
 
     <record id="gdpr_system_odoo" model="gdpr.system">
         <field name="name">Odoo</field>
