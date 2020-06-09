@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <menuitem id="menu_gdpr" name="GDPR" parent="knowledge.menu_document" sequence="45" />
-        <menuitem id="menu_gdpr_config" name="GDPR" parent="knowledge.menu_document_configuration" sequence="10" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- <menuitem id="menu_gdpr_config" name="GDPR" parent="knowledge.menu_document_configuration" sequence="10" groups="base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- GDPR Object -->
         <record id="view_gdpr_object_form" model="ir.ui.view">
             <field name="name">gdpr.object.form</field>
@@ -35,7 +35,7 @@
                 </tree>
             </field>
         </record>
-        <record id="view_gdpr_object_filter" model="ir.ui.view">
+        <!-- <record id="view_gdpr_object_filter" model="ir.ui.view">
             <field name="name">gdpr.object.filter</field>
             <field name="model">gdpr.object</field>
             <field name="arch" type="xml">
@@ -55,15 +55,15 @@
                     </group>
                 </search>
             </field>
-        </record>
-        <record id="action_gdpr_object" model="ir.actions.act_window">
+        </record> -->
+        <!-- <record id="action_gdpr_object" model="ir.actions.act_window">
             <field name="name">GDPR Object</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.object</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_object_filter" />
-        </record>
+        </record> -->
         <!-- GDPR Consent -->
         <record id="view_gdpr_consent_form" model="ir.ui.view">
             <field name="name">gdpr.consent.form</field>
@@ -108,7 +108,7 @@
                 </tree>
             </field>
         </record>
-        <record id="view_gdpr_consent_filter" model="ir.ui.view">
+        <!-- <record id="view_gdpr_consent_filter" model="ir.ui.view">
             <field name="name">gdpr.consent.filter</field>
             <field name="model">gdpr.consent</field>
             <field name="arch" type="xml">
@@ -130,18 +130,18 @@
                     </group>
                 </search>
             </field>
-        </record>
-        <record id="action_gdpr_consent" model="ir.actions.act_window">
+        </record> -->
+        <!-- <record id="action_gdpr_consent" model="ir.actions.act_window">
             <field name="name">GDPR Consent</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.consent</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_consent_filter" />
-        </record>
-        <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        </record> -->
+        <!-- <menuitem action="action_gdpr_consent" id="menu_gdpr_consent" parent="menu_gdpr" sequence="30" groups="base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- button actions -->
-        <record id="act_gdpr_inventory_2_gdpr_consent" model="ir.actions.act_window">
+         <record id="act_gdpr_inventory_2_gdpr_consent" model="ir.actions.act_window">
             <field name="name">GDPR Inventory 2 GDPR Consent</field>
             <field name="res_model">gdpr.consent</field>
             <field name="view_mode">tree,form</field>
@@ -151,9 +151,9 @@
                 'default_gdpr_id': active_id,
                 }
             </field>
-            <field name="search_view_id" ref="view_gdpr_consent_filter" />
-        </record>
-        <record id="act_gdpr_inventory_2_gdpr_object" model="ir.actions.act_window">
+            <!-- <field name="search_view_id" ref="view_gdpr_consent_filter" /> -->
+        </record> 
+         <record id="act_gdpr_inventory_2_gdpr_object" model="ir.actions.act_window">
             <field name="name">View GDPR Objects</field>
             <field name="res_model">gdpr.object</field>
             <field name="view_mode">tree,form</field>
@@ -163,14 +163,14 @@
                 'default_gdpr_id': active_id,
                 }
             </field>
-            <field name="search_view_id" ref="view_gdpr_object_filter" />
-        </record>
-        <record id="ir_values_gdpr_inventory_2_gdpr_object" model="ir.values">
+            <!-- <field name="search_view_id" ref="view_gdpr_object_filter" /> -->
+        </record> 
+        <!-- <record id="ir_values_gdpr_inventory_2_gdpr_object" model="ir.values">
             <field name="name">View GDPR Objects</field>
             <field name="model">gdpr.inventory</field>
             <field name="key2">client_action_multi</field>
             <field name="value" eval="'ir.actions.act_window,%s' %ref('act_gdpr_inventory_2_gdpr_object')" />
-        </record>
+        </record> -->
         <record id="act_res_partner_2_gdpr_consent" model="ir.actions.act_window">
             <field name="name">Res Partner 2 GDPR Consents</field>
             <field name="res_model">gdpr.consent</field>
@@ -181,7 +181,7 @@
                 'default_partner_id': active_id,
                 }
             </field>
-            <field name="search_view_id" ref="view_gdpr_consent_filter" />
+            <!-- <field name="search_view_id" ref="view_gdpr_consent_filter" /> -->
         </record>
         <record id="act_res_partner_2_gdpr_object" model="ir.actions.act_window">
             <field name="name">Res Partner 2 GDPR Objects</field>
@@ -193,7 +193,7 @@
                 'default_partner_id': active_id,
                 }
             </field>
-            <field name="search_view_id" ref="view_gdpr_object_filter" />
+            <!-- <field name="search_view_id" ref="view_gdpr_object_filter" /> -->
         </record>
         <!-- GDPR Inventory -->
         <record id="view_gdpr_inventory_form" model="ir.ui.view">
@@ -401,7 +401,7 @@
                 </kanban>
             </field>
         </record>
-        <record id="view_gdpr_inventory_filter" model="ir.ui.view">
+        <!-- <record id="view_gdpr_inventory_filter" model="ir.ui.view">
             <field name="name">gdpr.inventory.filter</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
@@ -430,16 +430,16 @@
                     </group>
                 </search>
             </field>
-        </record>
+        </record> -->
         <record id="action_gdpr_inventory" model="ir.actions.act_window">
             <field name="name">GDPR Inventory</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.inventory</field>
             <field name="view_type">form</field>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_inventory_filter" />
+            <!-- <field name="search_view_id" ref="view_gdpr_inventory_filter" /> -->
         </record>
-        <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10" groups="base.group_gdpr_user,base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- <menuitem action="action_gdpr_inventory" id="menu_gdpr_inventory" parent="menu_gdpr" sequence="10" groups="base.group_gdpr_user,base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- GDPR Inventory State -->
         <record id="view_gdpr_inventory_state_form" model="ir.ui.view">
             <field name="name">gdpr.inventory.state.form</field>
@@ -491,7 +491,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_inventory_state_filter" />
         </record>
-        <menuitem action="action_gdpr_inventory_state" id="menu_inventory_state" parent="menu_gdpr_config" sequence="21" groups="base.group_gdpr_manager" />
+        <!-- <menuitem action="action_gdpr_inventory_state" id="menu_inventory_state" parent="menu_gdpr_config" sequence="21" groups="base.group_gdpr_manager" /> -->
         <!-- GDPR Lawsection -->
         <record id="view_gdpr_lawsection_form" model="ir.ui.view">
             <field name="name">gdpr.lawsection.form</field>
@@ -541,7 +541,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_lawsection_filter" />
         </record>
-        <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr_config" sequence="20" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- <menuitem action="action_gdpr_lawsection" id="menu_gdpr_lawsection" parent="menu_gdpr_config" sequence="20" groups="base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- GDPR Security -->
         <record id="view_gdpr_security_form" model="ir.ui.view">
             <field name="name">gdpr.security.form</field>
@@ -590,7 +590,7 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_security_filter" />
         </record>
-        <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr_config" sequence="40" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- <menuitem action="action_gdpr_security" id="menu_gdpr_security" parent="menu_gdpr_config" sequence="40" groups="base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- GDPR Restrict Method -->
         <record id="view_gdpr_restrict_method_form" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.form</field>
@@ -625,7 +625,7 @@
                 </tree>
             </field>
         </record>
-        <record id="view_gdpr_restrict_method_filter" model="ir.ui.view">
+        <!-- <record id="view_gdpr_restrict_method_filter" model="ir.ui.view">
             <field name="name">gdpr.restrict_method.filter</field>
             <field name="model">gdpr.restrict_method</field>
             <field name="arch" type="xml">
@@ -640,16 +640,16 @@
                     </group>
                 </search>
             </field>
-        </record>
+        </record> -->
         <record id="action_gdpr_restrict_method" model="ir.actions.act_window">
             <field name="name">GDPR Restrict Method</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">gdpr.restrict_method</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_gdpr_restrict_method_filter" />
+            <!-- <field name="search_view_id" ref="view_gdpr_restrict_method_filter" /> -->
         </record>
-        <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr_config" sequence="50" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- <menuitem action="action_gdpr_restrict_method" id="menu_gdpr_restrict_method" parent="menu_gdpr_config" sequence="50" groups="base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- GDPR Category -->
         <record id="view_gdpr_category_form" model="ir.ui.view">
             <field name="name">gdpr.category.form</field>
@@ -706,9 +706,11 @@
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_gdpr_category_filter" />
         </record>
-        <menuitem action="action_gdpr_category" id="menu_gdpr_category" parent="menu_gdpr_config" sequence="60" groups="base.group_gdpr_officer,base.group_gdpr_manager" />
+        <!-- <menuitem action="action_gdpr_category" id="menu_gdpr_category" parent="menu_gdpr_config" sequence="60" groups="base.group_gdpr_officer,base.group_gdpr_manager" /> -->
         <!-- add a notebook page in ir.attachment -->
-        <record id="view_attachment_form" model="ir.ui.view">
+       
+       <!-- works with attachment_notebook installed -->
+        <!-- <record id="view_attachment_form" model="ir.ui.view">
             <field name="name">ir.attachment.form.notebook.inherited.gdpr_inventory</field>
             <field name="model">ir.attachment</field>
             <field name="inherit_id" ref="attachment_notebook.view_attachment_form" />
@@ -721,14 +723,14 @@
                     </page>
                 </notebook>
             </field>
-        </record>
+        </record> -->
         <!-- buttons on res.partner -->
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form.inherited.gdpr_inventory</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
-                <xpath expr="//div[@name='buttons']" position="inside">
+                <xpath expr="//div[@name='button_box']" position="inside">
                     <button class="oe_inline oe_stat_button" type="object" name="act_res_partner_2_gdpr_inventory" icon="fa-files-o">
                         <!--
                              <field string="Inventories" name="gdpr_count" widget="statinfo" />

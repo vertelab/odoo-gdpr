@@ -1,2 +1,2 @@
-import gdpr
+from . import gdpr
 # ~ import wizard

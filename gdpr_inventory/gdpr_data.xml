@@ -141,12 +141,12 @@ objects.unlink()</field>
         <field name="code">object.cron_object_ids()</field>
     </record>
 
-    <record id="ir_values_create_gdrp_object" model="ir.values">
+    <!-- <record id="ir_default_create_gdrp_object" model="ir.default">
         <field name="name">Create GDRP Object</field>
         <field name="model">gdpr.inventory</field>
         <field name="key2">client_action_multi</field>
         <field name="value" eval="'ir.actions.server,%s' %ref('gdpr_inventory.action_create_gdrp_object')"/>
-    </record>
+    </record> -->
 
     <record id="gdpr_system_odoo" model="gdpr.system">
         <field name="name">Odoo</field>
