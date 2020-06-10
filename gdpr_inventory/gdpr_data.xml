@@ -143,6 +143,7 @@ objects.unlink()</field>
 
     <!-- <record id="ir_default_create_gdrp_object" model="ir.default">
         <field name="name">Create GDRP Object</field>
+        <field name="field_id">gdpr_inventory.field_gdpr_inventory__gdpr_object</field>
         <field name="model">gdpr.inventory</field>
         <field name="key2">client_action_multi</field>
         <field name="value" eval="'ir.actions.server,%s' %ref('gdpr_inventory.action_create_gdrp_object')"/>
