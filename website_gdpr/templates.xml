@@ -85,13 +85,14 @@
                 </div>
             </t>
         </template>
-        <template id="footer_default" inherit_id="website.footer_default" name="GDPR menu in footer">
+        <!-- where is this supposed to go in 12.0? website.footer_default doesn't exist and website.footer_custom lacks ul id="products"
+            <template id="footer_default" inherit_id="website.footer_default" name="GDPR menu in footer">
             <xpath expr="//ul[@id='products']" position="inside">
                 <li>
                     <a href="/gdpr/inventories">GDPR</a>
                 </li>
             </xpath>
-        </template>
+        </template> -->
         <template id="assets_fontend" inherit_id="website.assets_frontend" name="Website GDPR Assets Frontend">
             <xpath expr="." position="inside">
                 <link href="/website_gdpr/static/src/css/main.css" rel="stylesheet" />

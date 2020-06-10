@@ -21,7 +21,7 @@
 
 {
     'name': 'Website GDPR',
-    'version': '0.1',
+    'version': '12.0.0.1',
     'category': 'Other',
     'summary': 'Portal and GDRP-information',
     'description': """

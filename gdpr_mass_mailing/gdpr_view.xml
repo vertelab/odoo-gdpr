@@ -55,14 +55,15 @@
                 </xpath>
             </field>
         </record>
-        <!-- NOT WORKING IN 12.0 web.assets_backend doesn't exist
             
-        <template id="assets_backend" inherit_id="web.assets_backend">
-            <xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
+        <!-- NOT WORKING IN 12.0, JS ERRORS
+        
+            <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="//script[@src='/web/static/src/js/views/form/form_view.js']" position="after">
                 <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/mass_mailing.js" />
             </xpath>
-        </template> -->
-        
+        </template>
+         -->
         <!--
              <record id="view_gdpr_inventory_filter" model="ir.ui.view">
              <field name="name">gdpr.inventory.filter</field>
