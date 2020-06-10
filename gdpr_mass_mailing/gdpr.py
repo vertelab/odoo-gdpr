@@ -18,11 +18,11 @@
 #    along with this program.  If not,  see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from openerp import models,  fields,  api,  _, http
+from odoo import models,  fields,  api,  _, http
 from datetime import timedelta
 
-from openerp.addons.mass_mailing.controllers.main import MassMailController
-from openerp.http import request
+from odoo.addons.mass_mailing.controllers.main import MassMailController
+from odoo.http import request
 
 import logging
 _logger = logging.getLogger(__name__)

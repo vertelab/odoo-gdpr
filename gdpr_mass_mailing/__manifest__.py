@@ -21,7 +21,7 @@
 
 {
     'name': 'Mass Mailing GDPR',
-    'version': '0.1',
+    'version': '12.0.0.1',
     'category': 'Other',
     'summary': 'GDRP-compliant mailing lists',
     'description': """

@@ -1,1 +1,1 @@
-import gdpr
+from . import gdpr

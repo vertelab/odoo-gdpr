@@ -37,7 +37,7 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': [
-        #'attachment_notebook', 
+        'attachment_notebook', 
         'mail', 
         'knowledge', 
         'document'

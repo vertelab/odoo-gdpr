@@ -165,13 +165,13 @@
             </field>
             <field name="search_view_id" ref="view_gdpr_object_filter" />
         </record> 
-         <record id="ir_default_gdpr_inventory_2_gdpr_object" model="ir.default">
+         <!-- <record id="ir_default_gdpr_inventory_2_gdpr_object" model="ir.default">
             <field name="name">View GDPR Objects</field>
             <field name="field_id">gdpr_inventory.field_gdpr_inventory__gdpr_object</field>
             <field name="model">gdpr.inventory</field>
             <field name="key2">client_action_multi</field>
             <field name="value" eval="'ir.actions.act_window,%s' %ref('act_gdpr_inventory_2_gdpr_object')" />
-        </record> 
+        </record>  -->
         <record id="act_res_partner_2_gdpr_consent" model="ir.actions.act_window">
             <field name="name">Res Partner 2 GDPR Consents</field>
             <field name="res_model">gdpr.consent</field>
@@ -711,7 +711,7 @@
         <!-- add a notebook page in ir.attachment -->
        
        <!-- works with attachment_notebook installed -->
-        <!-- <record id="view_attachment_form" model="ir.ui.view">
+        <record id="view_attachment_form" model="ir.ui.view">
             <field name="name">ir.attachment.form.notebook.inherited.gdpr_inventory</field>
             <field name="model">ir.attachment</field>
             <field name="inherit_id" ref="attachment_notebook.view_attachment_form" />
@@ -724,7 +724,7 @@
                     </page>
                 </notebook>
             </field>
-        </record> -->
+        </record>
         <!-- buttons on res.partner -->
         <record id="view_partner_form" model="ir.ui.view">
             <field name="name">res.partner.form.inherited.gdpr_inventory</field>

@@ -6,29 +6,31 @@
             <field name="model">mail.mass_mailing</field>
             <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_form" />
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']/../div" position="after">
-                    <field name="gdpr_id" attrs="{'invisible': [('mailing_model', '=', 'gdpr.consent')]}" />
-                    <field name="gdpr_consent_collected" attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}" widget="many2many_tags" />
-                    <field name="gdpr_domain" invisible="1" />
-                    <field name="gdpr_lawsection_consent" invisible="1" />
-                    <label for="gdpr_consent" string="Consent State" />
+                <xpath expr="//field[@name='name']/.." position="after">
                     <div>
-                        <field name="gdpr_consent" style="width: 50%" />
-                        <button class="oe_inline oe_highlight" type="object" string="Create Missing Consents" name="create_missing_consents" attrs="{'invisible': [('gdpr_consent', '!=', 'missing')]}" style="width: 50%" />
+                        <field name="gdpr_id" attrs="{'invisible': [('mailing_model_id', '=', 'gdpr.consent')]}" />
+                        <field name="gdpr_consent_collected" attrs="{'invisible': [('mailing_model_id', '!=', 'gdpr.consent')]}" widget="many2many_tags" />
+                        <field name="gdpr_domain" invisible="1" />
+                        <field name="gdpr_lawsection_consent" invisible="1" />
+                        <label for="gdpr_consent" string="Consent State" />
+                        <div>
+                            <field name="gdpr_consent" style="width: 50%" />
+                            <button class="oe_inline oe_highlight" type="object" string="Create Missing Consents" name="create_missing_consents" attrs="{'invisible': [('gdpr_consent', '!=', 'missing')]}" style="width: 50%" />
+                        </div>
+                        <field name="recipients" />
                     </div>
-                    <field name="recipients" />
                 </xpath>
                 <field name="mailing_domain" position="after">
-                    <div attrs="{'invisible': [('mailing_model', '!=', 'gdpr.consent')]}">
+                    <div attrs="{'invisible': [('mailing_model_id', '!=', 'gdpr.consent')]}">
                         <label for="gdpr_mailing_list_ids" string="Select GDPR mailing lists:" class="oe_edit_only" />
                         <field name="gdpr_mailing_list_ids" widget="many2many_tags" placeholder="Select GDPR mailing lists..." class="oe_inline" />
                     </div>
                 </field>
                 <field name="mailing_domain" position="attributes">
-                    <attribute name="options">{'model_field': 'mailing_model', 'gdpr_domain_field': 'gdpr_domain'}</attribute>
+                    <attribute name="options">{'model_field': 'mailing_model_id', 'gdpr_domain_field': 'gdpr_domain'}</attribute>
                 </field>
                 <notebook position="inside">
-                    <page string="Consents" attrs="{'invisible': [('mailing_model', '=', 'mail.mass_mailing.contact')]}">
+                    <page string="Consents" attrs="{'invisible': [('mailing_model_id', '=', 'mail.mass_mailing.contact')]}">
                         <group string="Form for collection of consents">
                             <field name="wp_mailing_title" />
                             <field name="wp_mailing_txt" />
@@ -53,11 +55,14 @@
                 </xpath>
             </field>
         </record>
+        <!-- NOT WORKING IN 12.0 web.assets_backend doesn't exist
+            
         <template id="assets_backend" inherit_id="web.assets_backend">
             <xpath expr="//script[@src='/web/static/src/js/view_form.js']" position="after">
                 <script type="text/javascript" src="/gdpr_mass_mailing/static/src/js/mass_mailing.js" />
             </xpath>
-        </template>
+        </template> -->
+        
         <!--
              <record id="view_gdpr_inventory_filter" model="ir.ui.view">
              <field name="name">gdpr.inventory.filter</field>
@@ -134,6 +139,6 @@
                 </p>
             </field>
         </record>
-        <menuitem name="GDPR Mailing Lists" id="menu_email_gdpr_mass_mailing_lists" parent="mass_mailing.mass_mailing_list" sequence="60" action="action_view_gdpr_mass_mailing_lists" />
+        <menuitem name="GDPR Mailing Lists" id="menu_email_gdpr_mass_mailing_lists" parent="mass_mailing.mass_mailing_mailing_list_menu" sequence="60" action="action_view_gdpr_mass_mailing_lists" />
     </data>
 </openerp>
