@@ -21,7 +21,7 @@
 
 {
     'name': 'GDPR Inventory',
-    'version': '12.0.0.2',
+    'version': '1.2',
     'category': 'Other',
     'summary': 'Inventory for GDPR',
     'description': """
@@ -37,20 +37,18 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
     'depends': [
-        'attachment_notebook', 
         'mail', 
-        'knowledge', 
-        'document'
+        'document_page', 
     ],
     'data': [
         'security/gdpr_security.xml',
         'security/ir.model.access.csv',
-        'gdpr_data.xml',
-        'gdpr_view.xml',
+        'data/gdpr_data.xml',
+        'views/gdpr_view.xml',
         # ~ 'wizard/consent_view.xml',
         #'report/gdpr_report.xml',
     ],
-    'demo': ['gdpr_demo.xml'],
+    'demo': ['data/gdpr_demo.xml'],
     'application': True,
     'installable': True,
 }

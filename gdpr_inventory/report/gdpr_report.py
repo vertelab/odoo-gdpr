@@ -1,27 +1,7 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#    OpenERP,  Open Source Management Solution,  third party addon
-#    Copyright (C) 2004-2018 Vertel AB (<http://vertel.se>).
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation,  either version 3 of the
-#    License,  or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not,  see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-from openerp import models,  fields,  api,  _
+
+from odoo import models,  fields,  api,  _
 from datetime import timedelta
-from openerp.exceptions import Warning
-from openerp import tools
+from odoo import tools
 
 class gdpr_report_inventory(models.Model):
     _name = 'gdpr.report.inventory'
@@ -41,8 +21,8 @@ class gdpr_report_inventory(models.Model):
     consent = fields.Boolean(related='lawsection_id.consent')
     consent_ids = fields.One2many(comodel_name='gdpr.consent', inverse_name='gdpr_id', string='Consents')
     @api.depends('consent_ids')
-    @api.one
     def _consent_count(self):
+        self.ensure_one()
         self.consent_count = len(self.consent_ids)
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
     restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
@@ -50,16 +30,16 @@ class gdpr_report_inventory(models.Model):
     restrict_type = fields.Selection(string='Restriction Type', related='restrict_method_id.type')
     inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
     @api.depends('object_ids.partner_id')
-    @api.one
     def _partner_ids(self):
+        self.ensure_one()
         self.partner_ids = self.object_ids.mapped('partner_id')
         self.partner_count = len(self.partner_ids)
     partner_ids = fields.Many2many(string='Partners', comodel_name='res.partner', compute='_partner_ids', store=True) 
     partner_count = fields.Integer(string='Partner Count', compute='_partner_ids', store=True)
     object_ids = fields.One2many(string='Objects', comodel_name='gdpr.object', inverse_name='gdpr_id')
     @api.depends('object_ids')
-    @api.one
     def _object_count(self):
+        self.ensure_one()
         self.object_count = len(self.object_ids)
     object_count = fields.Integer(string='Object Count', compute='_object_count', store=True)
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <!-- use case: Store contracts -->
         <record id="document_directory_contract" model="document.directory">
@@ -79,6 +79,6 @@ take steps at the request of the data subject prior to entering into a contract
             <field name="state">given</field>
         </record>
     </data>
-</openerp>
+</odoo>
 
 

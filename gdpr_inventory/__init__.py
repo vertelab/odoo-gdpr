@@ -1,2 +1,1 @@
-from . import gdpr
-# ~ import wizard
+from . import models
