@@ -586,16 +586,7 @@ class gdpr_restrict_method(models.Model):
 class gdpr_object(models.Model):
     _name = 'gdpr.object'
 
-    def _get_name(self):
-        self.ensure_one()
-        if self.object_id and hasattr(self.object_id, 'name'):
-            self.name = self.object_id.name
-        elif self.object_id:
-            self.name = '%s, %s' % (self.object_id._name, self.object_id.id)
-        else:
-            self.name = 'gdpr.object, %s' % self.id
-
-    name = fields.Char(string='Name', compute='_get_name')
+    name = fields.Char(string='Name', compute='_compute_name')
     gdpr_id = fields.Many2one(string='Inventory', comodel_name='gdpr.inventory')
     object_id = fields.Reference(string='Object', selection='_reference_models', compute='_get_object_id', inverse='_set_object_id', search='_search_object_id')
     object_model = fields.Char(string='Object Model')
@@ -603,6 +594,15 @@ class gdpr_object(models.Model):
     partner_id = fields.Many2one(string='Partners', comodel_name='res.partner')
     restricted = fields.Boolean(string='Restricted', help="This record has been restricted.")
     manual = fields.Boolean(string='Manual Action Required', help="This record needs attention.")
+
+    def _compute_name(self):
+        self.ensure_one()
+        if self.object_id and hasattr(self.object_id, 'name'):
+            self.name = self.object_id.name
+        elif self.object_id:
+            self.name = '%s, %s' % (self.object_id._name, self.object_id.id)
+        else:
+            self.name = 'gdpr.object, %s' % self.id
 
     def _get_object_id(self):
         self.ensure_one()
@@ -668,7 +668,6 @@ class res_partner(models.Model):
         self.ensure_one()
         self.gdpr_ids = self.env['gdpr.object'].search([('partner_id', '=', self.id)]).mapped('gdpr_id')
     gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', compute='_gdpr_ids')
-    #~ gdpr_ids = fields.Many2many(string='GDPRs', comodel_name='gdpr.inventory', relation='gdpr_inventory_rel_res_partner', column1='partner_id', column2='gdpr_id', compute='_gdpr_ids', store=True)
     def _get_gdpr_count(self):
         self.ensure_one()
         self.gdpr_count = len(self.gdpr_ids)
