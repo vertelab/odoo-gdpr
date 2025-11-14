@@ -23,6 +23,8 @@ class gdpr_inventory_state(models.Model):
     name = fields.Char(string='Name', required=True)
     sequence = fields.Integer(string='Sequence')
     fold = fields.Boolean()
+    technical_name = fields.Char(string='Technical Name')
+
 
 common_eval_vars = """
 Available variables:

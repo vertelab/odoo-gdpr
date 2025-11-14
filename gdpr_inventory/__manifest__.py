@@ -52,4 +52,3 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
     'application': True,
     'installable': True,
 }
-# vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:
