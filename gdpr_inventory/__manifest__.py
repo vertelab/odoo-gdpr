@@ -22,6 +22,7 @@
 {
     'name': 'GDPR Inventory',
     'version': '1.2',
+    'license': 'AGPL-3',
     'category': 'Other',
     'summary': 'Inventory for GDPR',
     'description': """

@@ -4,211 +4,249 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0-20171009\n"
+"Project-Id-Version: Odoo Server 18.0-20251110\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-16 09:28+0000\n"
-"PO-Revision-Date: 2018-05-16 12:19+0200\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2025-11-14 10:22+0000\n"
+"PO-Revision-Date: 2025-11-14 11:48+0100\n"
+"Last-Translator: \n"
 "Language-Team: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: \n"
-"Language: sv\n"
-"X-Generator: Poedit 2.0.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #. module: gdpr_inventory
-#: field:res.partner,consent_count:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_partner__consent_count
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_users__consent_count
 msgid "# Consents"
 msgstr "# Samtycken"
 
 #. module: gdpr_inventory
-#: field:res.partner,gdpr_count:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_partner__gdpr_count
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_users__gdpr_count
 msgid "# Inventories"
-msgstr "# Inventeringar"
+msgstr "# Varulager"
 
 #. module: gdpr_inventory
-#: field:res.partner,gdpr_object_count:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_partner__gdpr_object_count
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_users__gdpr_object_count
 msgid "# Objects"
-msgstr "# Objekt"
+msgstr "# Objects"
 
 #. module: gdpr_inventory
-#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_obligation
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid "171"
+msgstr "171"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_contract
+msgid "20"
+msgstr "20"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid "32"
+msgstr "32"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid "42"
+msgstr "42"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid "43"
+msgstr "43"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_contract
+msgid "<br>=&gt; Dossier:"
+msgstr "<br>=&gt; Dokumetation:"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid "<br>=&gt; Recital:"
+msgstr "<br>=&gt; Själ:"
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_kanban
+msgid "<span>Objects </span>"
+msgstr "<span>Objekt </span>"
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_kanban
+msgid "<span>Partners </span>"
+msgstr "<span>Partners </span>"
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_partner_form
 msgid ""
-"<p>Processing are beeing lawful on the ground that processing is\n"
-"necessary for <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">compliance</span></span> with a <span style=\"font-weight: bold;\"><span style=\"text-decoration: underline;\">legal obligation</span></span> to which the controller is subject\n"
-"<br><br>=&gt; Dossier: <a href=\"https://www.privacy-regulation.eu/en/dossier_permission_demo.htm\">Permission</a></p>\n"
+"<strong>xxxx</strong>\n"
+"                            <br/>\n"
+"                            Inventarie"
 msgstr ""
+"<strong>xxxx</strong>\n"
+"                            <br/>\n"
+"                            Inventarie"
 
 #. module: gdpr_inventory
-#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_contract
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_partner_form
 msgid ""
-"<p>Processing are beeing lawful on the ground that processing is\n"
-"necessary for the performance of a <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">contract</span></span> to which the data subject is party or in order to\n"
-"take steps at the request of the data subject prior to entering into a contract\n"
-"<br><br>=&gt; Article: <a href=\"https://www.privacy-regulation.eu/en/article-20-right-to-data-portability-GDPR.htm\">20</a>\n"
-"<br>=&gt; Dossier: <a href=\"https://www.privacy-regulation.eu/en/dossier_permission_demo.htm\">Permission</a>\n"
-"</p>"
+"<strong>xxxx</strong>\n"
+"                            <br/>\n"
+"                            Medgivanden"
 msgstr ""
+"<strong>xxxx</strong>\n"
+"                            <br/>\n"
+"                            Medgivanden"
 
 #. module: gdpr_inventory
-#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_public_interest
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_partner_form
 msgid ""
-"<p>Processing are beeing lawful on the ground that processing is\n"
-"necessary for the performance of a task carried out in the public interest or in\n"
-"the exercise of official authority vested in the controller\n"
-"=&gt; Dossier: Task in Public Interest, Permission</p>"
+"<strong>xxxx</strong>\n"
+"                            <br/>\n"
+"                            Samtycken"
 msgstr ""
+"<strong>xxxx</strong>\n"
+"                            <br/>\n"
+"                            Samtycken"
 
 #. module: gdpr_inventory
-#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_legitimate_interest
-msgid ""
-"<p>Processing are beeing lawful on the ground that processing is\n"
-"necessary for the purposes of the legitimate interests pursued by the controller or by a third\n"
-"party, except where such interests are overridden by the interests or fundamental rights and\n"
-"freedoms of the data subject which require protection of personal data, in particular where\n"
-"the data subject is a child.\n"
-"\n"
-"=&gt; Article: 13, 21\n"
-"=&gt; Recital: 113, 47, 48\n"
-"\n"
-"</p>"
-msgstr ""
-
-#. module: gdpr_inventory
-#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_vital_interest
-msgid ""
-"<p>Processing are beeing lawful on the ground that processing is\n"
-"necessary in order to protect the vital interests of the data subject or of another natural person\n"
-"=&gt; Dossier: Permission</p>"
-msgstr ""
-
-#. module: gdpr_inventory
-#: model:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
-msgid ""
-"<p>Processing are beeing lawful on the ground that the data subject\n"
-"has given <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">consent</span></span> to the processing of his or her personal data for one or more specific purposes.\n"
-"<br><br>=&gt; Article: <a href=\"https://www.privacy-regulation.eu/en/article-7-conditions-for-consent-GDPR.htm\">7</a>, <a href=\"https://www.privacy-regulation.eu/en/article-8-conditions-applicable-to-child's-consent-in-relation-to-information-society-services-GDPR.htm\">8</a>, <a href=\"https://www.privacy-regulation.eu/en/article-9-processing-of-special-categories-of-personal-data-GDPR.htm\">9</a>\n"
-"<br>=&gt; Recital: <a href=\"https://www.privacy-regulation.eu/en/r32.htm\">32</a>, <a href=\"https://www.privacy-regulation.eu/en/r42.htm\">42</a>, <a href=\"https://www.privacy-regulation.eu/en/r43.htm\">43</a>, <a href=\"https://www.privacy-regulation.eu/en/r171.htm\">171\n"
-"</a><br>=&gt; Dossier: <a href=\"https://www.privacy-regulation.eu/en/dossier_consent_demo.htm\">Consent</a>, <a href=\"https://www.privacy-regulation.eu/en/dossier_permission_demo.htm\">Permission</a></p>\n"
-"      "
-msgstr ""
-
-#. module: gdpr_inventory
-#: help:gdpr.inventory,identification_desc:0
-#: help:gdpr.inventory,restrict_desc:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__identification_desc
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__restrict_desc
 msgid "A description of how the data items covered by this inventory can be identified."
-msgstr "En beskrivning av hur data kan identifieras inom ramen för inventeringen"
+msgstr "En beskrivning av hur de dataobjekt som omfattas av denna inventering kan identifieras."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,data_type_ids:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__data_type_ids
 msgid "A description of the types of data that are stored in this inventory."
-msgstr "En beskrivning av typer av data som lagras inom ramen för denna inventering"
+msgstr "En beskrivning av de typer av data som lagras i denna inventering."
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_needaction
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_needaction
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_needaction
+msgid "Action Needed"
+msgstr "Åtgärder krävs"
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Action Req."
-msgstr "Åtgärd behövs"
+msgstr "Handling nödvändig"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,inventory_domain_advanced:0
-#: field:gdpr.inventory,restrict_domain_advanced:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__inventory_domain_advanced
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_domain_advanced
 msgid "Advanced Domain"
 msgstr "Avancerad domän"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,data_sharing_ids:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__data_sharing_ids
 msgid "Any partners that we share this data with."
-msgstr "Parter vi delar dessa data med"
+msgstr "Eventuella partners som vi delar dessa uppgifter med."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,business_process:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__business_process
 msgid "Attach the inventorie to a business process"
-msgstr "Knyt inventeringen till en affärsprocess"
+msgstr "Koppla inventeringen till en affärsprocess"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: field:gdpr.inventory,business_process:0
+#: model:ir.model,name:gdpr_inventory.model_ir_attachment
+msgid "Attachment"
+msgstr "Bilaga"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_attachment_count
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_attachment_count
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_attachment_count
+msgid "Attachment Count"
+msgstr "Antal bifogade filer"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__business_process
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Business Process"
 msgstr "Affärsprocess"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: field:gdpr.inventory,category:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__category
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Category"
 msgstr "Kategori"
 
 #. module: gdpr_inventory
-#: selection:gdpr.inventory,type_of_personal_data:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_inventory__type_of_personal_data__child
 msgid "Childs consent"
-msgstr "Barns samtycken"
+msgstr "Barnets samtycke"
 
 #. module: gdpr_inventory
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
-#: field:gdpr.restrict_method,code:0 selection:gdpr.restrict_method,type:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__code
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_restrict_method__type__code
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_filter
 msgid "Code"
 msgstr "Kod"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,consent_add:0
-msgid "Code for consent add"
-msgstr ""
-
-#. module: gdpr_inventory
-#: help:gdpr.inventory,consent_remove:0
-msgid "Code for consent remove"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.inventory,color:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__color
 msgid "Color Index"
 msgstr "Färgindex"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
-#: field:gdpr.inventory,consent:0 field:gdpr.lawsection,consent:0
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_config
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__consent
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__consent
+#: model:ir.model.fields,field_description:gdpr_inventory.field_ir_attachment__consent_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_product_document__consent_ids
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Consent"
 msgstr "Samtycke"
 
 #. module: gdpr_inventory
-#: code:addons/gdpr_inventory/gdpr.py:470
-#, python-format
+#. odoo-python
+#: code:addons/gdpr_inventory/models/gdpr.py:0
 msgid "Consent %s"
 msgstr "Samtycke %s"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,consent_count:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__consent_count
 msgid "Consent Count"
 msgstr "Antal samtycken"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
 msgid "Consent Given"
-msgstr "Givet samtycken"
+msgstr "Samtycke givet"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
 msgid "Consent Missing"
 msgstr "Samtycke saknas"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
 msgid "Consent Withdrawn"
-msgstr "Samtycke tillbakadraget"
+msgstr "Samtycke återkallat"
 
 #. module: gdpr_inventory
-#: field:ir.attachment,consent_ids:0
-msgid "Consent ids"
-msgstr "Samtyckes idn"
-
-#. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
-#: field:gdpr.inventory,consent_ids:0
-#: view:res.partner:gdpr_inventory.view_partner_form
-#: field:res.partner,consent_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__consent_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_partner__consent_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_users__consent_ids
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form model_terms:ir.ui.view,arch_db:gdpr_inventory.view_partner_form
 msgid "Consents"
-msgstr "Samtycken"
+msgstr "Medgivanden"
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
 
 #. module: gdpr_inventory
 #: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_contract
@@ -216,9 +254,9 @@ msgid "Contract"
 msgstr "Fullgörande av avtal"
 
 #. module: gdpr_inventory
-#: selection:gdpr.inventory,role:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_inventory__role__controller
 msgid "Controller"
-msgstr "Utförare"
+msgstr "Styrenhet"
 
 #. module: gdpr_inventory
 #: model:ir.actions.server,name:gdpr_inventory.action_create_gdrp_object
@@ -226,141 +264,163 @@ msgid "Create GDRP Object"
 msgstr "Skapa ett GDPR-objekt"
 
 #. module: gdpr_inventory
-#: field:gdpr.bp,create_uid:0 field:gdpr.category,create_uid:0
-#: field:gdpr.consent,create_uid:0 field:gdpr.data_type,create_uid:0
-#: field:gdpr.inventory,create_uid:0 field:gdpr.inventory.state,create_uid:0
-#: field:gdpr.lawsection,create_uid:0 field:gdpr.object,create_uid:0
-#: field:gdpr.restrict_method,create_uid:0 field:gdpr.role,create_uid:0
-#: field:gdpr.security,create_uid:0 field:gdpr.subject,create_uid:0
-#: field:gdpr.system,create_uid:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__create_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__create_uid
 msgid "Created by"
 msgstr "Skapad av"
 
 #. module: gdpr_inventory
-#: field:gdpr.bp,create_date:0 field:gdpr.category,create_date:0
-#: field:gdpr.consent,create_date:0 field:gdpr.data_type,create_date:0
-#: field:gdpr.inventory,create_date:0 field:gdpr.inventory.state,create_date:0
-#: field:gdpr.lawsection,create_date:0 field:gdpr.object,create_date:0
-#: field:gdpr.restrict_method,create_date:0 field:gdpr.role,create_date:0
-#: field:gdpr.security,create_date:0 field:gdpr.subject,create_date:0
-#: field:gdpr.system,create_date:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__create_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__create_date
 msgid "Created on"
-msgstr "Skapad"
+msgstr "Skapad på"
 
 #. module: gdpr_inventory
-#: selection:gdpr.inventory,type_of_personal_data:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_inventory__type_of_personal_data__criminal
 msgid "Criminal related"
-msgstr "Brottsrelaterat"
+msgstr "Brottsrelaterad"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,pseudo_values:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__pseudo_values
 msgid "Custom values used to anonymize fields. Any fields not specified in this dict will be set to False."
-msgstr ""
+msgstr "Anpassade värden som används för att anonymisera fält. Alla fält som inte anges i denna dict kommer att sättas till False."
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,data_collection_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__data_collection_ids
 msgid "Data Collection"
 msgstr "Datainsamling"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Data Description"
-msgstr ""
+msgstr "Beskrivning av data"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,data_local:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__data_local
 msgid "Data Is Local"
-msgstr "Lokala data"
+msgstr "Data är lokala"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,data_sharing_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__data_sharing_ids
 msgid "Data Sharing"
-msgstr "Delas med"
+msgstr "Delning av data"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,data_storage_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__data_storage_ids
 msgid "Data Storage"
-msgstr "Lagring"
+msgstr "Data Storage"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,data_subject_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__data_subject_ids
 msgid "Data Subjects"
-msgstr "Målgrupp"
+msgstr "Registrerade personer"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,data_type_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__data_type_ids
 msgid "Data Types"
-msgstr "Områden"
+msgstr "Datatyper"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
-#: field:gdpr.consent,date:0
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Data is local"
+msgstr "Data är lokala"
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Data is not local"
+msgstr "Data är inte lokala"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__date
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #. module: gdpr_inventory
-#: help:gdpr.consent,message_last_post:0
-#: help:gdpr.inventory,message_last_post:0
-#: help:gdpr.restrict_method,message_last_post:0
-msgid "Date of the last message posted on the record."
-msgstr ""
-
-#. module: gdpr_inventory
-#: help:gdpr.consent,date:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__date
 msgid "Date when consent first given"
-msgstr ""
+msgstr "Datum då samtycke först gavs"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_kanban
 msgid "Delete"
-msgstr ""
+msgstr "Radera"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Describe the item..."
-msgstr ""
+msgstr "Beskriv föremålet..."
 
 #. module: gdpr_inventory
-#: view:gdpr.category:gdpr_inventory.view_gdpr_category_filter
-#: field:gdpr.category,description:0
-#: field:gdpr.inventory,lawsection_description:0
-#: field:gdpr.lawsection,description:0
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
-#: field:gdpr.restrict_method,description:0
-#: view:gdpr.security:gdpr_inventory.view_gdpr_security_filter
-#: field:gdpr.security,description:0 field:gdpr.system,description:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__description
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__consent_desc
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__lawsection_description
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__description
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__description
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__description
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__description
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_category_filter model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_category_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_security_filter
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #. module: gdpr_inventory
-#: help:gdpr.consent,gdpr_id:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__gdpr_id
 msgid "Description of consent"
-msgstr ""
+msgstr "Beskrivning av samtycke"
 
 #. module: gdpr_inventory
-#: field:gdpr.bp,display_name:0 field:gdpr.category,display_name:0
-#: field:gdpr.consent,display_name:0 field:gdpr.data_type,display_name:0
-#: field:gdpr.inventory,display_name:0
-#: field:gdpr.inventory.state,display_name:0
-#: field:gdpr.lawsection,display_name:0 field:gdpr.object,display_name:0
-#: field:gdpr.restrict_method,display_name:0 field:gdpr.role,display_name:0
-#: field:gdpr.security,display_name:0 field:gdpr.subject,display_name:0
-#: field:gdpr.system,display_name:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__display_name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Visa namn"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,category:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__category
 msgid "Divide inventories in several catories eg Customers, Resellers etc"
-msgstr ""
+msgstr "Dela upp varulagret i flera kategorier, t.ex. kunder, återförsäljare etc."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,partner_domain:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__partner_domain
 msgid "Domain for identification of partners connected to this personal data"
-msgstr ""
+msgstr "Domän för identifiering av partners som är kopplade till dessa personuppgifter"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,inventory_domain:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__inventory_domain
 msgid ""
 "Domain for identification of personal data of this type\n"
 "\n"
@@ -371,9 +431,17 @@ msgid ""
 "* dateutil: dateutil python module.\n"
 "* timezone: pytz.timezone python module."
 msgstr ""
+"Domän för identifiering av personuppgifter av denna typ\n"
+"\n"
+"Tillgängliga variabler:\n"
+"* env: Odoo-miljö.\n"
+"* time: tid python-modul.\n"
+"* datetime: datetime python-modul.\n"
+"* dateutil: python-modulen dateutil.\n"
+"* timezone: pytz.timezone python-modul."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,restrict_domain:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__restrict_domain
 msgid ""
 "Domain for identifying records that should be restricted.\n"
 "\n"
@@ -385,55 +453,70 @@ msgid ""
 "* timezone: pytz.timezone python module.\n"
 "* restrict_days: Restrict time of this inventory"
 msgstr ""
+"Domän för identifiering av register som bör begränsas.\n"
+"\n"
+"Tillgängliga variabler:\n"
+"* env: Odoo-miljö.\n"
+"* time: tid python-modul.\n"
+"* datetime: datetime python-modul.\n"
+"* dateutil: python-modulen dateutil.\n"
+"* timezone: pytz.timezone python-modul.\n"
+"* restrict_days: Begränsa tiden för denna inventering"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Draft"
-msgstr ""
+msgstr "Utkast"
 
 #. module: gdpr_inventory
-#: selection:gdpr.restrict_method,type:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_restrict_method__type__encrypt
 msgid "Encrypt"
 msgstr "Kryptera"
 
 #. module: gdpr_inventory
-#: selection:gdpr.restrict_method,type:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_restrict_method__type__erase
 msgid "Erase"
 msgstr "Radera"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,fields_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__fields_ids
 msgid "Fields"
 msgstr "Fält"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,fields_ids:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__fields_ids
 msgid "Fields with (potential) personal data"
-msgstr ""
+msgstr "Fält med (potentiella) personuppgifter"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,partner_fields_ids:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__partner_fields_ids
 msgid "Fields with personal link"
-msgstr ""
+msgstr "Fält med personlig länk"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory.state,fold:0
-msgid "Folded in Kanban View"
-msgstr ""
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__fold
+msgid "Fold"
+msgstr "Vik"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,message_follower_ids:0
-#: field:gdpr.inventory,message_follower_ids:0
-#: field:gdpr.restrict_method,message_follower_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_follower_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_follower_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_follower_ids
 msgid "Followers"
 msgstr "Följare"
 
 #. module: gdpr_inventory
-#: model:ir.module.category,name:gdpr_inventory.module_category_gdpr
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_config
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_partner_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_partner_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Följare (Partners)"
+
+#. module: gdpr_inventory
+#: model:ir.module.category,name:gdpr_inventory.module_category_gdpr model:ir.ui.menu,name:gdpr_inventory.menu_gdpr
+#: model:ir.ui.menu,name:gdpr_inventory.root_menu_gdpr model:ir.ui.menu,name:gdpr_inventory.submenu_gdpr_config
 msgid "GDPR"
-msgstr ""
+msgstr "GDPR"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_bp
@@ -441,289 +524,284 @@ msgid "GDPR Business Process"
 msgstr "GDPR Affärsprocesser"
 
 #. module: gdpr_inventory
-#: view:gdpr.category:gdpr_inventory.view_gdpr_category_form
-#: view:gdpr.category:gdpr_inventory.view_gdpr_category_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_category
-#: model:ir.model,name:gdpr_inventory.model_gdpr_category
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_category
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_category model:ir.model,name:gdpr_inventory.model_gdpr_category
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_category model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_category_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_category_tree
 msgid "GDPR Category"
 msgstr "GDPR-kategorier"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_form
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_consent
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_consent
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_consent model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_consent
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_form model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_tree
 msgid "GDPR Consent"
-msgstr "GDPR-samtycken"
-
-#. module: gdpr_inventory
-#: view:ir.attachment:gdpr_inventory.view_attachment_form
-msgid "GDPR Consents"
 msgstr "GDPR-samtycken"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_subject
 msgid "GDPR Data Subject"
-msgstr ""
+msgstr "GDPR Registrerad person"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_system
 msgid "GDPR Data System"
-msgstr ""
+msgstr "GDPR Datasystem"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_data_type
 msgid "GDPR Data Type"
-msgstr ""
+msgstr "GDPR Datatyp"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_inventory
-#: model:ir.model,name:gdpr_inventory.model_gdpr_inventory
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_inventory
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_inventory model:ir.model,name:gdpr_inventory.model_gdpr_inventory
+#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_inventory model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_tree
 msgid "GDPR Inventory"
 msgstr "GDPR-inventarie"
 
 #. module: gdpr_inventory
 #: model:ir.actions.act_window,name:gdpr_inventory.act_gdpr_inventory_2_gdpr_consent
 msgid "GDPR Inventory 2 GDPR Consent"
-msgstr ""
+msgstr "GDPR Inventory 2 GDPR Samtycke"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_form
-#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_inventory_state
-#: model:ir.ui.menu,name:gdpr_inventory.menu_inventory_state
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_inventory_state model:ir.ui.menu,name:gdpr_inventory.menu_inventory_state
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_state_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_state_tree
 msgid "GDPR Inventory State"
-msgstr ""
+msgstr "GDPR Inventering Status"
 
 #. module: gdpr_inventory
-#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_form
-#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_lawsection
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_lawsection
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_lawsection model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_lawsection
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_lawsection_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_lawsection_tree
 msgid "GDPR Lawsection"
 msgstr "GDPR Laglig grund"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,gdpr_object_id:0
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_form
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_tree
 #: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_object
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__gdpr_object_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_form model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_tree
 msgid "GDPR Object"
-msgstr ""
+msgstr "GDPR-objekt"
 
 #. module: gdpr_inventory
-#: field:res.partner,gdpr_object_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_partner__gdpr_object_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_users__gdpr_object_ids
 msgid "GDPR Objects"
-msgstr ""
+msgstr "GDPR-objekt"
 
 #. module: gdpr_inventory
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_form
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_restrict_method
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_restrict_method
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_restrict_method model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_restrict_method
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_tree
 msgid "GDPR Restrict Method"
-msgstr ""
+msgstr "GDPR Begränsningsmetod"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_role
 msgid "GDPR Role"
-msgstr ""
+msgstr "GDPR-rollen"
 
 #. module: gdpr_inventory
-#: view:gdpr.security:gdpr_inventory.view_gdpr_security_tree
-#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_security
-#: model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_security
+#: model:ir.actions.act_window,name:gdpr_inventory.action_gdpr_security model:ir.ui.menu,name:gdpr_inventory.menu_gdpr_security
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_security_tree
 msgid "GDPR Security"
-msgstr ""
+msgstr "GDPR-säkerhet"
 
 #. module: gdpr_inventory
-#: view:gdpr.security:gdpr_inventory.view_gdpr_security_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_security_form
 msgid "GDPR security"
-msgstr ""
+msgstr "GDPR-säkerhet"
 
 #. module: gdpr_inventory
-#: field:res.partner,gdpr_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_partner__gdpr_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_res_users__gdpr_ids
 msgid "GDPRs"
-msgstr ""
+msgstr "Dataskyddsförordningen"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,gdpr_id:0
-msgid "Gdpr id"
-msgstr ""
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__gdpr_id
+msgid "Gdpr"
+msgstr "Gdpr"
 
 #. module: gdpr_inventory
-#: selection:gdpr.inventory,type_of_personal_data:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_inventory__type_of_personal_data__general
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "General"
-msgstr ""
+msgstr "Allmänt"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,type_of_personal_data:0
-msgid "General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences"
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__type_of_personal_data
+msgid ""
+"General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  "
+"Criminal relared:  personal data relating to criminal convictions and offences"
 msgstr ""
+"Allmänt: icke-känsliga personuppgifter, Särskilt: känsliga personuppgifter, Samtycke från barn: personuppgifter som rör minderåriga, "
+"Brottsrelaterad: personuppgifter som rör fällande domar i brottmål och överträdelser"
 
 #. module: gdpr_inventory
-#: selection:gdpr.consent,state:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_consent__state__given
 msgid "Given"
-msgstr ""
+msgstr "Givet"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_consent
 msgid "Given consents"
-msgstr ""
+msgstr "Givna samtycken"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_filter
 msgid "Group By"
-msgstr ""
+msgstr "Grupp av"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__has_message
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__has_message
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__has_message
+msgid "Has Message"
+msgstr "Har meddelande"
 
 #. module: gdpr_inventory
 #: model:ir.module.category,description:gdpr_inventory.module_category_gdpr
 msgid "Helps you to manage GDPR inventory"
-msgstr ""
+msgstr "Hjälper dig att hantera GDPR-inventering"
 
 #. module: gdpr_inventory
-#: selection:gdpr.restrict_method,type:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_restrict_method__type__hide
 msgid "Hide"
-msgstr ""
+msgstr "Göm"
 
 #. module: gdpr_inventory
-#: help:gdpr.consent,message_summary:0 help:gdpr.inventory,message_summary:0
-#: help:gdpr.restrict_method,message_summary:0
-msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.bp,id:0 field:gdpr.category,id:0 field:gdpr.consent,id:0
-#: field:gdpr.data_type,id:0 field:gdpr.inventory,id:0
-#: field:gdpr.inventory.state,id:0 field:gdpr.lawsection,id:0
-#: field:gdpr.object,id:0 field:gdpr.restrict_method,id:0 field:gdpr.role,id:0
-#: field:gdpr.security,id:0 field:gdpr.subject,id:0 field:gdpr.system,id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Identification"
 msgstr "Identifiering"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,identification_desc:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__identification_desc
 msgid "Identification Description"
-msgstr "Beskrivning"
+msgstr "Identifiering Beskrivning"
 
 #. module: gdpr_inventory
-#: help:gdpr.consent,message_unread:0 help:gdpr.inventory,message_unread:0
-#: help:gdpr.restrict_method,message_unread:0
-msgid "If checked new messages require your attention."
-msgstr ""
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__message_needaction
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__message_needaction
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_restrict_method__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Om markerad, nya meddelanden kräver din uppmärksamhet."
 
 #. module: gdpr_inventory
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
-#: view:res.partner:gdpr_inventory.view_partner_form
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__message_has_error
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__message_has_error
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_restrict_method__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Om markerad, några meddelanden har ett leveransfel."
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_filter model_terms:ir.ui.view,arch_db:gdpr_inventory.view_partner_form
 msgid "Inventories"
-msgstr "Inventarie"
+msgstr "Varulager"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
-#: field:gdpr.object,gdpr_id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__inventory_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__gdpr_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
 msgid "Inventory"
-msgstr "Inventarie"
+msgstr "Inventarieförteckning"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,inventory_domain:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__inventory_domain
 msgid "Inventory Domain"
-msgstr ""
+msgstr "Domän för inventarier"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,inventory_model:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__inventory_model
 msgid "Inventory Model"
-msgstr ""
+msgstr "Inventeringsmodell"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
-msgid "Inventory Settings"
-msgstr ""
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_is_follower
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_is_follower
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_is_follower
+msgid "Is Follower"
+msgstr "Är följare"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,message_is_follower:0
-#: field:gdpr.inventory,message_is_follower:0
-#: field:gdpr.restrict_method,message_is_follower:0
-msgid "Is a Follower"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.consent,message_last_post:0
-#: field:gdpr.inventory,message_last_post:0
-#: field:gdpr.restrict_method,message_last_post:0
-msgid "Last Message Date"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.bp,__last_update:0 field:gdpr.category,__last_update:0
-#: field:gdpr.consent,__last_update:0 field:gdpr.data_type,__last_update:0
-#: field:gdpr.inventory,__last_update:0
-#: field:gdpr.inventory.state,__last_update:0
-#: field:gdpr.lawsection,__last_update:0 field:gdpr.object,__last_update:0
-#: field:gdpr.restrict_method,__last_update:0 field:gdpr.role,__last_update:0
-#: field:gdpr.security,__last_update:0 field:gdpr.subject,__last_update:0
-#: field:gdpr.system,__last_update:0
-msgid "Last Modified on"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.bp,write_uid:0 field:gdpr.category,write_uid:0
-#: field:gdpr.consent,write_uid:0 field:gdpr.data_type,write_uid:0
-#: field:gdpr.inventory,write_uid:0 field:gdpr.inventory.state,write_uid:0
-#: field:gdpr.lawsection,write_uid:0 field:gdpr.object,write_uid:0
-#: field:gdpr.restrict_method,write_uid:0 field:gdpr.role,write_uid:0
-#: field:gdpr.security,write_uid:0 field:gdpr.subject,write_uid:0
-#: field:gdpr.system,write_uid:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__write_uid
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Senast uppdaterad av"
 
 #. module: gdpr_inventory
-#: field:gdpr.bp,write_date:0 field:gdpr.category,write_date:0
-#: field:gdpr.consent,write_date:0 field:gdpr.data_type,write_date:0
-#: field:gdpr.inventory,write_date:0 field:gdpr.inventory.state,write_date:0
-#: field:gdpr.lawsection,write_date:0 field:gdpr.object,write_date:0
-#: field:gdpr.restrict_method,write_date:0 field:gdpr.role,write_date:0
-#: field:gdpr.security,write_date:0 field:gdpr.subject,write_date:0
-#: field:gdpr.system,write_date:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__write_date
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Senast uppdaterad den"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,lawsection_id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__lawsection_id
 msgid "Law Section"
-msgstr ""
+msgstr "Juridiska avdelningen"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,lawsection_desc:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__lawsection_desc
 msgid "Law section Explanation"
-msgstr ""
+msgstr "Rättsavsnitt Förklaring"
 
 #. module: gdpr_inventory
 #: model:ir.model,name:gdpr_inventory.model_gdpr_lawsection
 msgid "Lawfullness of processing"
-msgstr ""
+msgstr "Lagligheten av behandlingen"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Lawsection"
-msgstr "Laglig grund"
+msgstr "Juridiska sektionen"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Lawsection description"
-msgstr "Laglig grund-beskrivning"
+msgstr "Beskrivning av lagavsnitt"
 
 #. module: gdpr_inventory
 #: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_obligation
@@ -736,163 +814,294 @@ msgid "Legitimate Interest"
 msgstr "Berättigat intresse"
 
 #. module: gdpr_inventory
-#: selection:gdpr.restrict_method,type:0
+#: model:res.groups,name:gdpr_inventory.group_gdpr_manager
+msgid "Manager"
+msgstr "Chef"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_restrict_method__type__manual
 msgid "Manual"
-msgstr ""
+msgstr "Manuell"
 
 #. module: gdpr_inventory
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
-#: field:gdpr.object,manual:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__manual
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_filter
 msgid "Manual Action Required"
-msgstr ""
+msgstr "Manuell åtgärd krävs"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,manual_count:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__manual_count
 msgid "Manual Count"
-msgstr ""
+msgstr "Manuell räkning"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,message_ids:0 field:gdpr.inventory,message_ids:0
-#: field:gdpr.restrict_method,message_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_has_error
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_has_error
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_has_error
+msgid "Message Delivery error"
+msgstr "Fel vid leverans av meddelande"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Meddelanden"
 
 #. module: gdpr_inventory
-#: help:gdpr.consent,message_ids:0 help:gdpr.inventory,message_ids:0
-#: help:gdpr.restrict_method,message_ids:0
-msgid "Messages and communication history"
-msgstr ""
-
-#. module: gdpr_inventory
-#: selection:gdpr.consent,state:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_consent__state__missing
 msgid "Missing"
-msgstr ""
+msgstr "Saknas"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,inventory_model:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__inventory_model
 msgid "Model (Class) for this Inventory"
-msgstr ""
+msgstr "Modell (klass) för denna inventering"
 
 #. module: gdpr_inventory
-#: field:gdpr.bp,name:0
-#: view:gdpr.category:gdpr_inventory.view_gdpr_category_filter
-#: field:gdpr.category,name:0
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
-#: field:gdpr.consent,name:0 field:gdpr.data_type,name:0
-#: field:gdpr.inventory,name:0
-#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_filter
-#: field:gdpr.inventory.state,name:0
-#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_filter
-#: field:gdpr.lawsection,name:0 field:gdpr.object,name:0
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
-#: field:gdpr.restrict_method,name:0 field:gdpr.role,name:0
-#: view:gdpr.security:gdpr_inventory.view_gdpr_security_filter
-#: field:gdpr.security,name:0 field:gdpr.subject,name:0
-#: field:gdpr.system,name:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_data_type__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_role__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_security__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_subject__name
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_system__name
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_category_filter model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_state_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_lawsection_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_security_filter
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Not Ceased"
-msgstr "Ej upphört"
+msgstr "Inte upphört"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,restrict_time_days:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_needaction_counter
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_needaction_counter
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Antal åtgärder"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__restrict_time_days
 msgid "Number of days before this data will be restricted"
-msgstr ""
+msgstr "Antal dagar innan dessa uppgifter kommer att begränsas"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,record_id:0 field:gdpr.object,object_id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__message_has_error_counter
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__message_has_error_counter
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__message_has_error_counter
+msgid "Number of errors"
+msgstr "Antal fel"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__message_needaction_counter
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__message_needaction_counter
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_restrict_method__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Antal meddelanden som kräver åtgärder"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__message_has_error_counter
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__message_has_error_counter
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_restrict_method__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Antal meddelanden med leveransfel"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__record_id
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__object_id
 msgid "Object"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.inventory,object_count:0
-msgid "Object Count"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.object,object_res_id:0
-msgid "Object ID"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.object,object_model:0
-msgid "Object Model"
-msgstr ""
-
-#. module: gdpr_inventory
-#: help:gdpr.consent,record_id:0
-msgid "Object that is consented for processing of personal data"
-msgstr ""
-
-#. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
-#: field:gdpr.inventory,object_ids:0
-#: view:res.partner:gdpr_inventory.view_partner_form
-msgid "Objects"
 msgstr "Objekt"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,role:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__object_count
+msgid "Object Count"
+msgstr "Antal objekt"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__object_res_id
+msgid "Object ID"
+msgstr "Objekt-ID"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__object_model
+msgid "Object Model"
+msgstr "Objektmodell"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_consent__record_id
+msgid "Object that is consented for processing of personal data"
+msgstr "Objekt som samtycker till behandling av personuppgifter"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__object_ids
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form model_terms:ir.ui.view,arch_db:gdpr_inventory.view_partner_form
+msgid "Objects"
+msgstr "Föremål"
+
+#. module: gdpr_inventory
+#: model:res.groups,name:gdpr_inventory.group_gdpr_officer
+msgid "Officer"
+msgstr "Officer"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__role
 msgid "Our Role"
 msgstr "Vår roll"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__parent_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Parent"
 msgstr "Förälder"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
-#: model:ir.model,name:gdpr_inventory.model_res_partner
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__partner_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_filter
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,partner_count:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__partner_count
 msgid "Partner Count"
-msgstr ""
+msgstr "Antal partners"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,partner_domain:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__partner_domain
 msgid "Partner Domain"
-msgstr ""
+msgstr "Partner Domän"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,partner_fields_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__partner_fields_ids
 msgid "Partner Fields"
-msgstr ""
+msgstr "Partnerfält"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,partner_id:0
-msgid "Partner id"
-msgstr ""
-
-#. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_kanban
-#: field:gdpr.inventory,partner_ids:0 field:gdpr.object,partner_id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__partner_ids
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__partner_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Partners"
-msgstr "Kontakter"
+msgstr "Partner"
 
 #. module: gdpr_inventory
-#: selection:gdpr.inventory,role:0
-msgid "Processor"
-msgstr "Utförare"
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_contract
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_obligation
+msgid "Permission"
+msgstr "Tillstånd"
 
 #. module: gdpr_inventory
-#: selection:gdpr.restrict_method,type:0
-msgid "Pseudonymisation"
-msgstr "Avidentifiering"
-
-#. module: gdpr_inventory
-#: field:gdpr.inventory,pseudo_values:0
-msgid "Pseudonymisation Values"
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_obligation
+msgid ""
+"Processing are beeing lawful on the ground that processing is\n"
+"necessary for <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">compliance</span></span> with a <span "
+"style=\"font-weight: bold;\"><span style=\"text-decoration: underline;\">legal obligation</span></span> to which the controller is subject\n"
+"<br><br>=&gt; Dossier:"
 msgstr ""
+"Behandlingen är laglig på grund av att behandlingen är nödvändig för att\n"
+"nödvändig för <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">efterlevnad</span></span> av en <span "
+"style=\"font-weight: bold;\"><span style=\"text-decoration: underline;\">juridisk förpliktelse</span></span> som den personuppgiftsansvarige "
+"är föremål för\n"
+"<br><br>=&gt; Dokumentation:"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_contract
+msgid ""
+"Processing are beeing lawful on the ground that processing is\n"
+"necessary for the performance of a <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">contract</span></span> to "
+"which the data subject is party or in order to\n"
+"take steps at the request of the data subject prior to entering into a contract\n"
+"<br><br>=&gt; Article:"
+msgstr ""
+"Behandlingen är laglig på grund av att behandlingen är\n"
+"nödvändig för att fullgöra ett <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">avtal</span></span> som den "
+"registrerade är part i eller för att\n"
+"vidta åtgärder på begäran av den registrerade innan ett avtal ingås\n"
+"<br><br>=&gt; Artikel:"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_public_interest
+msgid ""
+"Processing are beeing lawful on the ground that processing is\n"
+"necessary for the performance of a task carried out in the public interest or in\n"
+"the exercise of official authority vested in the controller\n"
+"=&gt; Dossier: Task in Public Interest, Permission"
+msgstr ""
+"Behandlingen är laglig på grund av att behandlingen är\n"
+"nödvändig för att utföra en uppgift av allmänt intresse eller för att\n"
+"utövandet av officiell myndighet som anförtrotts den registeransvarige\n"
+"=&gt; Dokumentation: Uppgift av allmänt intresse, Tillstånd"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_legitimate_interest
+msgid ""
+"Processing are beeing lawful on the ground that processing is\n"
+"necessary for the purposes of the legitimate interests pursued by the controller or by a third\n"
+"party, except where such interests are overridden by the interests or fundamental rights and\n"
+"freedoms of the data subject which require protection of personal data, in particular where\n"
+"the data subject is a child.\n"
+"\n"
+"=&gt; Article: 13, 21\n"
+"=&gt; Recital: 113, 47, 48"
+msgstr ""
+"Behandlingen är laglig på grund av att behandlingen är\n"
+"nödvändig för ändamål som rör den personuppgiftsansvariges eller en tredje parts berättigade intressen\n"
+"tredje part, utom när sådana intressen åsidosätts av den registrerades intressen eller grundläggande rättigheter och\n"
+"intressen eller den registrerades grundläggande rättigheter och friheter som kräver skydd av personuppgifter, särskilt om\n"
+"den registrerade är ett barn.\n"
+"\n"
+"=&gt; Artikel: 13, 21\n"
+"=Skäl: 113, 47, 48"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_vital_interest
+msgid ""
+"Processing are beeing lawful on the ground that processing is\n"
+"necessary in order to protect the vital interests of the data subject or of another natural person\n"
+"=&gt; Dossier: Permission"
+msgstr ""
+"Behandlingen är laglig på grund av att behandlingen är\n"
+"nödvändig för att skydda den registrerades eller en annan fysisk persons vitala intressen\n"
+"=&gt; Dokumentation: Tillstånd"
+
+#. module: gdpr_inventory
+#: model_terms:gdpr.lawsection,description:gdpr_inventory.lawfullness_consent
+msgid ""
+"Processing are beeing lawful on the ground that the data subject\n"
+"has given <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">consent</span></span> to the processing of his or her "
+"personal data for one or more specific purposes.\n"
+"<br><br>=&gt; Article:"
+msgstr ""
+"Behandlingen är laglig på grund av att den registrerade\n"
+"har gett <span style=\"text-decoration: underline;\"><span style=\"font-weight: bold;\">medgivande</span></span> till behandling av hans eller "
+"hennes personuppgifter för ett eller flera specifika ändamål.\n"
+"<br><br>=&gt; Artikel:"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_inventory__role__processor
+msgid "Processor"
+msgstr "Processor"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_restrict_method__type__pseudo
+msgid "Pseudonymisation"
+msgstr "Pseudonymisering"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__pseudo_values
+msgid "Pseudonymisation Values"
+msgstr "Pseudonymisering Värden"
 
 #. module: gdpr_inventory
 #: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_public_interest
@@ -900,22 +1109,18 @@ msgid "Public Interest"
 msgstr "I allmänhetens intresse"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Purpose"
 msgstr "Syfte"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__purpose_limitation
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Purpose Limitation"
-msgstr "Avgränsning av syftet"
+msgstr "Syfte Begränsning"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,purpose_limitation:0
-msgid "Purpose limitation"
-msgstr "Syftesavgränsning"
-
-#. module: gdpr_inventory
-#: help:gdpr.inventory,restrict_domain_code:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__restrict_domain_code
 msgid ""
 "Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n"
 "\n"
@@ -926,9 +1131,18 @@ msgid ""
 "* dateutil: dateutil python module.\n"
 "* timezone: pytz.timezone python module."
 msgstr ""
+"Python-kod som kommer att köras före domänutvärderingen. Alla variabler som definieras här kommer att vara tillgängliga under "
+"domänutvärderingen.\n"
+"\n"
+"Tillgängliga variabler:\n"
+"* env: Odoo-miljö.\n"
+"* time: tid python-modul.\n"
+"* datetime: datetime python-modul.\n"
+"* dateutil: python-modulen dateutil.\n"
+"* timezone: pytz.timezone python-modul."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,inventory_domain_code:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__inventory_domain_code
 msgid ""
 "Python code that will be executed before domain evaluation. Any variables defined here will be available during domain evaluation.\n"
 "\n"
@@ -940,9 +1154,19 @@ msgid ""
 "* timezone: pytz.timezone python module.\n"
 "* restrict_days: Restrict time of this inventory"
 msgstr ""
+"Python-kod som kommer att köras före domänutvärderingen. Alla variabler som definieras här kommer att vara tillgängliga under "
+"domänutvärderingen.\n"
+"\n"
+"Tillgängliga variabler:\n"
+"* env: Odoo-miljö.\n"
+"* time: tid python-modul.\n"
+"* datetime: datetime python-modul.\n"
+"* dateutil: python-modulen dateutil.\n"
+"* timezone: pytz.timezone python-modul.\n"
+"* restrict_days: Begränsa tiden för denna inventering"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,restrict_code:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__restrict_code
 msgid ""
 "Python code to run when restricting records.\n"
 "\n"
@@ -955,235 +1179,243 @@ msgid ""
 "* inventory: This inventory record.\n"
 "* objects: The gdpr objects to be restricted (gdpr.object). Actual records to be processed can be accessed through objects.mapped('object_id')."
 msgstr ""
+"Python-kod att köra vid begränsning av poster.\n"
+"\n"
+"Tillgängliga variabler:\n"
+"* env: Odoo-miljö.\n"
+"* time: tid python-modul.\n"
+"* datetime: datetime python-modul.\n"
+"* dateutil: python-modulen dateutil.\n"
+"* timezone: pytz.timezone python-modul.\n"
+"* inventory: Denna inventeringspost.\n"
+"* objects (objekt): De gdpr-objekt som ska begränsas (gdpr.object). Faktiska poster som ska bearbetas kan nås via objects.mapped('object_id')."
 
 #. module: gdpr_inventory
 #: model:ir.actions.act_window,name:gdpr_inventory.act_res_partner_2_gdpr_consent
 msgid "Res Partner 2 GDPR Consents"
-msgstr ""
+msgstr "Res Partner 2 GDPR Samtycke"
 
 #. module: gdpr_inventory
 #: model:ir.actions.act_window,name:gdpr_inventory.act_res_partner_2_gdpr_object
 msgid "Res Partner 2 GDPR Objects"
-msgstr ""
+msgstr "Res Partner 2 GDPR Objects"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: field:gdpr.inventory,user_id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__user_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Responsible"
 msgstr "Ansvarig"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,restrict_domain:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_domain
 msgid "Restrict Domain"
-msgstr "Rensningsdomän"
+msgstr "Begränsa domän"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,inventory_domain_code:0
-#: field:gdpr.inventory,restrict_domain_code:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__inventory_domain_code
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_domain_code
 msgid "Restrict Domain Code"
-msgstr "Rensningsdomänkod"
+msgstr "Begränsa domänkod"
 
 #. module: gdpr_inventory
-#: code:addons/gdpr_inventory/gdpr.py:538
-#, python-format
+#. odoo-python
+#: code:addons/gdpr_inventory/models/gdpr.py:0
 msgid "Restrict Erase"
-msgstr "Radera"
+msgstr "Begränsa Radera"
 
 #. module: gdpr_inventory
-#: code:addons/gdpr_inventory/gdpr.py:548
-#: code:addons/gdpr_inventory/gdpr.py:554
-#: code:addons/gdpr_inventory/gdpr.py:560
-#: code:addons/gdpr_inventory/gdpr.py:566
-#, python-format
+#. odoo-python
+#: code:addons/gdpr_inventory/models/gdpr.py:0
 msgid "Restrict Hide"
-msgstr "Göm"
+msgstr "Begränsa Dölj"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: field:gdpr.inventory,restrict_method_id:0
 #: model:ir.model,name:gdpr_inventory.model_gdpr_restrict_method
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_method_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Restrict Method"
-msgstr "Rensningsmetod"
+msgstr "Begränsningsmetod"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Restrict Objects"
-msgstr ""
+msgstr "Begränsa objekt"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,restrict_time_days:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_time_days
 msgid "Restrict time"
-msgstr "Rensningstid"
+msgstr "Begränsa tiden"
 
 #. module: gdpr_inventory
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
-#: field:gdpr.object,restricted:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_object__restricted
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_filter
 msgid "Restricted"
-msgstr ""
+msgstr "Begränsad"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,restrict_code:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_code
 msgid "Restriction Code"
-msgstr ""
+msgstr "Begränsningskod"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,restrict_desc:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_desc
 msgid "Restriction Description"
-msgstr ""
+msgstr "Begränsning Beskrivning"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,restrict_type:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__restrict_type
 msgid "Restriction Type"
-msgstr ""
+msgstr "Begränsningstyp"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Restrictions"
-msgstr "Rensning"
+msgstr "Begränsningar"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Role"
 msgstr "Roll"
 
 #. module: gdpr_inventory
-#: view:gdpr.category:gdpr_inventory.view_gdpr_category_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_category_filter
 msgid "Search GDPR Category"
-msgstr ""
+msgstr "Sök GDPR Kategori"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
 msgid "Search GDPR Consent"
-msgstr ""
+msgstr "Sök GDPR Samtycke"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "Search GDPR Inventory"
-msgstr ""
+msgstr "Sök GDPR-inventering"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory.state:gdpr_inventory.view_gdpr_inventory_state_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_state_filter
 msgid "Search GDPR Inventory State"
-msgstr ""
+msgstr "Sök GDPR Inventeringsläge"
 
 #. module: gdpr_inventory
-#: view:gdpr.lawsection:gdpr_inventory.view_gdpr_lawsection_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_lawsection_filter
 msgid "Search GDPR Lawsection"
-msgstr ""
+msgstr "Sök GDPR Lagavsnitt"
 
 #. module: gdpr_inventory
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
-msgid "Search GDPR Object"
-msgstr ""
-
-#. module: gdpr_inventory
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_filter
 msgid "Search GDPR Restrict Method"
-msgstr ""
+msgstr "Sök GDPR Begränsa Metod"
 
 #. module: gdpr_inventory
-#: view:gdpr.security:gdpr_inventory.view_gdpr_security_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_security_filter
 msgid "Search GDPR Security"
-msgstr ""
+msgstr "Sök GDPR Säkerhet"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,security_of_processing_ids:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__security_of_processing_ids
 msgid "Security"
-msgstr "Skydd"
+msgstr "Säkerhet"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,security_of_processing_ids:0
 #: model:ir.model,name:gdpr_inventory.model_gdpr_security
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__security_of_processing_ids
 msgid "Security of processing"
-msgstr ""
+msgstr "Säkerhet vid behandling"
 
 #. module: gdpr_inventory
-#: field:gdpr.bp,sequence:0 field:gdpr.category,sequence:0
-#: field:gdpr.inventory.state,sequence:0 field:gdpr.lawsection,sequence:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_bp__sequence
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_category__sequence
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__sequence
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_lawsection__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvens"
 
 #. module: gdpr_inventory
-#: selection:gdpr.inventory,type_of_personal_data:0
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_kanban
+msgid "Set Cover Image"
+msgstr "Ställ in omslagsbild"
+
+#. module: gdpr_inventory
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
+msgid "Special"
+msgstr "Särskild"
+
+#. module: gdpr_inventory
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_inventory__type_of_personal_data__special
 msgid "Special Category"
-msgstr ""
+msgstr "Särskild kategori"
 
 #. module: gdpr_inventory
-#: view:gdpr.consent:gdpr_inventory.view_gdpr_consent_filter
-#: field:gdpr.consent,state:0
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_filter
-#: field:gdpr.inventory,state:0 field:gdpr.inventory,state_id:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_consent__state
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__state_id
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_consent_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
 msgid "State"
-msgstr "Status"
+msgstr "Stat"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,message_summary:0 field:gdpr.inventory,message_summary:0
-#: field:gdpr.restrict_method,message_summary:0
-msgid "Summary"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.inventory.state,technical_name:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory_state__technical_name
 msgid "Technical Name"
 msgstr "Tekniskt namn"
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,data_local:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__data_local
 msgid "The data is stored in this Odoo database and should be automatically inventoried."
-msgstr ""
+msgstr "Uppgifterna lagras i denna Odoo-databas och bör inventeras automatiskt."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,data_collection_ids:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__data_collection_ids
 msgid "The system that is used to collect data for this inventory."
-msgstr ""
+msgstr "Det system som används för att samla in data för denna inventering."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory,data_storage_ids:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_inventory__data_storage_ids
 msgid "The system that is used to store data for this inventory."
-msgstr ""
+msgstr "Det system som används för att lagra data för denna inventering."
 
 #. module: gdpr_inventory
-#: help:gdpr.object,restricted:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_object__restricted
 msgid "This record has been restricted."
-msgstr ""
+msgstr "Denna post har begränsats."
 
 #. module: gdpr_inventory
-#: help:gdpr.object,manual:0
+#: model:ir.model.fields,help:gdpr_inventory.field_gdpr_object__manual
 msgid "This record needs attention."
-msgstr ""
+msgstr "Den här posten behöver uppmärksamhet."
 
 #. module: gdpr_inventory
-#: help:gdpr.inventory.state,fold:0
-msgid "This stage is folded in the kanban view when there are no records in that state to display."
-msgstr ""
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__consent_title
+msgid "Title"
+msgstr "Titel"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,type_of_personal_data:0
-#: view:gdpr.restrict_method:gdpr_inventory.view_gdpr_restrict_method_filter
-#: field:gdpr.restrict_method,type:0
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_inventory__type_of_personal_data
+#: model:ir.model.fields,field_description:gdpr_inventory.field_gdpr_restrict_method__type
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_restrict_method_filter
 msgid "Type"
 msgstr "Typ"
 
 #. module: gdpr_inventory
-#: field:gdpr.consent,message_unread:0 field:gdpr.inventory,message_unread:0
-#: field:gdpr.restrict_method,message_unread:0
-msgid "Unread Messages"
-msgstr ""
-
-#. module: gdpr_inventory
-#: view:gdpr.object:gdpr_inventory.view_gdpr_object_filter
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_object_filter
 msgid "Unrestricted"
-msgstr ""
+msgstr "Obegränsad"
 
 #. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "Update Objects"
-msgstr ""
+msgstr "Uppdatera objekt"
+
+#. module: gdpr_inventory
+#: model:res.groups,name:gdpr_inventory.group_gdpr_user
+msgid "User"
+msgstr "Användare"
 
 #. module: gdpr_inventory
 #: model:ir.actions.act_window,name:gdpr_inventory.act_gdpr_inventory_2_gdpr_object
 msgid "View GDPR Objects"
-msgstr ""
+msgstr "Visa GDPR-objekt"
 
 #. module: gdpr_inventory
 #: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_vital_interest
@@ -1191,31 +1423,41 @@ msgid "Vital Interest"
 msgstr "Avgörande betydelse"
 
 #. module: gdpr_inventory
-#: selection:gdpr.consent,state:0
+#: model:ir.model.fields.selection,name:gdpr_inventory.selection__gdpr_consent__state__withdrawn
 msgid "Withdrawn"
-msgstr "Tillbakataget"
+msgstr "Återkallad"
 
 #. module: gdpr_inventory
 #: model:gdpr.lawsection,name:gdpr_inventory.lawfullness_consent
 msgid "consent"
-msgstr "Givna samtycken"
+msgstr "samtycke"
 
 #. module: gdpr_inventory
-#: field:gdpr.inventory,consent_add:0
-msgid "consent Add"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.inventory,consent_desc:0
-msgid "consent Explanation"
-msgstr ""
-
-#. module: gdpr_inventory
-#: field:gdpr.inventory,consent_remove:0
-msgid "consent Remove"
-msgstr ""
-
-#. module: gdpr_inventory
-#: view:gdpr.inventory:gdpr_inventory.view_gdpr_inventory_form
+#: model_terms:ir.ui.view,arch_db:gdpr_inventory.view_gdpr_inventory_form
 msgid "foobar gazonk"
-msgstr ""
+msgstr "foobar gazonk"
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_inventory_state
+msgid "gdpr.inventory.state"
+msgstr "gdpr.inventory.state"
+
+#. module: gdpr_inventory
+#: model:ir.model,name:gdpr_inventory.model_gdpr_object
+msgid "gdpr.object"
+msgstr "gdpr.objekt"
+
+#. module: gdpr_inventory
+#: model:res.groups,comment:gdpr_inventory.group_gdpr_user
+msgid "the user will have access to his own data in GDPR inventory."
+msgstr "användaren kommer att ha tillgång till sina egna uppgifter i GDPR-inventeringen."
+
+#. module: gdpr_inventory
+#: model:res.groups,comment:gdpr_inventory.group_gdpr_manager
+msgid "the user will have full control to all data in GDPR inventory."
+msgstr "användaren kommer att ha full kontroll över alla uppgifter i GDPR-inventeringen."
+
+#. module: gdpr_inventory
+#: model:res.groups,comment:gdpr_inventory.group_gdpr_officer
+msgid "the user will have full control to own data in GDPR inventory."
+msgstr "användaren kommer att ha full kontroll över sina egna uppgifter i GDPR-inventeringen."
