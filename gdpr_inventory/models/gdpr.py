@@ -271,11 +271,11 @@ class gdpr_inventory(models.Model):
         _logger.warning(f"{global_vars=}")
         if self.inventory_domain_advanced:
             eval(compile(self.inventory_domain_code, __name__, 'exec'), global_vars)
-        _logger.warn(global_vars)
+        _logger.warning(global_vars)
         objects = model.search(safe_eval(self.inventory_domain, global_vars))
         if self.object_ids:
             objects |= self.object_ids.mapped('object_id')
-        _logger.warn(objects)
+        _logger.warning(objects)
         for o in objects:
             partners = self.env['res.partner'].browse([])
             for p in self.partner_fields_ids:
