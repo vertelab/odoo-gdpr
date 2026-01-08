@@ -1,0 +1,17 @@
+<odoo>
+  <data>
+
+    <record id="view_gdpr_inventory_form" model="ir.ui.view">
+      <field name="name">gdpr.inventory.set.active.form</field>
+      <field name="model">gdpr.inventory</field>
+      <field name="inherit_id" ref="gdpr_inventory.view_gdpr_inventory_form"/>
+      <field name="arch" type="xml">
+        <button name="restrict_objects" position="before">
+          <button type="object" name="set_draft" string="Set Draft" invisible="state == 'draft'"/>
+          <button type="object" name="set_active" string="Activate Objects" invisible="state == 'active'"/>
+        </button>
+      </field>
+    </record>
+
+  </data>
+</odoo>
