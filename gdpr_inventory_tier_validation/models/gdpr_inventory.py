@@ -17,3 +17,7 @@ class GDPRInventory(models.Model):
 
     def set_draft(self):
         self.write({"state": "draft"})
+
+    def restrict_objects(self):
+        self.write({"state": "restricted"})
+        super(GDPRInventory,self).restrict_objects()
