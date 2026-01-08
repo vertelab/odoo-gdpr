@@ -87,16 +87,17 @@ class gdpr_inventory(models.Model):
     def _default_subject_ids(self):
         return self.env.ref('gdpr_inventory.gdpr_data_subject_customer', False)
     
-    @api.model
-    def _default_state_id(self):
-        return self.env['gdpr.inventory.state'].search([], order='sequence', limit=1)
+    # @api.model
+    # def _default_state_id(self):
+    #     return self.env['gdpr.inventory.state'].search([], order='sequence', limit=1)
 
     def consent_get(self, partner=None, object=None):
         return self.env['gdpr.consent'].get_consent(self, partner, object)
 
     name = fields.Char(string="Name", translate=True, required=True)
     color = fields.Integer(string='Color Index')
-    state_id = fields.Many2one(comodel_name='gdpr.inventory.state', default=_default_state_id, string='State', group_expand='_expand_stages')
+    # state_id = fields.Many2one(comodel_name='gdpr.inventory.state', default=_default_state_id, string='State', group_expand='_expand_stages')
+    state = fields.Selection(selection=[("draft","Draft"),("active","Active"),("restricted","Restricted")], default="draft")
     type_of_personal_data = fields.Selection(selection=[('general', 'General'), ('special', 'Special Category'), ('child', 'Childs consent'), ('criminal', 'Criminal related')], string="Type",
          help="General: non sensitive personal data,   Special: sensitive personal data,  Child consent: personal data concerning under aged persons,  Criminal relared:  personal data relating to criminal convictions and offences")
     role = fields.Selection(selection=[('controller', 'Controller'), ('processor', 'Processor')], string='Our Role', default='controller', required=True, track_visibility='onchange')
@@ -265,6 +266,7 @@ class gdpr_inventory(models.Model):
 
         # Update all matching objects
         global_vars = self.env['gdpr.restrict_method'].get_eval_context()
+        _logger.warning(f"{global_vars=}")
         if self.inventory_domain_advanced:
             eval(compile(self.inventory_domain_code, __name__, 'exec'), global_vars)
         _logger.warn(global_vars)
@@ -280,7 +282,7 @@ class gdpr_inventory(models.Model):
                     partners |= self.env['res.partner'].browse(getattr(o, p.name))
                 else:
                     partners |= getattr(o, p.name)
-                _logger.warn(partners)
+                _logger.warning(partners)
             for partner in partners:
                 if not self.env['gdpr.object'].search([('gdpr_id', '=', self.id), ('object_id', '=', '%s,%s' %(self.inventory_model.model, o.id)), ('partner_id', '=', partner.id)]):
                     self.env['gdpr.object'].create({
@@ -297,8 +299,9 @@ class gdpr_inventory(models.Model):
         if self.data_local and self.restrict_method_id:
             model = self.inventory_model.model
             global_vars = self.env['gdpr.restrict_method'].get_eval_context(restrict_days=self.restrict_time_days)
-            if self.restrict_domain_advanced:
-                eval(compile(self.restrict_domain_code, __name__, 'exec'), global_vars)
+            # This seems like a very bad idea.
+            # if self.restrict_domain_advanced:
+            #     eval(compile(self.restrict_domain_code, __name__, 'exec'), global_vars)
             domain = safe_eval(self.restrict_domain, global_vars)
             object_ids = [o['id'] for o in self.env[model].search_read(domain, ['id'])]
             _logger.debug('restrict_objects object_ids: %s' % object_ids)
@@ -360,7 +363,6 @@ class gdpr_inventory(models.Model):
         'category': _read_category,
         'user_id': _read_user_id,
         'restrict_method_id': _read_restrict_method_id,
-        #~ 'type_of_personal_data': _read_type,
     }
 
 class gdpr_lawsection(models.Model):
@@ -571,12 +573,10 @@ class gdpr_restrict_method(models.Model):
     def get_eval_context(self, **kw):
         context = {
             # python libs
-            'time': time,
-            'datetime': datetime,
-            'dateutil': dateutil,
-            # NOTE: only `timezone` function. Do not provide the whole `pytz` module as users
-            #       will have access to `pytz.os` and `pytz.sys` to do nasty things...
-            'timezone': pytz.timezone,
+            'time': datetime.time,
+            'datetime': datetime.datetime,
+            'dateutil': dateutil.relativedelta.relativedelta,
+
             # orm
             'env': self.env,
         }

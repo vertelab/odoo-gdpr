@@ -112,7 +112,7 @@ objects.unlink()</field>
   </data>
 
   <data noupdate="1">
-    <record id="inventory_state_draft" model="gdpr.inventory.state">
+    <!-- <record id="inventory_state_draft" model="gdpr.inventory.state">
         <field name="name">Draft</field>
         <field name="technical_name">draft</field>
         <field name="sequence">10</field>
@@ -131,7 +131,7 @@ objects.unlink()</field>
         <field name="name">Ceased</field>
         <field name="technical_name">ceased</field>
         <field name="sequence">40</field>
-    </record>
+    </record> -->
 
     <record id="action_create_gdrp_object" model="ir.actions.server">
         <field name="name">Create GDRP Object</field>

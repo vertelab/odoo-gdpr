@@ -70,7 +70,7 @@
             <field name="arch" type="xml">
                 <form string="GDPR Consent">
                     <header>
-                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,missing" clickable="True"/>
+                        <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,missing" clickable="False"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -199,8 +199,9 @@
                 <form string="GDPR Inventory">
                     <header>
                         <button type="object" name="update_object_ids" string="Update Objects"/>
-                        <button type="object" name="restrict_objects" string="Restrict Objects"/>
-                        <field name="state_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/>
+                        <button type="object" name="restrict_objects" string="Restrict Objects" invisible="state == 'draft'"/>
+                        <!-- <field name="state_id" widget="statusbar" options="{'clickable': 0, 'fold_field': 'fold'}"/> -->
+                         <field name="state" widget="statusbar" options="{'clickable': 0, 'fold_field': 'fold'}"/>
                     </header>
                     <sheet>
                         <div class="oe_right oe_button_box" name="buttons">
@@ -264,8 +265,8 @@
                                     <field name="data_local"/>
                                 </group>
                                 <group invisible="not data_local">
-                                    <field name="inventory_model"/>
-                                    <field name="inventory_domain_advanced"/>
+                                    <!-- <field name="inventory_model"/>
+                                    <field name="inventory_domain_advanced"/> -->
                                     <field name="inventory_domain_code" invisible="not inventory_domain_advanced"/>
                                     <field name="inventory_domain"/>
                                     <field name="partner_fields_ids" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
@@ -278,8 +279,8 @@
                                     <field name="restrict_type" invisible="1"/>
                                 </group>
                                 <group invisible="not data_local">
-                                    <field name="restrict_domain_advanced"/>
-                                    <field name="restrict_domain_code" invisible="not restrict_domain_advanced"/>
+                                    <!-- <field name="restrict_domain_advanced"/>
+                                    <field name="restrict_domain_code" invisible="not restrict_domain_advanced"/> -->
                                     <field name="restrict_domain"/>
                                     <field name="pseudo_values" invisible="restrict_type != 'pseudo'"/>
                                     <field name="restrict_code" invisible="restrict_type != 'code'"/>
@@ -310,7 +311,8 @@
                     <field name="restrict_method_id"/>
                     <field name="restrict_time_days"/>
                     <field name="security_of_processing_ids"/>
-                    <field name="state_id"/>
+                    <field name="state"/>
+                    <!-- <field name="state_id"/> -->
                 </list>
             </field>
         </record>
@@ -319,10 +321,9 @@
             <field name="name">gdpr.inventory.kanban</field>
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
-                <kanban class="oe_background_grey" default_group_by="state_id">
+                <kanban class="oe_background_grey" default_group_by="state">
                     <field name="name"/>
                     <field name="color"/>
-                    <field name="state_id"/>
                     <field name="type_of_personal_data"/>
                     <field name="purpose_limitation"/>
                     <field name="user_id"/>
@@ -377,19 +378,23 @@
             <field name="model">gdpr.inventory</field>
             <field name="arch" type="xml">
                 <search string="Search GDPR Inventory">
-                    <field name="state_id"/>
+                    <!-- <field name="state_id"/> -->
                     <field name="user_id"/>
                     <field name="lawsection_id"/>
                     <separator/>
-                    <filter string="Draft" name="state_id" domain="[('state_id', '=', %(gdpr_inventory.inventory_state_draft)d)]"/>
-                    <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', %(gdpr_inventory.inventory_state_ceased)d)]"/>
+                    <!-- <filter string="Draft" name="state_id" domain="[('state_id', '=', %(gdpr_inventory.inventory_state_draft)d)]"/>
+                    <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', %(gdpr_inventory.inventory_state_ceased)d)]"/> -->
+                    <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
+                    <filter string="Active" name="active" domain="[('state', '=', 'active')]" />
+                    <filter string="Restricted" name="restricted" domain="[('state', '=', 'restricted')]" />
                     <filter string="General" name="type" domain="[('type_of_personal_data', '=', 'general')]"/>
                     <filter string="Special" name="type" domain="[('type_of_personal_data', '=', 'special')]"/>
                     <filter string="Data is local" name="type" domain="[('data_local', '=', True)]"/>
                     <filter string="Data is not local" name="type" domain="[('data_local', '=', False)]"/>
                     <separator/>
                     <group expand="0" string="Group By">
-                        <filter name="group_by_state" string="State" domain="[]" context="{'group_by': 'state_id'}"/>
+                        <!-- <filter name="group_by_state" string="State" domain="[]" context="{'group_by': 'state_id'}"/> -->
+                        <filter name="group_by_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
                         <filter name="group_by_responsible_user" string="Responsible" domain="[]" context="{'group_by': 'user_id'}"/>
                         <filter name="group_by_category" string="Category" domain="[]" context="{'group_by': 'category'}"/>
                         <filter name="group_by_business_process" string="Business Process" domain="[]" context="{'group_by': 'business_process'}"/>

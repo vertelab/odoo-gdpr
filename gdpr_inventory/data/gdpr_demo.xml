@@ -26,7 +26,7 @@ take steps at the request of the data subject prior to entering into a contract
 <br/>=&gt; Dossier: <a href="https://www.privacy-regulation.eu/en/dossier_permission_demo.htm">Permission</a>
 </p></field>
             <field name="lawsection_id" ref="gdpr_inventory.lawfullness_contract"/>
-            <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/>
+            <!-- <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/> -->
             <field name="inventory_model" ref="base.model_ir_attachment"/>
             <field name="fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0), (4, ref('document.field_ir_attachment_index_content'), 0)]"/>
             <field name="partner_fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0)]"/>
@@ -48,7 +48,7 @@ take steps at the request of the data subject prior to entering into a contract
             <field name="purpose_limitation">Personal data processing in connection with marketing of the company</field>
             <field name="lawsection_desc">Processing are beeing lawful on the ground that the data subject has given consent to the processing of his or her personal data for one or more specific purposes.</field>
             <field name="lawsection_id" ref="gdpr_inventory.lawfullness_consent"/>
-            <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/>
+            <!-- <field name="state_id" ref="gdpr_inventory.inventory_state_draft"/> -->
             <field name="inventory_model" ref="base.model_ir_attachment"/>
             <field name="fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0), (4, ref('document.field_ir_attachment_index_content'), 0)]"/>
             <field name="partner_fields_ids" eval="[(4, ref('document.field_ir_attachment_partner_id'), 0)]"/>
