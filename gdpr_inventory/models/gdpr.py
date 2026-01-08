@@ -1,17 +1,13 @@
-# -*- coding: utf-8 -*-
+import logging
+from datetime import time
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+from random import choice
 
 from odoo import models,  fields,  api,  _
-from datetime import timedelta
-from random import choice
 from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import UserError
 
-import time
-import datetime
-import dateutil
-import pytz
-
-import logging
 _logger = logging.getLogger(__name__)
 
 #TODO: logg on restrict method (when its done by cron)
@@ -575,9 +571,9 @@ class gdpr_restrict_method(models.Model):
     def get_eval_context(self, **kw):
         context = {
             # python libs
-            'time': datetime.time,
-            'datetime': datetime.datetime,
-            'dateutil': dateutil.relativedelta.relativedelta,
+            'time': time,
+            'datetime': datetime,
+            'dateutil': relativedelta,
 
             # orm
             'env': self.env,
