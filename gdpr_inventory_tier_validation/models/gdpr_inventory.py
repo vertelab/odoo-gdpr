@@ -9,7 +9,7 @@ class GDPRInventory(models.Model):
     _description = "GDPR Inventory"
     _inherit = ['gdpr.inventory','tier.validation']
     _state_from = ["draft"]
-    _state_to = ["active","restricted"]
+    _state_to = ["active","ceased"]
     _tier_validation_manual_config = False
 
     def set_active(self):
@@ -19,5 +19,5 @@ class GDPRInventory(models.Model):
         self.write({"state": "draft"})
 
     def restrict_objects(self):
-        self.write({"state": "restricted"})
+        self.write({"state": "ceased"})
         super(GDPRInventory,self).restrict_objects()

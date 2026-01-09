@@ -1,0 +1,89 @@
+<odoo>
+
+    <record id="view_gdpr_object_form" model="ir.ui.view">
+        <field name="name">gdpr.object.form</field>
+        <field name="model">gdpr.object</field>
+        <field name="arch" type="xml">
+            <form string="GDPR Object">
+                <sheet>
+                    <group>
+                        <field name="object_id"/>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="gdpr_id"/>
+                        <field name="restricted"/>
+                        <field name="manual"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_gdpr_object_tree" model="ir.ui.view">
+        <field name="name">gdpr.object.tree</field>
+        <field name="model">gdpr.object</field>
+        <field name="arch" type="xml">
+            <list string="GDPR Object">
+                <field name="object_id"/>
+                <field name="restricted"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="gdpr_id"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_gdpr_object_filter" model="ir.ui.view">
+        <field name="name">gdpr.object.filter</field>
+        <field name="model">gdpr.object</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="object_id"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="gdpr_id"/>
+                <filter name="restricted" string="Restricted" domain="[('restricted', '=', True)]"/>
+                <filter name="unrestricted" string="Unrestricted" domain="[('restricted', '=', False)]"/>
+                <separator/>
+                <filter name="manual" string="Manual Action Required" domain="[('manual', '=', True)]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_partner" string="Partner" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_by_gdpr" string="Inventories" context="{'group_by': 'gdpr_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_gdpr_object" model="ir.actions.act_window">
+        <field name="name">GDPR Object</field>
+        <field name="res_model">gdpr.object</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_gdpr_object_filter"/>
+    </record>
+
+    <record id="act_gdpr_inventory_2_gdpr_object" model="ir.actions.act_window">
+        <field name="name">View GDPR Objects</field>
+        <field name="res_model">gdpr.object</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">
+                {
+                'search_default_gdpr_id': [active_id],
+                'default_gdpr_id': active_id,
+                }
+        </field>
+        <field name="search_view_id" ref="view_gdpr_object_filter"/>
+    </record>
+
+    <record id="act_res_partner_2_gdpr_object" model="ir.actions.act_window">
+        <field name="name">Res Partner 2 GDPR Objects</field>
+        <field name="res_model">gdpr.object</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">
+                {
+                'search_default_partner_id': [active_id],
+                'default_partner_id': active_id,
+                }
+        </field>
+        <field name="search_view_id" ref="view_gdpr_object_filter"/>
+    </record>
+
+</odoo>

@@ -25,7 +25,7 @@ class gdpr_report_inventory(models.Model):
         self.ensure_one()
         self.consent_count = len(self.consent_ids)
     consent_count = fields.Integer(string='Consent Count', compute='_consent_count', store=True)
-    restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
+    # restrict_time_days = fields.Integer(string='Restrict time', help="Number of days before this data will be restricted", track_visibility='onchange')
     restrict_method_id = fields.Many2one(comodel_name="gdpr.restrict_method", string="Restrict Method", track_visibility='onchange')
     restrict_type = fields.Selection(string='Restriction Type', related='restrict_method_id.type')
     inventory_model = fields.Many2one(comodel_name="ir.model", string="Inventory Model",  help="Model (Class) for this Inventory")
@@ -46,7 +46,7 @@ class gdpr_report_inventory(models.Model):
 
 
     def _select(self):
-        select_str = """
+        select_str = """ 
              SELECT min(id),
                  color,
                     name,
@@ -56,12 +56,12 @@ class gdpr_report_inventory(models.Model):
                     user_id,
                     lawsection_id,
                     consent_count,
-                    restrict_time_days,
                     restrict_method_id,
                     restrict_type,
                     inventory_model,
                     partner_count
         """
+        # restrict_time_days,
         return select_str
 
     def _from(self):

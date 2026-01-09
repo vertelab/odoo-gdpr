@@ -10,6 +10,9 @@
           <button type="object" name="set_draft" string="Set Draft" invisible="state == 'draft'"/>
           <button type="object" name="set_active" string="Activate Objects" invisible="state == 'active'"/>
         </button>
+        <field name="state" position="attributes">
+          <attribute name="clickable">0</attribute>
+        </field>
       </field>
     </record>
 

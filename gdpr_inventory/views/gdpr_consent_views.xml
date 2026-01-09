@@ -1,0 +1,99 @@
+<odoo>
+    <record id="view_gdpr_consent_form" model="ir.ui.view">
+        <field name="name">gdpr.consent.form</field>
+        <field name="model">gdpr.consent</field>
+        <field name="arch" type="xml">
+            <form string="GDPR Consent">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="given,withdrawn,missing" options="{'clickable': 1}" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="record_id"/>
+                        <field name="gdpr_id"/>
+                        <field name="date"/>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_gdpr_consent_tree" model="ir.ui.view">
+        <field name="name">gdpr.consent.tree</field>
+        <field name="model">gdpr.consent</field>
+        <field name="arch" type="xml">
+            <list string="GDPR Consent">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="record_id"/>
+                <field name="gdpr_id"/>
+                <field name="date"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+    <record id="view_gdpr_consent_filter" model="ir.ui.view">
+        <field name="name">gdpr.consent.filter</field>
+        <field name="model">gdpr.consent</field>
+        <field name="arch" type="xml">
+            <search string="Search GDPR Consent">
+                <field name="name"/>
+                <field name="partner_id" string="Partner"/>
+                <field name="gdpr_id" string="Inventory"/>
+                <field name="date" string="Date"/>
+                <field name="state" string="State"/>
+                <separator/>
+                <filter name="name" string="Name" domain="[('name', '=', self)]"/>
+                <filter string="Consent Given" name="state_given" domain="[('state', '=', 'given')]"/>
+                <filter string="Consent Withdrawn" name="state_withdrawn" domain="[('state', '=', 'withdrawn')]"/>
+                <filter string="Consent Missing" name="state_missing" domain="[('state', '=', 'missing')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter name="group_by_partner" string="Partner" domain="[]" context="{'group_by': 'partner_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_gdpr_consent" model="ir.actions.act_window">
+        <field name="name">GDPR Consent</field>
+        <field name="res_model">gdpr.consent</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+    </record>
+
+    <!-- button actions -->
+    <record id="act_gdpr_inventory_2_gdpr_consent" model="ir.actions.act_window">
+        <field name="name">GDPR Inventory 2 GDPR Consent</field>
+        <field name="res_model">gdpr.consent</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">
+                {
+                'search_default_gdpr_id': [active_id],
+                'default_gdpr_id': active_id,
+                }
+        </field>
+        <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+    </record>
+
+    <record id="act_res_partner_2_gdpr_consent" model="ir.actions.act_window">
+        <field name="name">Res Partner 2 GDPR Consents</field>
+        <field name="res_model">gdpr.consent</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">
+                {
+                'search_default_partner_id': [active_id],
+                'default_partner_id': active_id,
+                }
+        </field>
+        <field name="search_view_id" ref="view_gdpr_consent_filter"/>
+    </record>
+</odoo>

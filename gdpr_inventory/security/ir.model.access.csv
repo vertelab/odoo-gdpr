@@ -38,3 +38,5 @@ gdpr_subject_manager,gdpr.subject.manager,model_gdpr_subject,gdpr_inventory.grou
 gdpr_system_user,gdpr.system.user,model_gdpr_system,gdpr_inventory.group_gdpr_user,1,0,0,0
 gdpr_system_officer,gdpr.system.officer,model_gdpr_system,gdpr_inventory.group_gdpr_officer,1,1,1,1
 gdpr_system_manager,gdpr.system.manager,model_gdpr_system,gdpr_inventory.group_gdpr_manager,1,1,1,1
+gdpr_log_officer,gdpr.log.officer,model_gdpr_log,gdpr_inventory.group_gdpr_officer,1,1,1,1
+gdpr_log_manager,gdpr.log.manager,model_gdpr_log,gdpr_inventory.group_gdpr_manager,1,1,1,1

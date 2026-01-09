@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+
+        <!-- GDPR Lawsection -->
+        <record id="view_gdpr_lawsection_form" model="ir.ui.view">
+            <field name="name">gdpr.lawsection.form</field>
+            <field name="model">gdpr.lawsection</field>
+            <field name="arch" type="xml">
+                <form string="GDPR Lawsection">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description"/>
+                            <field name="consent"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_gdpr_lawsection_tree" model="ir.ui.view">
+            <field name="name">gdpr.lawsection.tree</field>
+            <field name="model">gdpr.lawsection</field>
+            <field name="arch" type="xml">
+                <list string="GDPR Lawsection">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="consent"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_gdpr_lawsection_filter" model="ir.ui.view">
+            <field name="name">gdpr.lawsection.filter</field>
+            <field name="model">gdpr.lawsection</field>
+            <field name="arch" type="xml">
+                <search string="Search GDPR Lawsection">
+                    <field name="name" string="Name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gdpr_lawsection" model="ir.actions.act_window">
+            <field name="name">GDPR Lawsection</field>
+            <field name="res_model">gdpr.lawsection</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gdpr_lawsection_filter"/>
+        </record>
+
+        <!-- GDPR Security -->
+        <record id="view_gdpr_security_form" model="ir.ui.view">
+            <field name="name">gdpr.security.form</field>
+            <field name="model">gdpr.security</field>
+            <field name="arch" type="xml">
+                <form string="GDPR security">
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <sheet>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_gdpr_security_tree" model="ir.ui.view">
+            <field name="name">gdpr.security.tree</field>
+            <field name="model">gdpr.security</field>
+            <field name="arch" type="xml">
+                <list string="GDPR Security">
+                    <field name="name"/>
+                    <field name="description"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_gdpr_security_filter" model="ir.ui.view">
+            <field name="name">gdpr.security.filter</field>
+            <field name="model">gdpr.security</field>
+            <field name="arch" type="xml">
+                <search string="Search GDPR Security">
+                    <field name="name" string="Name"/>
+                    <field name="description" string="Description"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gdpr_security" model="ir.actions.act_window">
+            <field name="name">GDPR Security</field>
+            <field name="res_model">gdpr.security</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gdpr_security_filter"/>
+        </record>        
+
+        <!-- GDPR Category -->
+        <record id="view_gdpr_category_form" model="ir.ui.view">
+            <field name="name">gdpr.category.form</field>
+            <field name="model">gdpr.category</field>
+            <field name="arch" type="xml">
+                <form string="GDPR Category">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <field name="inventory_ids" widget="many2many_tags"/>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <group col="4">
+                                        <field name="description" nolabel="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_gdpr_category_tree" model="ir.ui.view">
+            <field name="name">gdpr.category.tree</field>
+            <field name="model">gdpr.category</field>
+            <field name="arch" type="xml">
+                <list string="GDPR Category">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_gdpr_category_filter" model="ir.ui.view">
+            <field name="name">gdpr.category.filter</field>
+            <field name="model">gdpr.category</field>
+            <field name="arch" type="xml">
+                <search string="Search GDPR Category">
+                    <field name="name" string="Name"/>
+                    <field name="description" string="Description"/>
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gdpr_category" model="ir.actions.act_window">
+            <field name="name">GDPR Category</field>
+            <field name="res_model">gdpr.category</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gdpr_category_filter"/>
+        </record>
+
+        <!-- GDPR Log -->
+        <record id="action_gdpr_log" model="ir.actions.act_window">
+            <field name="name">GDPR Log</field>
+            <field name="res_model">gdpr.log</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+    </data>
+</odoo>
