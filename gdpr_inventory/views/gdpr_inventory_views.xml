@@ -194,8 +194,8 @@
                 <field name="user_id"/>
                 <field name="lawsection_id"/>
                 <separator/>
-                <!-- <filter string="Draft" name="state_id" domain="[('state_id', '=', %(gdpr_inventory.inventory_state_draft)d)]"/>
-                    <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', %(gdpr_inventory.inventory_state_ceased)d)]"/> -->
+                <!-- <filter string="Draft" name="state_id" domain="[('state_id', '=', inventory_state_draft)]"/>
+                    <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', inventory_state_ceased)]"/> -->
                 <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
                 <filter string="Active" name="active" domain="[('state', '=', 'active')]" />
                 <filter string="Restricted" name="restricted" domain="[('state', '=', 'restricted')]" />
