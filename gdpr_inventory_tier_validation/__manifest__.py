@@ -32,7 +32,7 @@
         Long description of module's purpose
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-',
+    'website': 'https://vertel.se/apps/odoo-gdpr/gdpr_inventory_tier_validation',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': ["gdpr_inventory","base_tier_validation"],

@@ -36,7 +36,7 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
 """,
     'images': ['static/description/event_participant.jpg'],
     'author': 'Vertel AB',
-    'website': 'http://www.vertel.se',
+    'website': 'https://vertel.se/apps/odoo-gdpr/gdpr_inventory',
     'depends': [
         'mail', 
         'document_page', 
