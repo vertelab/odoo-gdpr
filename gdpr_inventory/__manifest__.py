@@ -21,19 +21,23 @@
 
 {
     'name': 'GDPR Inventory',
-    'version': '1.2',
+    'version': '18.0.1.2.0',
     'license': 'AGPL-3',
     'category': 'Other',
-    'summary': 'Inventory for GDPR',
-    'description': """
-Basic tool to make your data handling GDPR compliant.
+    'summary': 'Inventory for GDPR.',
+    'description': '''
+GDPR Inventory
+==============
 
-Create inventories of all the private data you handle.
+    Set up rules to govern purpose and life span of inventoried data. Once data is no longer allowed to be stored, it can be automatically overwritten, deleted, hidden or flagged for manual processing.
 
-Manage consents of data storage and handling.
+    Features:
 
-Set up rules to govern purpose and life span of inventoried data. Once data is no longer allowed to be stored, it can be automatically overwritten, deleted, hidden or flagged for manual processing.
-""",
+        - Automation: Scheduled jobs: GDPR Restrict Objects.
+        - Reports: Adds printable reports.
+        - UI Integration: Extends 7 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on category, gdpr.bp, gdpr.category, gdpr.consent.
+    ''',
     'images': ['static/description/event_participant.jpg'],
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-gdpr/gdpr_inventory',
