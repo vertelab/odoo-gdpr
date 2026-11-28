@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_gdpr_access_response_form" model="ir.ui.view">
+            <field name="name">gdpr.access.response.form</field>
+            <field name="model">gdpr.access.response</field>
+            <field name="arch" type="xml">
+                <form string="Access Response" create="0">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" readonly="1"/>
+                                <field name="request_id" readonly="1"/>
+                                <field name="lookup_line_count" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="needs_manual_review" readonly="1"/>
+                                <field name="review_reason" readonly="1"
+                                       invisible="not needs_manual_review"/>
+                            </group>
+                        </group>
+                        <field name="body" readonly="1"/>
+                        <field name="filename" invisible="not document"/>
+                        <field name="document" filename="filename"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gdpr_access_response_list" model="ir.ui.view">
+            <field name="name">gdpr.access.response.list</field>
+            <field name="model">gdpr.access.response</field>
+            <field name="arch" type="xml">
+                <list string="Access Responses" decoration-warning="needs_manual_review">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="lookup_line_count"/>
+                    <field name="needs_manual_review"/>
+                    <field name="create_date"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_gdpr_access_response" model="ir.actions.act_window">
+            <field name="name">Access Responses</field>
+            <field name="res_model">gdpr.access.response</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Article 30 register generation log -->
+        <record id="view_gdpr_ropa_generation_list" model="ir.ui.view">
+            <field name="name">gdpr.ropa.generation.list</field>
+            <field name="model">gdpr.ropa.generation</field>
+            <field name="arch" type="xml">
+                <list string="Register Generations" create="0">
+                    <field name="generated_at"/>
+                    <field name="user_id"/>
+                    <field name="inventory_count"/>
+                    <field name="note"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_gdpr_ropa_generation" model="ir.actions.act_window">
+            <field name="name">Register Generations</field>
+            <field name="res_model">gdpr.ropa.generation</field>
+            <field name="view_mode">list</field>
+        </record>
+
+    </data>
+</odoo>

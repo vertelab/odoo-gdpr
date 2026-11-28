@@ -22,18 +22,15 @@ class gdpr_consent(models.Model):
     partner_id = fields.Many2one(comodel_name="res.partner")
     gdpr_id = fields.Many2one(comodel_name='gdpr.inventory', help="Description of consent")
     date = fields.Date(string="Date", help="Date when consent first given")
-    state = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string="State", track_visibility='onchange') # transaction log
+    state = fields.Selection(selection=[('given', 'Given'), ('withdrawn', 'Withdrawn'), ('missing', 'Missing')], string="State", tracking=True) # transaction log
 
     def remove(self, msg):
         self.ensure_one()
         self.state = 'withdrawn'
-        self.env['mail.message'].create({
-            'body': msg.replace('\n', '<BR/>'),
-            'subject': 'Consent withdrawn',
-            'author_id': self.env.user.partner_id.id,
-            'res_id': self.id,
-            'model': self._name,
-            'type': 'notification',})
+        # message_post, not mail.message.create: it handles the thread,
+        # followers and the notification type correctly. Creating the message
+        # by hand also required `type`, which no longer exists in Odoo 18.
+        self.message_post(body=msg, subject=_('Consent withdrawn'))
 
     @api.model
     def add(self, gdpr_id, object, email=None, partner=None, name=None, msg=''):
@@ -63,13 +60,7 @@ class gdpr_consent(models.Model):
                 'gdpr_object_id': object_id.id,
             })
         consent.state = 'given'
-        self.env['mail.message'].create({
-            'body': msg.replace('\n', '<BR/>'),
-            'subject': 'Consent given',
-            'author_id': self.env.user.partner_id.id,
-            'res_id': consent.id,
-            'model': consent._name,
-            'type': 'notification',})
+        consent.message_post(body=msg, subject=_('Consent given'))
         return consent
 
     @api.model

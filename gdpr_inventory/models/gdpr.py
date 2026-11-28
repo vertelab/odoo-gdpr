@@ -8,6 +8,7 @@ _logger = logging.getLogger(__name__)
 
 class gdpr_inventory_state(models.Model):
     _name = 'gdpr.inventory.state'
+    _description = 'GDPR Inventory State'
 
     name = fields.Char(string='Name', required=True)
     sequence = fields.Integer(string='Sequence')

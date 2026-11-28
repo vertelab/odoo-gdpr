@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_gdpr_access_request" model="ir.sequence">
+            <field name="name">GDPR Access Request</field>
+            <field name="code">gdpr.access.request</field>
+            <field name="prefix">SAR/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_gdpr_access_response" model="ir.sequence">
+            <field name="name">GDPR Access Response</field>
+            <field name="code">gdpr.access.response</field>
+            <field name="prefix">SRESP/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

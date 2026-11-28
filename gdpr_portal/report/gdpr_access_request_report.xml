@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_gdpr_access_request" model="ir.actions.report">
+            <field name="name">Access Request</field>
+            <field name="model">gdpr.access.request</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdpr_portal.gdpr_access_request_report</field>
+            <field name="report_file">gdpr_portal.gdpr_access_request_report</field>
+            <field name="print_report_name">'GDPR Access Request %s' % object.name</field>
+            <field name="binding_model_id" ref="gdpr_portal.model_gdpr_access_request"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="gdpr_access_request_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="request">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Access Request <span t-out="request.name"/></h2>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Data subject</th>
+                                    <td t-out="request.partner_id.display_name"/>
+                                </tr>
+                                <tr>
+                                    <th>Requested</th>
+                                    <td t-out="request.request_date"/>
+                                </tr>
+                                <tr>
+                                    <th>Deadline</th>
+                                    <td t-out="request.deadline"/>
+                                </tr>
+                                <tr t-if="request.extension_applied">
+                                    <th>Extended</th>
+                                    <td>
+                                        <span t-out="request.extension_date"/>
+                                        — <span t-out="request.extension_reason"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>State</th>
+                                    <td t-out="request.state"/>
+                                </tr>
+                                <tr>
+                                    <th>Records found</th>
+                                    <td t-out="request.lookup_line_count"/>
+                                </tr>
+                            </table>
+                            <h4>Outcome</h4>
+                            <p t-out="request.outcome"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

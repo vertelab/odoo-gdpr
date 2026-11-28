@@ -23,14 +23,16 @@
 #
 {
     'name': 'GDPR: Inventory Tier Validation',
-    'version': '1.0',
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.odoo.com""",
-    'category': '', # Technical Settings|Localization|Payroll Localization|Account Charts|User types|Invoicing|Sales|Human Resources|Operations|Marketing|Manufacturing|Website|Theme|Administration|Appraisals|Sign|Helpdesk|Administration|Extra Rights|Other Extra Rights|
+    'version': '18.0.1.0.0',
+    'summary': 'Adds tier validation to the GDPR processing inventory.',
+    'category': 'Administration',
     'description': """
-        Long description of module's purpose
-    """,
+Adds tier validation to the GDPR processing inventory.
+
+An inventory must be approved through its configured validation tiers before
+it can be activated. Activation is what makes the retention cron act on it, so
+the approval gate sits directly in front of the step that starts deleting data.
+""",
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-',
     'images': ['static/description/banner.png'],

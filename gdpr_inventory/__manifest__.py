@@ -40,6 +40,7 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
     'depends': [
         'mail', 
         'document_page', 
+        'data_recycle',
     ],
     'data': [
         'security/gdpr_security.xml',
@@ -49,10 +50,13 @@ Set up rules to govern purpose and life span of inventoried data. Once data is n
         'views/gdpr_inventory_views.xml',
         'views/gdpr_restrict_method_views.xml',
         'views/gdpr_views.xml',
-        'views/gdpr_menus.xml',
         'views/res_partner_views.xml',
         'data/gdpr_data.xml',
         'data/gdpr_cron.xml',
+        'data/gdpr_sequence.xml',
+        'report/gdpr_ropa_report.xml',
+        'report/gdpr_access_response_views.xml',
+        'views/gdpr_menus.xml',
     ],
     'demo': ['data/gdpr_demo.xml'],
     'application': True,

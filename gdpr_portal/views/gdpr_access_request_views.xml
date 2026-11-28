@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_gdpr_access_request_form" model="ir.ui.view">
+            <field name="name">gdpr.access.request.form</field>
+            <field name="model">gdpr.access.request</field>
+            <field name="arch" type="xml">
+                <form string="Access Request">
+                    <header>
+                        <button name="action_start" type="object" string="Start"
+                                invisible="state != 'new'"/>
+                        <button name="action_extend" type="object" string="Extend (Art. 12.3)"
+                                invisible="state in ('answered', 'refused', 'cancelled')"/>
+                        <button name="action_refuse" type="object" string="Refuse"
+                                invisible="state in ('answered', 'refused', 'cancelled')"/>
+                        <button name="action_cancel" type="object" string="Cancel"
+                                invisible="state in ('answered', 'refused', 'cancelled')"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="name" readonly="1"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="request_date"/>
+                                <field name="deadline"/>
+                                <field name="is_overdue"/>
+                            </group>
+                            <group>
+                                <field name="extension_applied"/>
+                                <field name="extension_date"
+                                       invisible="not extension_applied"/>
+                                <field name="extension_reason"
+                                       invisible="not extension_applied"
+                                       required="extension_applied"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Outcome">
+                                <field name="outcome" placeholder="What was disclosed, and on what basis"/>
+                                <field name="lookup_line_count" readonly="1"/>
+                                <field name="response_filename" invisible="not response_document"/>
+                                <field name="response_document" filename="response_filename"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_gdpr_access_request_list" model="ir.ui.view">
+            <field name="name">gdpr.access.request.list</field>
+            <field name="model">gdpr.access.request</field>
+            <field name="arch" type="xml">
+                <list string="Access Requests" decoration-danger="is_overdue">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="request_date"/>
+                    <field name="deadline"/>
+                    <field name="is_overdue"/>
+                    <field name="state" widget="badge"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_gdpr_access_request_search" model="ir.ui.view">
+            <field name="name">gdpr.access.request.search</field>
+            <field name="model">gdpr.access.request</field>
+            <field name="arch" type="xml">
+                <search string="Search Access Requests">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <filter name="overdue" string="Overdue" domain="[('is_overdue', '=', True)]"/>
+                    <separator/>
+                    <filter name="new" string="New" domain="[('state', '=', 'new')]"/>
+                    <filter name="in_progress" string="In Progress" domain="[('state', '=', 'in_progress')]"/>
+                    <filter name="answered" string="Answered" domain="[('state', '=', 'answered')]"/>
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_state" string="State" context="{'group_by': 'state'}"/>
+                        <filter name="group_by_partner" string="Data Subject" context="{'group_by': 'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_gdpr_access_request" model="ir.actions.act_window">
+            <field name="name">Access Requests</field>
+            <field name="res_model">gdpr.access.request</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_gdpr_access_request_search"/>
+        </record>
+
+        <record id="view_gdpr_access_request_kanban" model="ir.ui.view">
+            <field name="name">gdpr.access.request.kanban</field>
+            <field name="model">gdpr.access.request</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="deadline"/>
+                    <field name="is_overdue"/>
+                    <templates>
+                        <t t-name="card">
+                            <div class="d-flex flex-column gap-1">
+                                <strong t-out="record.name.value"/>
+                                <span t-out="record.partner_id.value"/>
+                                <span class="text-muted" t-out="record.deadline.value"/>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_gdpr_access_request_kanban" model="ir.actions.act_window">
+            <field name="name">Access Requests</field>
+            <field name="res_model">gdpr.access.request</field>
+            <field name="view_mode">kanban,list,form</field>
+        </record>
+
+    </data>
+</odoo>

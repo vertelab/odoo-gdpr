@@ -7,6 +7,7 @@ _logger = logging.getLogger(__name__)
 
 class gdpr_object(models.Model):
     _name = 'gdpr.object'
+    _description = 'GDPR Object'
 
     name = fields.Char(string='Name', compute='_compute_name')
     gdpr_id = fields.Many2one(string='Inventory', comodel_name='gdpr.inventory')
@@ -26,10 +27,16 @@ class gdpr_object(models.Model):
             else:
                 rec.name = 'gdpr.object, %s' % rec.id
 
+    @api.depends('object_model', 'object_res_id')
     def _get_object_id(self):
         for rec in self:
             if rec.object_model and rec.object_res_id:
-                rec.object_id = self.env[rec.object_model].search([('id', '=', rec.object_res_id)])
+                # browse(), not search(): search() returns a recordset whose
+                # display_name is computed through this very field, which
+                # recursed and left object_id empty.
+                rec.object_id = self.env[rec.object_model].browse(rec.object_res_id)
+            else:
+                rec.object_id = False
 
     def _set_object_id(self):
         for rec in self:

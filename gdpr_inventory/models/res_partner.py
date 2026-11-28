@@ -39,15 +39,27 @@ class ResPartner(models.Model):
 
     
     def action_gdpr_inventory(self):
-        action = self.env['ir.actions.act_window'].for_xml_id('gdpr_inventory', 'action_gdpr_inventory')
+        action = self.env['ir.actions.act_window']._for_xml_id('gdpr_inventory.action_gdpr_inventory')
         action['domain'] = [('partner_ids', '=', self.id)]
         return action
 
     
     def action_gdpr_objects(self):
-        action = self.env['ir.actions.act_window'].for_xml_id('gdpr_inventory', 'action_gdpr_object')
+        action = self.env['ir.actions.act_window']._for_xml_id('gdpr_inventory.action_gdpr_object')
         action['domain'] = [('partner_ids', '=', self.id)]
         return action
+
+    def _get_gdpr_purpose_context(self):
+        """Carry the purpose in scope into the partner's GDPR drill-down actions.
+
+        The purpose is read from the context ('gdpr_purpose_id'), falling back to
+        the purpose of the partner's single inventory when only one is in scope.
+        """
+        self.ensure_one()
+        purpose = self.env.context.get('gdpr_purpose_id')
+        if not purpose and len(self.gdpr_ids) == 1:
+            purpose = self.gdpr_ids.purpose_id.id
+        return {'gdpr_purpose_id': purpose or False}
 
     
     def act_res_partner_2_gdpr_inventory(self):
@@ -58,7 +70,7 @@ class ResPartner(models.Model):
             'view_mode': 'kanban,list,form',
             'view_type': 'kanban',
             'domain': [('id', 'in', self.gdpr_ids.mapped('id'))],
-            'context': {},
+            'context': self._get_gdpr_purpose_context(),
         }
 
     """

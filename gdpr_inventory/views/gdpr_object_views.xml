@@ -48,6 +48,7 @@
                 <group expand="0" string="Group By">
                     <filter name="group_by_partner" string="Partner" context="{'group_by': 'partner_id'}"/>
                     <filter name="group_by_gdpr" string="Inventories" context="{'group_by': 'gdpr_id'}"/>
+                    <filter name="group_by_purpose" string="Purpose" context="{'group_by': 'gdpr_id'}"/>
                 </group>
             </search>
         </field>
@@ -68,6 +69,7 @@
                 {
                 'search_default_gdpr_id': [active_id],
                 'default_gdpr_id': active_id,
+                'gdpr_purpose_id': context.get('gdpr_purpose_id') or False,
                 }
         </field>
         <field name="search_view_id" ref="view_gdpr_object_filter"/>

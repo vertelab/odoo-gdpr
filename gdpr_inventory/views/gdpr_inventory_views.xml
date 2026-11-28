@@ -58,6 +58,7 @@
                             <separator string="Lawsection"/>
                             <field name="lawsection_desc" placeholder="Lawsection description"/>
                             <group>
+                                <field name="purpose_id"/>
                                 <field name="lawsection_id"/>
                                 <field name="lawsection_description"/>
                                 <field name="consent" invisible="1"/>
@@ -90,6 +91,7 @@
                                 <field name="restrict_scheduled_time"/>
                                 <field name="restrict_method_id"/>
                                 <field name="restrict_type" invisible="1"/>
+                                <field name="dry_run"/>
                             </group>
                             <group invisible="not data_local">
 
@@ -98,11 +100,26 @@
                                 <field name="restrict_code" invisible="restrict_type != 'code'"/>
                                 <field name="fields_ids" groups="gdpr_inventory.group_gdpr_officer" widget="many2many_tags" domain="[('model_id', '=', inventory_model)]"/>
                             </group>
+                            <group invisible="not recycle_model_id">
+                                <field name="recycle_model_id"/>
+                            </group>
                         </page>
                         <page string="Consent" invisible="not consent">
                             <group>
                                 <field name="consent_title"/>
                                 <field name="consent_desc"/>
+                            </group>
+                        </page>
+                        <page string="Article 30">
+                            <group>
+                                <field name="dpo_partner_id"/>
+                                <field name="recipient_category_ids" widget="many2many_tags"/>
+                                <field name="third_country_ids" widget="many2many_tags"/>
+                                <field name="transfer_safeguards" placeholder="Transfer safeguards"/>
+                            </group>
+                            <group>
+                                <field name="retention_months"/>
+                                <field name="retention_date"/>
                             </group>
                         </page>
                     </notebook>
@@ -120,6 +137,7 @@
                 <field name="name"/>
                 <field name="type_of_personal_data"/>
                 <field name="user_id"/>
+                <field name="purpose_id"/>
                 <field name="lawsection_id"/>
                 <field name="restrict_method_id"/>
                 <field name="restrict_scheduled_time"/>
@@ -192,8 +210,10 @@
             <search string="Search GDPR Inventory">
                 <!-- <field name="state_id"/> -->
                 <field name="user_id"/>
+                <field name="purpose_id"/>
                 <field name="lawsection_id"/>
                 <separator/>
+                <filter name="purpose_id" string="Purpose" context="{'group_by': 'purpose_id'}"/>
                 <!-- <filter string="Draft" name="state_id" domain="[('state_id', '=', inventory_state_draft)]"/>
                     <filter string="Not Ceased" name="state_id" domain="[('state_id', '!=', inventory_state_ceased)]"/> -->
                 <filter string="Draft" name="draft" domain="[('state', '=', 'draft')]" />
@@ -211,6 +231,7 @@
                     <filter name="group_by_category" string="Category" domain="[]" context="{'group_by': 'category'}"/>
                     <filter name="group_by_business_process" string="Business Process" domain="[]" context="{'group_by': 'business_process'}"/>
                     <filter name="group_by_role" string="Role" domain="[]" context="{'group_by': 'role'}"/>
+                    <filter name="group_by_purpose" string="Purpose" domain="[]" context="{'group_by': 'purpose_id'}"/>
                     <filter name="group_by_lawsection" string="Lawsection" domain="[]" context="{'group_by': 'lawsection_id'}"/>
                     <filter name="group_by_parent" string="Parent" domain="[]" context="{'group_by': 'parent_id'}"/>
                     <filter name="group_by_restrict_method" string="Restrict Method" domain="[]" context="{'group_by': 'restrict_method_id'}"/>
@@ -225,6 +246,7 @@
         <field name="res_model">gdpr.inventory</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="view_gdpr_inventory_filter"/>
+        <field name="context">{'search_default_purpose_id': context.get('gdpr_purpose_id') or False}</field>
     </record>
 
     <!-- GDPR Inventory State -->

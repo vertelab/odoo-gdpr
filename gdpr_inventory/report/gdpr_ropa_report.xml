@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_gdpr_ropa" model="report.paperformat">
+            <field name="name">GDPR Article 30 Register (A4 landscape)</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_top">12</field>
+            <field name="margin_bottom">12</field>
+            <field name="margin_left">8</field>
+            <field name="margin_right">8</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">8</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <record id="action_report_gdpr_ropa" model="ir.actions.report">
+            <field name="name">Article 30 Register</field>
+            <field name="model">gdpr.inventory</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">gdpr_inventory.gdpr_ropa_report</field>
+            <field name="report_file">gdpr_inventory.gdpr_ropa_report</field>
+            <field name="paperformat_id" ref="paperformat_gdpr_ropa"/>
+            <field name="print_report_name">'GDPR Article 30 Register'</field>
+            <field name="binding_model_id" ref="gdpr_inventory.model_gdpr_inventory"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="gdpr_ropa_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Record of Processing Activities</h2>
+                        <p class="text-muted">
+                            Article 30(1) of Regulation (EU) 2016/679.
+                            Generated <span t-out="generated_at"/>
+                            by <span t-out="generated_by"/>.
+                            <span t-out="inventory_count"/> active processing
+                            activities included.
+                        </p>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th t-foreach="columns" t-as="column"
+                                        style="font-size:8px" t-out="column[1]"/>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="rows" t-as="row">
+                                    <td t-foreach="columns" t-as="column"
+                                        style="font-size:8px" t-out="row[column[0]]"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p t-if="not rows" class="text-muted">
+                            No processing activity is active. A register only
+                            covers activities in state <em>Active</em>.
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>
